@@ -269,3 +269,49 @@
     background: #1f1f1f;
   }
 }
+
+/* 10. Bio photo stacks ------------------------------------------------- */
+.bio-stack {
+  color: inherit;
+  text-decoration-line: underline;
+  text-decoration-style: dashed;
+  text-decoration-thickness: 1.5px;
+  text-decoration-color: color-mix(in oklab, #f3c74b 55%, transparent);
+  text-underline-offset: .22em;
+  border-radius: 4px;
+  transition: color 160ms ease, text-decoration-color 160ms ease;
+}
+.bio-stack:hover,
+.bio-stack.is-active { color: #fff; text-decoration-color: #f3c74b; }
+.bio-stack:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.sidebar-statement span .bio-stack:not(:hover):not(.is-active) { color: inherit; }
+
+.bio-stack-layer { position: fixed; inset: 0; z-index: 80; pointer-events: none; }
+.bio-stack-pile { position: absolute; width: 0; height: 0; }
+.bio-stack-pile img {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 148px;
+  max-width: none;
+  height: 104px;
+  object-fit: cover;
+  object-position: top center;
+  border-radius: 10px;
+  background: #222;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, .55), 0 0 0 1px rgba(255, 255, 255, .1);
+  opacity: 0;
+  transform: translate(-50%, 18px) rotate(0deg) scale(.55);
+  transform-origin: 50% 100%;
+  transition:
+    transform 460ms cubic-bezier(.22, .68, 0, 1) calc(var(--i) * 45ms),
+    opacity 180ms ease calc(var(--i) * 45ms);
+}
+.bio-stack-pile.is-below img { top: 0; bottom: auto; transform-origin: 50% 0; transform: translate(-50%, -18px) scale(.55); }
+.bio-stack-pile.is-open img.is-ready {
+  opacity: 1;
+  transform: translate(calc(-50% + var(--x)), var(--y)) rotate(var(--r)) scale(1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .bio-stack-pile img { transition: opacity 120ms ease; }
+}
