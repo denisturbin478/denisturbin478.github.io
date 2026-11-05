@@ -51,14 +51,26 @@ export async function initializePortfolioLikes(doc = globalThis.document) {
   }
   // Wait for the visitor cookie before the first write. A late read cannot undo
   // a click, and retrying an uncertain write always sends the same desired state.
-  const ready = read().then(data => apply(data, 0)).catch(paint);
+  // Static hosting has no likes API: remember this visitor's like in their own browser.
+  const LOCAL_KEY = 'trbn-portfolio-like';
+  let local = false;
+  const ready = read().then(data => apply(data, 0)).catch(() => {
+    local = true;
+    try { liked = globalThis.localStorage?.getItem(LOCAL_KEY) === '1'; } catch { liked = false; }
+    internal = liked ? 1 : 0;
+    paint();
+  });
   button.addEventListener('click', async () => {
     if (busy) return;
     const desired = !liked, version = ++generation;
     busy = true; button.setAttribute('aria-busy', 'true'); status.textContent = '';
     try {
       await ready;
-      apply(await read(desired), version);
+      if (local) {
+        liked = desired; internal = liked ? 1 : 0;
+        try { globalThis.localStorage?.setItem(LOCAL_KEY, liked ? '1' : '0'); } catch {}
+        paint();
+      } else apply(await read(desired), version);
       status.textContent = liked ? 'Thanks for your like.' : 'Your like was removed.';
     } catch {
       status.textContent = 'Could not save your like. Please try again.';
@@ -68,7 +80,7 @@ export async function initializePortfolioLikes(doc = globalThis.document) {
   observer.observe(externalNode, { childList: true, characterData: true, subtree: true });
   void initializeTrustCounters().then(paint);
   globalThis.addEventListener?.('pageshow', event => {
-    if (!event.persisted || busy) return;
+    if (!event.persisted || busy || local) return;
     const version = ++generation;
     void ready.then(() => read()).then(data => apply(data, version)).catch(() => {});
   });

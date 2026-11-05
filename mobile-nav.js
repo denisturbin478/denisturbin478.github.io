@@ -43,7 +43,8 @@
       if (!reduced.matches) nav.animate([{ transform: 'translateX(-50%)' }, { transform: `translateX(calc(-50% + ${dx < 0 ? -8 : 8}px))` }, { transform: 'translateX(-50%)' }], { duration: 260, easing: 'ease-out' });
       return;
     }
-    location.assign(tabs[next].href);
+    if (typeof window.trbnTabGo === 'function') window.trbnTabGo(tabs[next]);
+    else location.assign(tabs[next].href);
   }, { passive: true });
 
   addEventListener('touchcancel', () => { start = null; }, { passive: true });
