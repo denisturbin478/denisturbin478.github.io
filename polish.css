@@ -191,3 +191,65 @@
 .profile-actions .footer-email:hover { background: #222; border-color: #5a5a5a; color: #fff; }
 .profile-actions .footer-email:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
 @media (prefers-reduced-motion: reduce) { .profile-actions .footer-email { transition: none; } }
+
+/* 8. Phones: floating glass tab bar at the bottom ---------------------- */
+@media (max-width: 809px) {
+  /* The nav no longer sits at the top, so the top strip and its padding go. */
+  body::before { content: none !important; }
+  body:is([data-page=home], [data-page=work]) .profile-content { padding-top: 28px; }
+  .profile-content { padding-top: 28px; }
+  .about-layout-page .case-sidebar { padding-top: 28px; }
+
+  /* Shown on every page, including project pages. */
+  .mobile-switch,
+  .case-gallery-layout .mobile-switch,
+  .about-layout-page .mobile-switch,
+  .information-layout-page .mobile-switch {
+    display: flex;
+    position: fixed;
+    top: auto;
+    bottom: max(14px, env(safe-area-inset-bottom));
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 60;
+    gap: 2px;
+    padding: 4px;
+    border: 1px solid rgba(255, 255, 255, .09);
+    border-radius: 999px;
+    background: rgba(34, 34, 34, .58);
+    -webkit-backdrop-filter: blur(20px) saturate(170%);
+            backdrop-filter: blur(20px) saturate(170%);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, .5), inset 0 1px 0 rgba(255, 255, 255, .07);
+    view-transition-name: tabbar;
+  }
+  .mobile-switch a {
+    min-height: 46px;
+    padding: 0 22px;
+    border-radius: 999px;
+    color: #d0d0d0;
+    font-size: 14px;
+    font-weight: 500;
+    -webkit-tap-highlight-color: transparent;
+    transition: color 160ms ease;
+  }
+  .mobile-switch a[aria-current] {
+    background: rgba(245, 245, 245, .96);
+    color: #121212;
+    view-transition-name: tab-active;
+  }
+  .mobile-switch a:not([aria-current]):active { color: #fff; }
+  .mobile-switch a:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+  /* Room so the last content is never hidden behind the bar. */
+  body { padding-bottom: calc(84px + env(safe-area-inset-bottom)); }
+}
+/* The highlight slides between tabs during page changes. */
+::view-transition-group(tab-active) {
+  animation: revert;
+  animation-duration: 340ms;
+  animation-timing-function: cubic-bezier(.22, .68, 0, 1);
+}
+::view-transition-old(tab-active) { animation: 120ms ease both page-base-out; }
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(tab-active) { animation: none; }
+}
