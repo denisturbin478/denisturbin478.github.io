@@ -135,31 +135,9 @@
     text-wrap: pretty;
   }
 
-  /* Actions: Get in touch + email, side by side. */
-  body:is([data-page=home], [data-page=work]) .profile-content .contact-start-button {
-    grid-column: 1;
-    margin: 20px 0 0;
-    height: 44px;
-    min-height: 44px;
-  }
-  body:is([data-page=home], [data-page=work]) .profile-copyright {
-    grid-column: 2;
-    grid-row: auto;
-    align-self: end;
-    justify-self: start;
-    margin: 20px 0 0;
-    padding: 0;
-    border: 0;
-  }
-  body:is([data-page=home], [data-page=work]) .profile-copyright .footer-email {
-    min-height: 44px;
-    padding: 0 14px;
-    border: 1px solid #333;
-    border-radius: 12px;
-    background: transparent;
-    font-size: 13px;
-    color: #d6d6d6;
-  }
+  /* Actions row spans the card on phones. */
+  body:is([data-page=home], [data-page=work]) .profile-actions { grid-column: 1 / -1; margin-top: 20px; }
+  body:is([data-page=home], [data-page=work]) .profile-actions .contact-start-button { height: 44px; min-height: 44px; }
 
   /* Credentials: small pills under the actions. */
   body:is([data-page=home], [data-page=work]) .trust-credentials-inline {
@@ -185,3 +163,31 @@
   /* The work starts sooner. */
   body:is([data-page=home], [data-page=work]) .work-toolbar { margin-top: 8px; }
 }
+
+/* 7. Get in touch + email as one row of buttons (all widths) ------------ */
+.profile-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: 10px;
+}
+.profile-actions .contact-start-button { margin: 0; }
+.profile-actions :is(.contact-utility-row, .email-copy-control) { align-items: stretch; flex: 0 1 auto; }
+.profile-actions .footer-email { width: auto; max-width: 100%; }
+.profile-actions .footer-email {
+  align-items: center;
+  min-height: 36px;
+  padding: 0 14px;
+  border: 1px solid #383838;
+  border-radius: 8px;
+  background: transparent;
+  color: #dcdcdc;
+  font-size: 12.5px;
+  font-weight: 500;
+  letter-spacing: -.01em;
+  cursor: pointer;
+  transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease;
+}
+.profile-actions .footer-email:hover { background: #222; border-color: #5a5a5a; color: #fff; }
+.profile-actions .footer-email:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) { .profile-actions .footer-email { transition: none; } }
