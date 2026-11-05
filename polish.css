@@ -253,3 +253,19 @@
 @media (prefers-reduced-motion: reduce) {
   ::view-transition-group(tab-active) { animation: none; }
 }
+
+/* 9. Phones: one identity header, same place and style on every page ---- */
+@media (max-width: 809px) {
+  body:is(.about-layout-page, .information-layout-page) .sidebar { padding-top: 0; }
+  body:is(.about-layout-page, .information-layout-page) .case-sidebar-intro { margin-top: 0; }
+  body.information-layout-page .information-sidebar .profile-content,
+  body.about-layout-page .sidebar.case-sidebar { padding-top: 28px; }
+  .sidebar .identity { margin-top: 0; }
+  .sidebar .identity img { border-radius: 14px; }
+  .sidebar .identity .portfolio-like-button {
+    min-height: 32px;
+    padding: 0 12px;
+    border-radius: 999px;
+    background: #1f1f1f;
+  }
+}

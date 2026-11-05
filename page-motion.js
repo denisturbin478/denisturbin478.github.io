@@ -12,7 +12,7 @@
   // Match page-motion.css: 120ms exit, 80ms entry lead, 28ms stagger.
   // Four visible actors per pane keep the full sequence below 560ms.
   const actorLimit = 4, stagger = 28, entryStart = 80;
-  const transparentWrappers = '.profile-content,.sidebar-details,.case-sidebar-details,.case-sidebar-details-content,.case-disclosure-stack,.services-core,.information-practice-list';
+  const transparentWrappers = '.profile-content,.profile-intro,.profile-description,.case-sidebar-intro,.sidebar-details,.case-sidebar-details,.case-sidebar-details-content,.case-disclosure-stack,.services-core,.information-practice-list';
   let active = null;
   let named = [];
   let effects = [];
@@ -63,7 +63,8 @@
     function walk(container) {
       for (const child of container.children) {
         if (child.matches(transparentWrappers)) walk(child);
-        else if (!child.matches('.case-back') && visible(child, pane)) {
+        // The identity header is shared by every page; it stays still.
+        else if (!child.matches('.case-back, .identity') && visible(child, pane)) {
           // An expanded section may be several screens tall on a phone.
           if (child.getBoundingClientRect().height > innerHeight * 2) {
             if (child.children.length) walk(child);
