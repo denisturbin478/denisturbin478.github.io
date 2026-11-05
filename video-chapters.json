@@ -1,0 +1,408 @@
+{
+  "schema_version": 1,
+  "detection": {
+    "method": "ffmpeg-scene-score",
+    "sample_fps": 4,
+    "analysis_width": 320,
+    "score_threshold": 0.2,
+    "minimum_segment_seconds": 3.5,
+    "cluster_gap_seconds": 1.5,
+    "labels": "neutral scene order"
+  },
+  "videos": {
+    "case-media-v26/basepoint/basepoint-post.mp4": {
+      "duration": 41.45,
+      "segments": [
+        {
+          "start": 0.0,
+          "title": "Scene 1"
+        },
+        {
+          "start": 17.5,
+          "title": "Scene 2"
+        },
+        {
+          "start": 31.75,
+          "title": "Scene 3"
+        }
+      ],
+      "detected_boundaries": [
+        {
+          "time": 17.5,
+          "score": 0.327563
+        },
+        {
+          "time": 31.75,
+          "score": 0.246688
+        }
+      ],
+      "sha256": "a3eae8e227577ea06ea287c9f57211f157b69302fd3dbc6529845b436253ae78"
+    },
+    "case-media-v26/janna/janna-comparison.mp4": {
+      "duration": 10.433333,
+      "segments": [
+        {
+          "start": 0.0,
+          "title": "Scene 1"
+        },
+        {
+          "start": 4.5,
+          "title": "Scene 2"
+        }
+      ],
+      "detected_boundaries": [
+        {
+          "time": 4.5,
+          "score": 0.306364
+        }
+      ],
+      "sha256": "88264b7cbf07d5666c309a189b6200c2b2226bc1dc4a986c2ab5518c74d4e05f"
+    },
+    "case-media-v26/janna/janna-hero.mp4": {
+      "duration": 20.35,
+      "segments": [
+        {
+          "start": 0.0,
+          "title": "Scene 1"
+        },
+        {
+          "start": 8.5,
+          "title": "Scene 2"
+        }
+      ],
+      "detected_boundaries": [
+        {
+          "time": 8.5,
+          "score": 0.387286
+        }
+      ],
+      "sha256": "630e1b33e926f69403ae67878e9404e8843a5f0e6715976b8a3bb1be0eee64b2"
+    },
+    "case-media-v26/janna/janna-magnets.mp4": {
+      "duration": 16.166667,
+      "segments": [
+        {
+          "start": 0.0,
+          "title": "Scene 1"
+        },
+        {
+          "start": 11.5,
+          "title": "Scene 2"
+        }
+      ],
+      "detected_boundaries": [
+        {
+          "time": 11.5,
+          "score": 0.217621
+        }
+      ],
+      "sha256": "1070b4ee3f5b4a3467e26c05117462f5ac667eb25d41c214712f1d2df0ab5d78"
+    },
+    "case-media-v26/janna/janna-notebook.mp4": {
+      "duration": 19.25,
+      "segments": [
+        {
+          "start": 0.0,
+          "title": "Scene 1"
+        },
+        {
+          "start": 5.75,
+          "title": "Scene 2"
+        },
+        {
+          "start": 9.5,
+          "title": "Scene 3"
+        },
+        {
+          "start": 13.25,
+          "title": "Scene 4"
+        }
+      ],
+      "detected_boundaries": [
+        {
+          "time": 5.75,
+          "score": 0.430881
+        },
+        {
+          "time": 9.5,
+          "score": 0.374051
+        },
+        {
+          "time": 13.25,
+          "score": 0.445182
+        }
+      ],
+      "sha256": "2a5dd4cefe076dc4be22864f518e6355919fdf5d50b63ff101a7a6fcde70c3eb"
+    },
+    "case-media-v26/janna/janna-services.mp4": {
+      "duration": 14.633333,
+      "segments": [
+        {
+          "start": 0.0,
+          "title": "Scene 1"
+        }
+      ],
+      "detected_boundaries": [],
+      "sha256": "14e23b2068c2aa4000d17a72c029f2b0129afc79f0fac8ede9ac5d248ad09196"
+    },
+    "case-media-v26/janna/janna-tabs.mp4": {
+      "duration": 16.7,
+      "segments": [
+        {
+          "start": 0.0,
+          "title": "Scene 1"
+        },
+        {
+          "start": 5.75,
+          "title": "Scene 2"
+        }
+      ],
+      "detected_boundaries": [
+        {
+          "time": 5.75,
+          "score": 0.297122
+        }
+      ],
+      "sha256": "5d5bc88aa6a428534813e1dc16263990fbacfa37d48c2796fe06b22f99a589e0"
+    },
+    "case-media-v26/root-framer/root-square-loop.mp4": {
+      "duration": 8.083333,
+      "segments": [
+        {
+          "start": 0.0,
+          "title": "Scene 1"
+        }
+      ],
+      "detected_boundaries": [],
+      "sha256": "493973b15a70e89444d2c1e0c2c4585f07840c0bff49732b99052558c1eb8d8f"
+    },
+    "case-media-v26/root-framer/root-square-math.mp4": {
+      "duration": 18.816667,
+      "segments": [
+        {
+          "start": 0.0,
+          "title": "Scene 1"
+        },
+        {
+          "start": 12.75,
+          "title": "Scene 2"
+        }
+      ],
+      "detected_boundaries": [
+        {
+          "time": 12.75,
+          "score": 0.447504
+        }
+      ],
+      "sha256": "dbd9c802f909526760647d13822952f78bde4bd805babadefbe17c847cb47655"
+    },
+    "case-media-v26/root-framer/root-square-tree.mp4": {
+      "duration": 13.85,
+      "segments": [
+        {
+          "start": 0.0,
+          "title": "Scene 1"
+        },
+        {
+          "start": 8.0,
+          "title": "Scene 2"
+        }
+      ],
+      "detected_boundaries": [
+        {
+          "time": 8.0,
+          "score": 0.281045
+        }
+      ],
+      "sha256": "9bff04fd8fafb044468577c59b938e75507ca28fe2cd7e8db9ba0e51aa4cf5b3"
+    },
+    "case-media-v26/root-framer/root-square-website.mp4": {
+      "duration": 10.833008,
+      "segments": [
+        {
+          "start": 0.0,
+          "title": "Scene 1"
+        },
+        {
+          "start": 6.25,
+          "title": "Scene 2"
+        }
+      ],
+      "detected_boundaries": [
+        {
+          "time": 6.25,
+          "score": 0.606192
+        }
+      ],
+      "sha256": "705ec0d1debc866934399671faa6cb971476bd127c18805e90171b79a09f6b73"
+    },
+    "case-media-v26/sunfreaks/sunfreaks-original-presentation.mp4": {
+      "duration": 27.116667,
+      "segments": [
+        {
+          "start": 0.0,
+          "title": "Scene 1"
+        },
+        {
+          "start": 7.75,
+          "title": "Scene 2"
+        },
+        {
+          "start": 13.25,
+          "title": "Scene 3"
+        }
+      ],
+      "detected_boundaries": [
+        {
+          "time": 7.75,
+          "score": 0.209677
+        },
+        {
+          "time": 13.25,
+          "score": 0.211139
+        }
+      ],
+      "sha256": "5711dbc3006190b19fe0c7789ff47596eb457fead0cc16568e9223c102530301"
+    },
+    "case-media-v26/template/trbn-one-interaction.mp4": {
+      "duration": 21.466667,
+      "segments": [
+        {
+          "start": 0.0,
+          "title": "Scene 1"
+        }
+      ],
+      "detected_boundaries": [],
+      "sha256": "54615bea94e9142d89580a8bc91b7dddcf1e47e6e5cbf9dc9ee477b22cd947df"
+    },
+    "case-media-v26/template/trbn-one-walkthrough.mp4": {
+      "duration": 76.0,
+      "segments": [
+        {
+          "start": 0.0,
+          "title": "Scene 1"
+        }
+      ],
+      "detected_boundaries": [],
+      "sha256": "a68d09fcf6f835f2e6350bba8d44527f63c4158a5d5a7abaedc93dd662de4e69"
+    },
+    "case-media-v33/sabsus/ecosystem.mp4": {
+      "duration": 24.768,
+      "segments": [
+        {
+          "start": 0.0,
+          "title": "Scene 1"
+        }
+      ],
+      "detected_boundaries": [],
+      "sha256": "3a00b0bcce46ceb7edcc9a9bd0ff9e8153974b8923406ec4d0fc3c4b24b8aac4"
+    },
+    "case-media-v33/sabsus/integrations.mp4": {
+      "duration": 15.68,
+      "segments": [
+        {
+          "start": 0.0,
+          "title": "Scene 1"
+        }
+      ],
+      "detected_boundaries": [],
+      "sha256": "7c056abd2a969a6a20f9c40a1a31671b5336b9b91888a1cdc51eebf52370c7fe"
+    },
+    "case-media-v33/sabsus/kitchen.mp4": {
+      "duration": 21.326667,
+      "segments": [
+        {
+          "start": 0.0,
+          "title": "Scene 1"
+        }
+      ],
+      "detected_boundaries": [],
+      "sha256": "fdb3e0f2dbb5b95dcb2e656d07dd07fdd1ab534e77937c08a1e94d646dbe256e"
+    },
+    "case-media-v33/sabsus/marketing.mp4": {
+      "duration": 18.193333,
+      "segments": [
+        {
+          "start": 0.0,
+          "title": "Scene 1"
+        }
+      ],
+      "detected_boundaries": [],
+      "sha256": "c2d8ba93537990988ba0e3e434c278d7d779fa150d8982d0adf7b211c78e9d2c"
+    },
+    "concepts-v33/automotive-themes/automotive-themes.mp4": {
+      "duration": 8.183008,
+      "segments": [
+        {
+          "start": 0.0,
+          "title": "Scene 1"
+        }
+      ],
+      "detected_boundaries": [],
+      "sha256": "857695595a235e8d883c901ccce64648c877e6ad33dedaed1fd8bba8dbe16084"
+    },
+    "concepts-v33/undo-studio/undo-studio.mp4": {
+      "duration": 18.281,
+      "segments": [
+        {
+          "start": 0.0,
+          "title": "Scene 1"
+        }
+      ],
+      "detected_boundaries": [],
+      "sha256": "862d6615da3d6d439f6f532742a6d783c61691e7a5e11050354d9837d356eeb9"
+    },
+    "case-media-v64/portfolio/better-ask-den-one-screen.mp4": {
+      "duration": 45.166667,
+      "segments": [
+        {
+          "start": 0.0,
+          "title": "Scene 1"
+        },
+        {
+          "start": 6.75,
+          "title": "Scene 2"
+        },
+        {
+          "start": 12.25,
+          "title": "Scene 3"
+        },
+        {
+          "start": 18.75,
+          "title": "Scene 4"
+        },
+        {
+          "start": 27.0,
+          "title": "Scene 5"
+        },
+        {
+          "start": 32.25,
+          "title": "Scene 6"
+        }
+      ],
+      "detected_boundaries": [
+        {
+          "time": 6.75,
+          "score": 0.439595
+        },
+        {
+          "time": 12.25,
+          "score": 0.296068
+        },
+        {
+          "time": 18.75,
+          "score": 0.247228
+        },
+        {
+          "time": 27.0,
+          "score": 0.392492
+        },
+        {
+          "time": 32.25,
+          "score": 0.329599
+        }
+      ],
+      "sha256": "53d8688e39868ea2d8c09372905af112fce8a47ac78d1079bc85daff219dc6ba"
+    }
+  }
+}

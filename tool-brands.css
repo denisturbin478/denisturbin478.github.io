@@ -1,0 +1,11 @@
+/* Tool identities form one quiet metadata group; wrapping never strands its label. */
+.case-gallery-layout .case-facts>div:is(.case-tools-fact,:has(.case-tool-brands)){display:block;padding-top:var(--metadata-gap)}
+.case-gallery-layout .case-facts>div:is(.case-tools-fact,:has(.case-tool-brands))>dt{margin-bottom:var(--label-gap)}
+.case-gallery-layout .case-facts>div:is(.case-tools-fact,:has(.case-tool-brands))>dt::after{content:none}
+.case-tool-brands{display:flex;align-items:center;flex-wrap:wrap;gap:var(--label-gap) var(--action-gap);width:100%;min-width:0;max-width:100%}
+.case-tool-brand{display:inline-flex;flex:0 1 auto;align-items:center;gap:var(--label-gap);min-height:24px;min-width:0;max-width:100%;font:inherit;font-weight:600;line-height:20px}
+.case-tool-name{min-width:0;overflow-wrap:anywhere}
+.case-tool-mark{display:block;flex:none;width:18px;height:18px;object-fit:contain}
+/* The supplied lockup has its own clear space: 18px matches the other name cap heights. */
+.case-tool-wordmark{width:67px;height:18px;max-width:100%}
+html[dir=rtl] .case-tool-brands{justify-content:flex-end}

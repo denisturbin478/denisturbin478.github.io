@@ -1,0 +1,46 @@
+/* Route motion is a progressive enhancement of ordinary document navigation.
+   Only bounded visible groups are named; long mobile panes are never captured.
+   Old/new names differ so unrelated paragraphs/images do not stretch to match.
+   Detail's event order: old content exits, information leads, visuals follow.
+   Each pane has at most four actors, spaced 28ms; JS supplies the visual lead.
+   A 40ms overlap and shorter travel soften the change without slowing navigation.
+   Source: https://detail.design/detail/stagger-for-the-event-order */
+@view-transition{navigation:auto}
+::view-transition{pointer-events:none}
+::view-transition-group(*){animation:none}
+::view-transition-old(*),::view-transition-new(*){mix-blend-mode:normal;animation:none}
+::view-transition-old(root){animation:page-base-out 80ms linear both}
+::view-transition-new(root){animation:none}
+::view-transition-old(page-profile){display:none}
+::view-transition-new(page-profile){animation:none}
+::view-transition-old(page-info-out-0),
+::view-transition-old(page-info-out-1),
+::view-transition-old(page-info-out-2),
+::view-transition-old(page-info-out-3){animation:page-info-out 120ms var(--ease-out,cubic-bezier(.22,.68,0,1)) both}
+::view-transition-new(page-info-in-0),
+::view-transition-new(page-info-in-1),
+::view-transition-new(page-info-in-2),
+::view-transition-new(page-info-in-3){animation:page-info-in 260ms var(--ease-out,cubic-bezier(.22,.68,0,1)) 80ms both}
+::view-transition-old(page-visual-out-0),
+::view-transition-old(page-visual-out-1),
+::view-transition-old(page-visual-out-2),
+::view-transition-old(page-visual-out-3){animation:page-visual-out 120ms var(--ease-out,cubic-bezier(.22,.68,0,1)) both}
+::view-transition-new(page-visual-in-0),
+::view-transition-new(page-visual-in-1),
+::view-transition-new(page-visual-in-2),
+::view-transition-new(page-visual-in-3){animation:page-visual-in 280ms var(--ease-out,cubic-bezier(.22,.68,0,1)) var(--page-visual-entry-delay,80ms) both}
+::view-transition-new(page-info-in-1){animation-delay:108ms}
+::view-transition-new(page-info-in-2){animation-delay:136ms}
+::view-transition-new(page-info-in-3){animation-delay:164ms}
+::view-transition-new(page-visual-in-1){animation-delay:calc(var(--page-visual-entry-delay,80ms) + 28ms)}
+::view-transition-new(page-visual-in-2){animation-delay:calc(var(--page-visual-entry-delay,80ms) + 56ms)}
+::view-transition-new(page-visual-in-3){animation-delay:calc(var(--page-visual-entry-delay,80ms) + 84ms)}
+@keyframes page-base-out{to{opacity:0}}
+@keyframes page-info-out{from{opacity:1;transform:translateY(0)}to{opacity:0;transform:translateY(-4px)}}
+@keyframes page-info-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes page-visual-out{from{opacity:1;transform:translateY(0)}to{opacity:0;transform:translateY(-3px)}}
+@keyframes page-visual-in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){
+ @view-transition{navigation:none}
+ ::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}
+}

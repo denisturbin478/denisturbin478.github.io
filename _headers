@@ -1,0 +1,8 @@
+/assets/*
+  X-Content-Type-Options: nosniff
+
+/*.css
+  X-Content-Type-Options: nosniff
+
+/*.js
+  X-Content-Type-Options: nosniff

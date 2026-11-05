@@ -1,0 +1,26 @@
+/* Native language choice shares the existing sound utility slot. */
+.localization-control{display:inline-flex;align-items:center;flex:none;max-width:100%;direction:ltr}
+.localization-select{max-width:100%;width:108px;min-height:36px;padding:6px 18px 6px 6px;border:0;border-radius:3px;background:transparent;color:var(--muted,#aaa);font:400 12px/18px system-ui,Arial,sans-serif;cursor:pointer;color-scheme:dark}
+.localization-select:hover{color:var(--ink,#fff)}
+.localization-select:focus-visible{outline:2px solid var(--focus,#ccc);outline-offset:2px}
+.localization-select option{background:var(--paper,#121212);color:var(--ink,#fff)}
+.localization-select option:disabled{color:var(--muted,#aaa)}
+.toolbar-utilities{flex-wrap:wrap;max-width:100%;min-width:0;direction:ltr}
+.workspace-settings{flex-wrap:wrap;gap:12px}
+/* Keep the physical sidebar/workspace order; prose adopts the selected direction. */
+html[dir=rtl] .site-shell{direction:ltr}
+html[dir=rtl] :is(.sidebar,.main-pane){direction:rtl}
+html[dir=rtl] :is(.toolbar-utilities,.workspace-settings,.work-grid,.lightbox-stage,.media-viewer-stage){direction:ltr}
+html[dir=rtl] .project-card{direction:rtl}
+html[dir=rtl] :is([translate=no],input[type=email],input[type=url],input[type=tel],.identity-name,.case-tool-brand,.evil-copy-value,.video-player-time,.video-player-speed,[data-trust-total],.trust-metric strong,.case-stat-line strong,.case-chart-value-row strong,.case-chart-parts strong,.case-chart-node){direction:ltr;unicode-bidi:isolate}
+html[dir=rtl] .footer-email [data-evil-label=idle]{direction:ltr;unicode-bidi:isolate}
+html[dir=rtl] .identity-row .identity-name{float:none;margin:0}
+html[dir=rtl] .case-gallery-layout .case-sidebar .case-chart-flow::before{left:auto;right:11px}
+html[dir=rtl] .case-gallery-layout .case-sidebar .case-chart-data :is(caption,th){text-align:start}
+html[dir=rtl] .case-gallery-layout .case-sidebar .case-chart-data :is(td,th:last-child){text-align:end}
+/* Two lines fit within the original Chrome control; runtime fits longer labels. */
+html:not([lang=en]) body :is(.site-shell,.regional-welcome) [data-evil-button="chrome"] :is(.evil-chrome-label,[data-evil-label],[data-evil-sizer]){min-width:0;width:138px;max-width:100%;white-space:normal;overflow-wrap:anywhere;font-family:inherit;font-size:var(--locale-chrome-label-size,12.5px);line-height:14px;text-align:center}
+html:not([lang=en]) body .site-shell [data-evil-status-button][data-evil-button="chrome"]{grid-template-columns:minmax(0,1fr)}
+html:not([lang=en]) body .site-shell [data-evil-status-button][data-evil-button="chrome"] [data-evil-face]{min-width:0;max-width:138px}
+html:not([lang=en]) body .site-shell [data-evil-status-button][data-evil-button="chrome"] [data-evil-label]{width:auto;max-width:118px}
+@media(pointer:coarse){.localization-select{min-height:44px}}

@@ -1,0 +1,39 @@
+/* Infinite FAQ's compact rows and own-question field, within the left pane. */
+.infinite-faq{margin-top:var(--section-gap,32px);padding-top:var(--section-gap,32px);border-top:1px solid var(--line,#333);min-width:0;scroll-margin-top:28px}
+.infinite-faq [hidden]{display:none}
+.case-gallery-layout .infinite-faq-heading h2,.infinite-faq-heading h2{margin:0;font-size:22px;line-height:28px;font-weight:500;letter-spacing:-.03em}
+.infinite-faq-heading p{margin:6px 0 20px;font-size:12px;line-height:18px;letter-spacing:0;color:var(--muted,#aaa)}
+.infinite-faq-item{min-width:0;margin:0;border-bottom:1px solid var(--line,#333)}
+.infinite-faq-item summary{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:44px;padding:13px 0;list-style:none;cursor:pointer;font-size:14px;line-height:20px;letter-spacing:-.01em;color:#ddd;touch-action:manipulation}
+.infinite-faq-item summary::-webkit-details-marker{display:none}
+.infinite-faq-item summary::after{content:none}
+.infinite-faq-item summary>span{min-width:0;overflow-wrap:anywhere}
+.faq-chevron{display:block;flex:0 0 16px;width:16px;height:16px;fill:none;stroke:#929292;stroke-width:1.25;stroke-linecap:round;stroke-linejoin:round;transition:transform var(--motion-ui,220ms) var(--ease-out,cubic-bezier(.22,.68,0,1))}
+.infinite-faq-item[open] .faq-chevron{transform:rotate(180deg)}
+[data-faq-enhanced] .infinite-faq-item[data-expanded=false] .faq-chevron{transform:rotate(0)}
+.infinite-faq-item[data-faq-instant] .faq-chevron{transition:none}
+.infinite-faq-answer{display:flow-root;padding:0 24px 14px 0;min-width:0}
+.infinite-faq-answer p{margin:0;color:#aaa;font-size:14px;line-height:21px;letter-spacing:0;overflow-wrap:anywhere}
+.infinite-faq-search{margin-top:18px}
+.faq-input-row{display:flex;align-items:center;gap:8px;min-width:0;border-bottom:1px solid #555;padding:0 0 8px}
+.faq-input-row:focus-within{border-color:var(--focus,#c6b9eb);box-shadow:0 1px 0 var(--focus,#c6b9eb)}
+.infinite-faq .faq-input-row input{flex:1;min-width:0;width:100%;height:36px;padding:0;border:0;border-radius:0;background:transparent;color:#eee;font:400 14px/20px 'Inter Tight',sans-serif;letter-spacing:0;box-shadow:none;outline:none}
+.faq-input-row input::placeholder{color:#888;opacity:1}
+.infinite-faq .faq-find{display:grid;place-items:center;flex:0 0 32px;width:32px;height:32px;padding:0;border:1px solid #484848;border-radius:50%;background:#282828;color:#eee;cursor:pointer;touch-action:manipulation;transition:background-color 140ms,color 140ms,transform 140ms}
+.faq-find svg{display:block;width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+.infinite-faq .faq-find:disabled{color:#777;background:#202020;border-color:#333;cursor:default}
+.faq-find:active:not(:disabled){transform:scale(.96)}
+.faq-search-hint{margin:6px 0 0;color:#999;font-size:11px;line-height:16px;letter-spacing:0}
+.faq-response{margin-top:20px;min-width:0}
+.faq-response-eyebrow{margin:0 0 6px;font-size:11px;line-height:16px;color:#999;letter-spacing:0}
+.case-gallery-layout .faq-response h3,.faq-response h3{margin:0;font-size:14px;line-height:20px;color:#eee;letter-spacing:-.01em;font-weight:500}
+.faq-response-copy{margin:10px 0 0;font-size:14px;line-height:21px;color:#aaa;letter-spacing:0;overflow-wrap:anywhere}
+.faq-suggestions{display:flex;flex-direction:column;align-items:flex-start;gap:4px;margin-top:10px;min-width:0}
+.faq-suggestions button{display:block;min-height:36px;max-width:100%;padding:6px 0;border:0;background:transparent;text-align:left;color:#ddd;font:400 13px/20px 'Inter Tight',sans-serif;cursor:pointer;overflow-wrap:anywhere;text-decoration:underline;text-decoration-color:#555;text-underline-offset:4px}
+.faq-contact{display:inline-block;margin-top:14px;color:#ddd;font-size:13px;line-height:20px;text-decoration:underline;text-decoration-color:#555;text-underline-offset:4px}
+.infinite-faq-item summary:focus-visible,.faq-find:focus-visible,.faq-suggestions button:focus-visible,.faq-contact:focus-visible{outline:2px solid var(--focus,#c6b9eb);outline-offset:3px}
+.infinite-faq input:focus-visible{outline:none}
+@media(hover:hover) and (pointer:fine){.infinite-faq-item summary:hover,.faq-suggestions button:hover,.faq-contact:hover{color:#fff}.faq-find:hover:not(:disabled){background:#3b3b3b}}
+@media(pointer:coarse){.infinite-faq .faq-find{flex-basis:44px;width:44px;height:44px}.infinite-faq .faq-input-row input{height:44px}.faq-suggestions button,.faq-contact{min-height:44px}}
+@media(max-width:809px){.infinite-faq{scroll-margin-top:80px}.infinite-faq .faq-input-row input{font-size:16px}}
+@media(prefers-reduced-motion:reduce){.faq-chevron,.faq-find{transition:none}.faq-find:active:not(:disabled){transform:none}}

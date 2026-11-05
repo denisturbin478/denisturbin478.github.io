@@ -1,0 +1,47 @@
+/* The image keeps its native aspect ratio; the video occupies the same frame. */
+[data-hover-video] .hover-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border: 0;
+  border-radius: inherit;
+  background: transparent;
+  pointer-events: none;
+  opacity: 0;
+  transform: none;
+  transition: none;
+}
+[data-hover-video] .hover-video[data-ready] {
+  opacity: 1;
+  transition: opacity var(--motion-ui,220ms) ease;
+}
+[data-hover-video][data-video-preview-exiting] .hover-video {
+  transition: opacity 180ms var(--ease-out);
+}
+[data-hover-video]:has(.hover-video[data-ready]) .case-video-play { opacity: 0; }
+.case-gallery-layout .case-video-play { transition: opacity 180ms var(--ease-out), background 160ms; }
+
+@media (hover: hover) and (pointer: fine) {
+  [data-hover-video] .project-media img,
+  .case-video-button[data-hover-video] > img {
+    filter: grayscale(1);
+    transition: filter 260ms ease;
+  }
+  [data-hover-video][data-video-preview-active] .project-media img,
+  [data-hover-video]:hover .project-media img,
+  [data-hover-video]:focus-visible .project-media img,
+  .case-video-button[data-hover-video][data-video-preview-active] > img,
+  .case-video-button[data-hover-video]:hover > img,
+  .case-video-button[data-hover-video]:focus-visible > img { filter: grayscale(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-hover-video] .hover-video,
+  [data-hover-video] .hover-video[data-ready],
+  [data-hover-video][data-video-preview-exiting] .hover-video { display: none; transition: none; }
+  [data-hover-video] .project-media img,
+  .case-video-button[data-hover-video] > img { filter: none; transition: none; }
+  .case-gallery-layout .case-video-play { transition: none; }
+}

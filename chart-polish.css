@@ -1,0 +1,56 @@
+/* Round the complete drawing in CSS pixels; segment joins stay straight. */
+.case-gallery-layout .case-sidebar .case-chart-rounded-track{
+  display:block;
+  width:100%;
+  overflow:hidden;
+  border-radius:999px;
+  isolation:isolate;
+}
+.case-gallery-layout .case-sidebar .case-chart-meter-shell{
+  height:8px;
+  margin-top:var(--label-gap);
+  background:#ffffff14;
+}
+.case-gallery-layout .case-sidebar .case-chart-meter-fill{
+  display:block;
+  height:100%;
+  border-radius:inherit;
+  background:var(--case-accent);
+}
+.case-gallery-layout .case-sidebar .case-chart-composition-shell{height:10px}
+.case-gallery-layout .case-sidebar .case-chart-rounded-track>svg{
+  display:block;
+  width:100%;
+  height:100%;
+  margin:0;
+  overflow:hidden;
+}
+.case-gallery-layout .case-sidebar .case-evidence-track{
+  border-radius:999px;
+  overflow:hidden;
+}
+.case-gallery-layout .case-sidebar .case-evidence-track>span{border-radius:inherit}
+
+/* This is a compact section map, not an inflated outcome statistic. */
+.case-gallery-layout .case-sidebar .case-chart-board-items{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:var(--label-gap);
+  list-style:none;
+  padding:0;
+  margin:var(--copy-gap) 0 0;
+}
+.case-gallery-layout .case-sidebar .case-chart-board-items>li{
+  min-width:0;
+  padding:var(--label-gap);
+  background:var(--surface);
+  border-radius:6px;
+  color:var(--muted);
+  font-size:12.5px;
+  line-height:18px;
+  letter-spacing:0;
+  overflow-wrap:anywhere;
+}
+.case-gallery-layout .case-sidebar .case-data-chart-portfolio-board .case-chart-sources{
+  margin-top:var(--copy-gap);
+}

@@ -1,0 +1,24 @@
+/* Archive additions share the existing typography, spacing and native controls. */
+.work-toolbar[data-has-behance] .work-filters{flex-wrap:wrap;min-width:0}
+.work-toolbar[data-has-behance] .work-filters>a{flex-shrink:0;white-space:nowrap}
+.behance-sidebar .case-sidebar-intro>.eyebrow{margin-bottom:var(--label-gap)}
+.behance-sidebar .behance-facts dd>a:hover{color:var(--ink)}
+.behance-reception,.behance-community{margin-top:var(--section-gap)}
+.case-gallery-layout .behance-sidebar :is(.behance-reception,.behance-community)>h2{font-size:17px;line-height:1.3;letter-spacing:-.025em;margin:0}
+.case-gallery-layout .behance-sidebar .behance-section-note{font-size:12px;line-height:1.5;color:#858585;margin-top:var(--label-gap)}
+.behance-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--copy-gap);margin:var(--action-gap) 0 0}
+.behance-stats>div{min-width:0;display:flex;flex-direction:column-reverse;gap:var(--metadata-gap)}
+.behance-stats dt{font-size:12px;line-height:1.5;color:var(--muted)}
+.behance-stats dd{margin:0;font-size:25px;line-height:1.2;font-weight:500;letter-spacing:-.035em;font-variant-numeric:tabular-nums}
+.behance-comment-list{list-style:none;padding:0;margin:var(--group-gap) 0 0;display:grid;gap:var(--group-gap)}
+.behance-comment blockquote{margin:0}
+.case-gallery-layout .behance-sidebar .behance-comment blockquote p{font-size:15px;line-height:1.5;letter-spacing:-.015em;color:#dedede;overflow-wrap:break-word}
+.behance-comment-credit{display:flex;flex-wrap:wrap;align-items:baseline;gap:var(--metadata-gap) var(--copy-gap);margin-top:var(--label-gap);font-size:12px;line-height:1.5}
+.behance-comment-credit cite{font-style:normal;color:var(--muted)}
+.behance-comment-credit time{color:#777;font-variant-numeric:tabular-nums}
+.behance-comment-credit a:hover{color:var(--ink)}
+.behance-comment-credit a{display:inline-flex;align-items:center;min-height:28px}
+.behance-community>.case-source-link{margin-top:var(--action-gap)}
+.case-gallery-layout .behance-author-notes p+p{margin-top:var(--copy-gap)}
+.case-gallery-layout .behance-video iframe{display:block;width:100%;height:auto;aspect-ratio:var(--embed-ratio);border:0;background:#121212}
+@media(pointer:coarse){.behance-comment-credit a{min-height:44px}}

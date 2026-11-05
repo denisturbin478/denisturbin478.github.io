@@ -1,0 +1,29 @@
+/* Sound is a fixed utility in the existing toolbar, aligned with its 36px controls. */
+.ui-sound-toggle{appearance:none;display:inline-flex;align-items:center;justify-content:center;align-self:center;width:36px;min-height:36px;height:36px;flex:0 0 36px;gap:0;margin:0;padding:0;border:1px solid #3b3b3b;border-radius:8px;background:#1b1b1b;color:var(--muted,#aaa);font:400 12px/18px 'Inter Tight',Arial,sans-serif;letter-spacing:0;cursor:pointer;touch-action:manipulation;transition:color 160ms ease,background-color 160ms ease,border-color 160ms ease,transform 120ms cubic-bezier(.215,.61,.355,1)}
+.toolbar-utilities{display:inline-flex;align-items:center;gap:12px;flex:0 0 auto}
+.work-toolbar>.work-filters{flex:1 1 0;min-width:0;width:auto;flex-wrap:wrap}
+.work-toolbar>.toolbar-utilities{margin-left:auto}
+.case-gallery-layout .case-gallery-bar{flex-wrap:wrap}
+.case-gallery-layout .case-gallery-bar>.case-gallery-links{flex:1 1 110px;min-width:0}
+.case-gallery-layout .case-gallery-bar>.toolbar-utilities{gap:8px;margin-left:auto}
+.workspace-settings{display:flex;align-items:center;justify-content:flex-end;min-height:36px;margin:0 0 8px}
+.toolbar-utilities>.ui-sound-toggle,.workspace-settings>.ui-sound-toggle{width:36px;min-height:36px;gap:0;flex:none}
+.ui-sound-toggle>svg,.case-gallery-layout .case-gallery-bar .ui-sound-toggle>svg{display:block;flex:none;width:18px;height:18px;overflow:visible;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+/* Only the actual state changes animate; the speaker stays fixed and centered. */
+.ui-sound-wave{stroke-dasharray:1;stroke-dashoffset:1;opacity:0;transition:stroke-dashoffset 200ms cubic-bezier(.215,.61,.355,1),opacity 160ms ease}
+.ui-sound-wave-far{transition-delay:25ms}
+.ui-sound-toggle[aria-pressed=true] .ui-sound-wave{stroke-dashoffset:0;opacity:1}
+.ui-sound-toggle[aria-pressed=false] .ui-sound-wave-far{transition-delay:0ms}
+.ui-sound-toggle [data-ui-sound-muted]{opacity:1;transition:opacity 120ms ease}
+.ui-sound-toggle[aria-pressed=true] [data-ui-sound-muted]{opacity:0}
+.ui-sound-toggle[aria-pressed=true]{color:var(--ink,#fff)}
+@media(hover:hover) and (pointer:fine){
+ .ui-sound-toggle:not(:disabled):hover{color:var(--ink,#fff);background:#242424;border-color:#555}
+}
+.ui-sound-toggle:not(:disabled):active{transform:scale(.97);background:#2a2a2a}
+.ui-sound-toggle:focus-visible{outline:2px solid var(--focus,#ccc);outline-offset:3px}
+.ui-sound-toggle:focus-visible,.ui-sound-toggle:focus-visible .ui-sound-wave,.ui-sound-toggle:focus-visible [data-ui-sound-muted]{transition:none}
+.ui-sound-toggle:focus-visible:active{transform:none}
+.ui-sound-toggle:disabled{opacity:.45;cursor:default}
+@media(prefers-reduced-motion:reduce){.ui-sound-toggle,.ui-sound-toggle .ui-sound-wave,.ui-sound-toggle [data-ui-sound-muted]{transition:none}.ui-sound-toggle:not(:disabled):active{transform:none}}
+@media(pointer:coarse){.ui-sound-toggle{width:44px;min-height:44px;height:44px;flex-basis:44px}.toolbar-utilities>.ui-sound-toggle,.workspace-settings>.ui-sound-toggle{width:44px;min-height:44px}}

@@ -1,0 +1,19 @@
+/* Preserve the supplied photographs' complete frame at every gallery width. */
+.about-layout-page .about-personal-gallery .about-personal-photo {
+  min-width: 0;
+}
+.about-layout-page .about-personal-gallery .about-personal-photo .case-visual-button {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: auto;
+}
+.about-layout-page .about-personal-gallery .about-personal-photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: none;
+  aspect-ratio: auto;
+  object-fit: contain;
+  filter: none;
+}

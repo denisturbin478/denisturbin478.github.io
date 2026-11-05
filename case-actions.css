@@ -1,0 +1,10 @@
+/* The pair adapts to the available column instead of moving one action below. */
+.case-gallery-layout .case-sidebar .case-action-row{
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:stretch;gap:8px;
+ width:100%;max-width:316px;margin-top:var(--group-gap);min-width:0;
+}
+.case-gallery-layout .case-sidebar .case-action-row:has(>a:only-child){grid-template-columns:minmax(0,154px)}
+body .site-shell .case-sidebar .case-action-row .case-primary-link[data-evil-button="chrome"],
+body .site-shell .case-sidebar .case-action-row .case-secondary-button{
+ box-sizing:border-box;width:100%;min-width:0;max-width:100%;margin:0;justify-self:stretch;
+}

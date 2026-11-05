@@ -1,0 +1,79 @@
+/* Native, independently authored adaptations of the interaction ideas documented
+   at evilbuttons.com. Existing controls keep their semantics and optical scale. */
+
+/* Official Inter Tight Cyrillic subset; keeps Russian copy feedback in the
+   same typeface as the rest of the interface. See fonts/Inter-Tight-OFL.txt. */
+@font-face{
+ font-family:'Inter Tight';font-style:normal;font-weight:100 900;font-display:swap;
+ src:url('assets/fonts/inter-tight-cyrillic-variable.woff2') format('woff2');
+ unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;
+}
+
+body :is(.site-shell,.regional-welcome) [data-evil-button="chrome"],
+body .site-shell .case-sidebar [data-evil-button="chrome"]{
+ --contact-width:154px;--contact-height:36px;--contact-inset:8px;
+ box-sizing:border-box;position:relative;isolation:isolate;display:inline-flex;
+ align-items:center;justify-content:center;gap:6px;flex-shrink:0;
+ width:var(--contact-width);height:var(--contact-height);min-height:var(--contact-height);max-height:var(--contact-height);
+ max-width:100%;padding:0 var(--contact-inset);border:0;border-radius:8px;
+ background:transparent;color:#141414;font:600 12.5px/18px 'Inter Tight',Arial,sans-serif;
+ letter-spacing:0;white-space:nowrap;text-align:center;text-decoration:none;
+ transition:transform 140ms var(--ease-out,cubic-bezier(.22,.68,0,1));
+}
+body :is(.site-shell,.regional-welcome) [data-evil-button="chrome"]:hover:not(:disabled):not([aria-disabled="true"]){opacity:1;color:#141414;background:transparent;text-decoration:none}
+body :is(.site-shell,.regional-welcome) [data-evil-button="chrome"]:active:not(:disabled):not([aria-disabled="true"]){transform:scale(.98)}
+body :is(.site-shell,.regional-welcome) [data-evil-button="chrome"]:disabled,body :is(.site-shell,.regional-welcome) [data-evil-button="chrome"][aria-disabled="true"]{opacity:.5;cursor:default;transform:none}
+body :is(.site-shell,.regional-welcome) [data-evil-button="chrome"]:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
+body .site-shell button[data-evil-button="chrome"][data-evil-status-button]{display:inline-grid;grid-template-columns:minmax(0,1fr)}
+body .site-shell .contact-secondary-button[data-evil-status-button]{
+ box-sizing:border-box;width:154px;height:36px;min-height:36px;max-height:36px;max-width:100%;
+ padding:0 8px;border-radius:8px;font:600 12.5px/18px 'Inter Tight',Arial,sans-serif;letter-spacing:0;
+}
+[data-evil-button="chrome"] [data-evil-icon],[data-evil-button="chrome"] [data-evil-label]{position:relative;z-index:1}
+@media(pointer:coarse){body :is(.site-shell,.regional-welcome) [data-evil-button="chrome"]::after,body .site-shell .contact-secondary-button[data-evil-status-button]::after{content:'';position:absolute;inset:-4px 0}}
+.evil-chrome-surface{position:absolute;inset:0;border-radius:inherit;overflow:hidden;pointer-events:none;
+ background:conic-gradient(from 30deg,#d2d2d4,#747478 14%,#ededee 26%,#aaaab0 42%,#f4f4f5 57%,#727277 73%,#ececed 88%,#d2d2d4);
+ box-shadow:inset 0 0 0 1px #ffffff30}
+.evil-chrome-canvas{position:absolute;inset:0;display:block;width:100%;height:100%;opacity:0;transition:opacity 160ms ease}
+[data-evil-rendering] .evil-chrome-canvas{opacity:1}
+.evil-chrome-face{position:absolute;inset:2px;border-radius:6px;background:#f3f3f3;
+ box-shadow:inset 0 1px 0 #fff,0 0 0 1px #00000012}
+.evil-chrome-label{position:relative;z-index:1;pointer-events:none;min-width:0;max-width:100%;white-space:normal;overflow-wrap:anywhere;text-wrap:balance;line-height:14px}
+
+/* Minimal surfaces are for secondary actions; genuine brand faces stay intact. */
+.contact-secondary-button,.clipboard-paste-button{transition:background-color 140ms ease,border-color 140ms ease,color 140ms ease,transform 140ms var(--ease-out,cubic-bezier(.22,.68,0,1))}
+.contact-secondary-button:hover:not(:disabled):not([aria-disabled="true"]):not([aria-disabled=true]){background:#2a2a2a;border-color:#777;opacity:1}
+.contact-secondary-button:disabled,.clipboard-paste-button:disabled{opacity:.5;cursor:wait;transform:none}
+.clipboard-paste-button:hover:not(:disabled):not([aria-disabled="true"]){background:#ffffff08;color:var(--ink)}
+.clipboard-paste-button:active:not(:disabled):not([aria-disabled="true"]){transform:scale(.98)}
+
+/* Each mounted state centers its whole icon-label pair. The widest face can
+   reserve the outer button's size without separating a shorter label's icon. */
+button[data-evil-status-button]{display:inline-grid;grid-template-columns:minmax(0,1fr);align-items:center;justify-content:center;position:relative}
+[data-evil-face]{grid-area:1/1;justify-self:center;display:inline-flex;align-items:center;gap:6px;position:relative;z-index:1;white-space:nowrap;pointer-events:none}
+button.footer-email[data-evil-status-button] [data-evil-face]{justify-self:start;flex-direction:row-reverse}
+[data-evil-icon]{display:grid;place-items:center;width:14px;height:14px;flex:0 0 14px;pointer-events:none}
+[data-evil-icon] svg{width:14px;height:14px;display:block;stroke-width:1.6}
+[data-evil-label]{white-space:nowrap;pointer-events:none}
+[data-evil-icon],[data-evil-label]{opacity:0;transform:translateY(3px);transition:opacity 140ms ease,transform 160ms var(--ease-out,cubic-bezier(.22,.68,0,1))}
+[data-state="idle"] [data-evil-icon="idle"],[data-state="idle"] [data-evil-label="idle"],
+[data-state="loading"] [data-evil-icon="loading"],[data-state="loading"] [data-evil-label="loading"],
+[data-state="success"] [data-evil-icon="success"],[data-state="success"] [data-evil-label="success"],
+[data-state="error"] [data-evil-icon="error"],[data-state="error"] [data-evil-label="error"]{opacity:1;transform:translateY(0)}
+[data-state="loading"] [data-evil-icon="loading"] svg{animation:evil-loading 900ms linear infinite}
+@keyframes evil-loading{to{transform:rotate(360deg)}}
+[data-evil-copy-control].email-copy-action{padding-bottom:0}
+[data-evil-copy-control] .email-copy-feedback{position:absolute;top:auto;left:auto;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;opacity:1;transform:none}
+.evil-copy-value{position:absolute;left:0;bottom:calc(100% + 6px);padding:5px 7px;border:1px solid #ffffff18;border-radius:5px;
+ background:#252525;color:#ededed;font-size:11px;line-height:16px;letter-spacing:0;white-space:nowrap;
+ max-width:min(260px,calc(100vw - 48px));opacity:0;transform:translateY(2px);pointer-events:none;
+ transition:opacity 140ms ease,transform 160ms var(--ease-out,cubic-bezier(.22,.68,0,1))}
+[data-evil-copy-control][data-copy-state="success"] .evil-copy-value{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){
+ [data-evil-button="chrome"],.evil-chrome-canvas,.contact-secondary-button,.clipboard-paste-button,
+ [data-evil-icon],[data-evil-label],.evil-copy-value{transition:none}
+ body :is(.site-shell,.regional-welcome) [data-evil-button="chrome"]{transition:none}
+ body :is(.site-shell,.regional-welcome) [data-evil-button="chrome"]:active:not(:disabled):not([aria-disabled="true"]),.clipboard-paste-button:active,[data-evil-icon],[data-evil-label],.evil-copy-value{transform:none}
+ .evil-chrome-canvas{display:none}
+ [data-state="loading"] [data-evil-icon="loading"] svg{animation:none}
+}
