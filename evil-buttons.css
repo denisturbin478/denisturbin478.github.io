@@ -16,11 +16,11 @@ body .site-shell .case-sidebar [data-evil-button="chrome"]{
  align-items:center;justify-content:center;gap:6px;flex-shrink:0;
  width:var(--contact-width);height:var(--contact-height);min-height:var(--contact-height);max-height:var(--contact-height);
  max-width:100%;padding:0 var(--contact-inset);border:0;border-radius:8px;
- background:transparent;color:#141414;font:600 12.5px/18px 'Inter Tight',Arial,sans-serif;
+ background:transparent;color:var(--gray-18);font:600 12.5px/18px 'Inter Tight',Arial,sans-serif;
  letter-spacing:0;white-space:nowrap;text-align:center;text-decoration:none;
  transition:transform 140ms var(--ease-out,cubic-bezier(.22,.68,0,1));
 }
-body :is(.site-shell,.regional-welcome) [data-evil-button="chrome"]:hover:not(:disabled):not([aria-disabled="true"]){opacity:1;color:#141414;background:transparent;text-decoration:none}
+body :is(.site-shell,.regional-welcome) [data-evil-button="chrome"]:hover:not(:disabled):not([aria-disabled="true"]){opacity:1;color:var(--gray-18);background:transparent;text-decoration:none}
 body :is(.site-shell,.regional-welcome) [data-evil-button="chrome"]:active:not(:disabled):not([aria-disabled="true"]){transform:scale(.98)}
 body :is(.site-shell,.regional-welcome) [data-evil-button="chrome"]:disabled,body :is(.site-shell,.regional-welcome) [data-evil-button="chrome"][aria-disabled="true"]{opacity:.5;cursor:default;transform:none}
 body :is(.site-shell,.regional-welcome) [data-evil-button="chrome"]:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
@@ -36,13 +36,13 @@ body .site-shell .contact-secondary-button[data-evil-status-button]{
  box-shadow:inset 0 0 0 1px #ffffff30}
 .evil-chrome-canvas{position:absolute;inset:0;display:block;width:100%;height:100%;opacity:0;transition:opacity 160ms ease}
 [data-evil-rendering] .evil-chrome-canvas{opacity:1}
-.evil-chrome-face{position:absolute;inset:2px;border-radius:6px;background:#f3f3f3;
- box-shadow:inset 0 1px 0 #fff,0 0 0 1px #00000012}
+.evil-chrome-face{position:absolute;inset:2px;border-radius:6px;background:var(--gray-245);
+ box-shadow:inset 0 1px 0 var(--gray-255),0 0 0 1px #00000012}
 .evil-chrome-label{position:relative;z-index:1;pointer-events:none;min-width:0;max-width:100%;white-space:normal;overflow-wrap:anywhere;text-wrap:balance;line-height:14px}
 
 /* Minimal surfaces are for secondary actions; genuine brand faces stay intact. */
 .contact-secondary-button,.clipboard-paste-button{transition:background-color 140ms ease,border-color 140ms ease,color 140ms ease,transform 140ms var(--ease-out,cubic-bezier(.22,.68,0,1))}
-.contact-secondary-button:hover:not(:disabled):not([aria-disabled="true"]):not([aria-disabled=true]){background:#2a2a2a;border-color:#777;opacity:1}
+.contact-secondary-button:hover:not(:disabled):not([aria-disabled="true"]):not([aria-disabled=true]){background:var(--gray-41);border-color:var(--gray-119);opacity:1}
 .contact-secondary-button:disabled,.clipboard-paste-button:disabled{opacity:.5;cursor:wait;transform:none}
 .clipboard-paste-button:hover:not(:disabled):not([aria-disabled="true"]){background:#ffffff08;color:var(--ink)}
 .clipboard-paste-button:active:not(:disabled):not([aria-disabled="true"]){transform:scale(.98)}
@@ -65,7 +65,7 @@ button.footer-email[data-evil-status-button] [data-evil-face]{justify-self:start
 [data-evil-copy-control].email-copy-action{padding-bottom:0}
 [data-evil-copy-control] .email-copy-feedback{position:absolute;top:auto;left:auto;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;opacity:1;transform:none}
 .evil-copy-value{position:absolute;left:0;bottom:calc(100% + 6px);padding:5px 7px;border:1px solid #ffffff18;border-radius:5px;
- background:#252525;color:#ededed;font-size:11px;line-height:16px;letter-spacing:0;white-space:nowrap;
+ background:var(--gray-34);color:var(--gray-238);font-size:11px;line-height:16px;letter-spacing:0;white-space:nowrap;
  max-width:min(260px,calc(100vw - 48px));opacity:0;transform:translateY(2px);pointer-events:none;
  transition:opacity 140ms ease,transform 160ms var(--ease-out,cubic-bezier(.22,.68,0,1))}
 [data-evil-copy-control][data-copy-state="success"] .evil-copy-value{opacity:1;transform:none}

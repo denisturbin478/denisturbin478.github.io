@@ -3,7 +3,7 @@ body .site-shell .secondary-action-button,
 body.case-gallery-layout .site-shell .sidebar .secondary-action-button{
  box-sizing:border-box;position:relative;display:inline-flex;align-items:center;justify-content:center;
  width:154px;max-width:100%;height:36px;min-height:36px;margin:0;padding:0 8px;
- border:1px solid #494949;border-radius:8px;background:#1b1b1b;color:#ddd;
+ border:1px solid var(--gray-72);border-radius:8px;background:var(--gray-28);color:var(--gray-221);
  font:600 12.5px/14px var(--locale-font-family,'Inter Tight',Arial,sans-serif);
  letter-spacing:0;text-align:center;text-decoration:none;white-space:normal;
  overflow-wrap:anywhere;text-wrap:balance;touch-action:manipulation;
@@ -14,7 +14,7 @@ body .site-shell .secondary-action-button .project-preview-label{text-decoration
 body .site-shell .secondary-action-button[hidden]{display:none!important}
 body .site-shell .secondary-action-button:hover,
 body.case-gallery-layout .site-shell .sidebar .secondary-action-button:hover{
- background:#262626;border-color:#6a6a6a;color:#fff;text-decoration:none;
+ background:var(--gray-41);border-color:var(--gray-106);color:var(--gray-255);text-decoration:none;
 }
 body .site-shell .secondary-action-button:focus-visible,
 body.case-gallery-layout .site-shell .sidebar .secondary-action-button:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
@@ -26,12 +26,12 @@ body .site-shell .review-actions{
 body .site-shell :is(.review-row,.profile-review,.information-review) .review-source-button,
 body.case-gallery-layout .site-shell .sidebar :is(.review-row,.profile-review,.information-review) .review-source-button{
  width:auto;max-width:100%;height:auto;min-height:36px;margin:0;padding:7px 12px;gap:8px;
- border-color:#3b3b3b;background:#1b1b1b;color:#c5c5c5;
+ border-color:var(--gray-58);background:var(--gray-28);color:var(--gray-200);
  font-weight:500;font-size:13px;line-height:20px;
 }
 body .site-shell :is(.review-row,.profile-review,.information-review) .review-source-button:hover,
 body.case-gallery-layout .site-shell .sidebar :is(.review-row,.profile-review,.information-review) .review-source-button:hover{
- background:#262626;border-color:#5a5a5a;color:var(--ink);
+ background:var(--gray-41);border-color:var(--gray-90);color:var(--ink);
 }
 body .site-shell .about-proof-links,
 body .site-shell .information-proof-links,

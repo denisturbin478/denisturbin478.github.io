@@ -1,5 +1,5 @@
 /* Sound is a fixed utility in the existing toolbar, aligned with its 36px controls. */
-.ui-sound-toggle{appearance:none;display:inline-flex;align-items:center;justify-content:center;align-self:center;width:36px;min-height:36px;height:36px;flex:0 0 36px;gap:0;margin:0;padding:0;border:1px solid #3b3b3b;border-radius:8px;background:#1b1b1b;color:var(--muted,#aaa);font:400 12px/18px 'Inter Tight',Arial,sans-serif;letter-spacing:0;cursor:pointer;touch-action:manipulation;transition:color 160ms ease,background-color 160ms ease,border-color 160ms ease,transform 120ms cubic-bezier(.215,.61,.355,1)}
+.ui-sound-toggle{appearance:none;display:inline-flex;align-items:center;justify-content:center;align-self:center;width:36px;min-height:36px;height:36px;flex:0 0 36px;gap:0;margin:0;padding:0;border:1px solid var(--gray-58);border-radius:8px;background:var(--gray-28);color:var(--muted,var(--gray-170));font:400 12px/18px 'Inter Tight',Arial,sans-serif;letter-spacing:0;cursor:pointer;touch-action:manipulation;transition:color 160ms ease,background-color 160ms ease,border-color 160ms ease,transform 120ms cubic-bezier(.215,.61,.355,1)}
 .toolbar-utilities{display:inline-flex;align-items:center;gap:12px;flex:0 0 auto}
 .work-toolbar>.work-filters{flex:1 1 0;min-width:0;width:auto;flex-wrap:wrap}
 .work-toolbar>.toolbar-utilities{margin-left:auto}
@@ -16,12 +16,12 @@
 .ui-sound-toggle[aria-pressed=false] .ui-sound-wave-far{transition-delay:0ms}
 .ui-sound-toggle [data-ui-sound-muted]{opacity:1;transition:opacity 120ms ease}
 .ui-sound-toggle[aria-pressed=true] [data-ui-sound-muted]{opacity:0}
-.ui-sound-toggle[aria-pressed=true]{color:var(--ink,#fff)}
+.ui-sound-toggle[aria-pressed=true]{color:var(--ink,var(--gray-255))}
 @media(hover:hover) and (pointer:fine){
- .ui-sound-toggle:not(:disabled):hover{color:var(--ink,#fff);background:#242424;border-color:#555}
+ .ui-sound-toggle:not(:disabled):hover{color:var(--ink,var(--gray-255));background:var(--gray-34);border-color:var(--gray-90)}
 }
-.ui-sound-toggle:not(:disabled):active{transform:scale(.97);background:#2a2a2a}
-.ui-sound-toggle:focus-visible{outline:2px solid var(--focus,#ccc);outline-offset:3px}
+.ui-sound-toggle:not(:disabled):active{transform:scale(.97);background:var(--gray-41)}
+.ui-sound-toggle:focus-visible{outline:2px solid var(--focus,var(--gray-204));outline-offset:3px}
 .ui-sound-toggle:focus-visible,.ui-sound-toggle:focus-visible .ui-sound-wave,.ui-sound-toggle:focus-visible [data-ui-sound-muted]{transition:none}
 .ui-sound-toggle:focus-visible:active{transform:none}
 .ui-sound-toggle:disabled{opacity:.45;cursor:default}

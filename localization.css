@@ -1,10 +1,10 @@
 /* Native language choice shares the existing sound utility slot. */
 .localization-control{display:inline-flex;align-items:center;flex:none;max-width:100%;direction:ltr}
-.localization-select{max-width:100%;width:108px;min-height:36px;padding:6px 18px 6px 6px;border:0;border-radius:3px;background:transparent;color:var(--muted,#aaa);font:400 12px/18px system-ui,Arial,sans-serif;cursor:pointer;color-scheme:dark}
-.localization-select:hover{color:var(--ink,#fff)}
-.localization-select:focus-visible{outline:2px solid var(--focus,#ccc);outline-offset:2px}
-.localization-select option{background:var(--paper,#121212);color:var(--ink,#fff)}
-.localization-select option:disabled{color:var(--muted,#aaa)}
+.localization-select{max-width:100%;width:108px;min-height:36px;padding:6px 18px 6px 6px;border:0;border-radius:3px;background:transparent;color:var(--muted,var(--gray-170));font:400 12px/18px system-ui,Arial,sans-serif;cursor:pointer;color-scheme:dark}
+.localization-select:hover{color:var(--ink,var(--gray-255))}
+.localization-select:focus-visible{outline:2px solid var(--focus,var(--gray-204));outline-offset:2px}
+.localization-select option{background:var(--paper,var(--gray-18));color:var(--ink,var(--gray-255))}
+.localization-select option:disabled{color:var(--muted,var(--gray-170))}
 .toolbar-utilities{flex-wrap:wrap;max-width:100%;min-width:0;direction:ltr}
 .workspace-settings{flex-wrap:wrap;gap:12px}
 /* Keep the physical sidebar/workspace order; prose adopts the selected direction. */

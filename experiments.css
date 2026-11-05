@@ -4,7 +4,7 @@
   height: clamp(640px, calc(100svh - 84px), 1080px);
   overflow: hidden;
   border-radius: var(--card-radius);
-  background: var(--paper);
+  background:var(--paper);
   scroll-margin-top: 76px;
 }
 
@@ -13,13 +13,13 @@
   width: 100%;
   height: 100%;
   min-width: 0;
-  border: 0;
-  background: var(--paper);
+  border:0;
+  background:var(--paper);
   color-scheme: dark;
 }
 
 .experiment-layout-page .experiment-frame:focus-visible {
-  outline: 2px solid var(--focus);
+  outline:2px solid var(--focus);
   outline-offset: -2px;
 }
 

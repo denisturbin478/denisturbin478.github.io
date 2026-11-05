@@ -4,15 +4,15 @@
 }
 .social-profile-button{
  box-sizing:border-box;display:flex;align-items:center;gap:8px;
- min-width:0;min-height:36px;padding:8px 10px;border:1px solid #3b3b3b;
- border-radius:8px;background:#1b1b1b;color:#ddd;text-decoration:none;
+ min-width:0;min-height:36px;padding:8px 10px;border:1px solid var(--gray-58);
+ border-radius:8px;background:var(--gray-28);color:var(--gray-221);text-decoration:none;
  font-size:13px;font-weight:600;line-height:18px;letter-spacing:-.01em;
  transition:background-color 180ms ease,border-color 180ms ease,color 180ms ease;
 }
 .social-profile-button>span{min-width:0;overflow-wrap:anywhere}
 .social-profile-mark{display:block;flex:none;width:16px;height:16px;object-fit:contain;fill:currentColor;stroke:none}
-.social-profile-button:hover{background:#242424;border-color:#5a5a5a;color:#fff}
-.social-profile-button:active{background:#303030}
+.social-profile-button:hover{background:var(--gray-34);border-color:var(--gray-90);color:var(--gray-255)}
+.social-profile-button:active{background:var(--gray-48)}
 .social-profile-button:focus-visible{outline:2px solid #d4c4fa;outline-offset:3px}
 .about-working-facts .secondary-action-button{margin-top:8px}
 @media (pointer:coarse){.social-profile-button{min-height:44px}}

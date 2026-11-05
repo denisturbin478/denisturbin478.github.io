@@ -15,7 +15,7 @@
   aspect-ratio: 1200 / 900;
   overflow: hidden;
   border-radius: 12px;
-  background: var(--surface);
+  background:var(--surface);
   isolation: isolate;
 }
 
@@ -26,14 +26,14 @@
   width: 1200px;
   height: 900px;
   max-width: none;
-  border: 0;
+  border:0;
   transform: scale(var(--prototype-scale, 1));
   transform-origin: top left;
-  background: var(--paper);
+  background:var(--paper);
 }
 
 .case-prototype-frame:focus-visible {
-  outline: 3px solid var(--focus);
+  outline:3px solid var(--focus);
   outline-offset: -3px;
 }
 
@@ -44,8 +44,8 @@
   place-items: center;
   padding: var(--group-gap);
   font-size: 14px;
-  color: var(--muted);
-  background: var(--surface);
+  color:var(--muted);
+  background:var(--surface);
   pointer-events: none;
 }
 
@@ -65,10 +65,10 @@
   gap: var(--metadata-gap);
   font-size: 13px;
   line-height: 1.4;
-  color: var(--muted);
+  color:var(--muted);
 }
 
-.case-prototype-caption strong { font-weight: 500; color: var(--ink); }
+.case-prototype-caption strong { font-weight: 500; color:var(--ink); }
 .case-prototype-actions { display: flex; align-items: center; gap: var(--label-gap); }
 
 .case-prototype-reload {
@@ -76,23 +76,23 @@
   place-items: center;
   width: 36px;
   height: 36px;
-  border: 1px solid var(--line);
+  border:1px solid var(--line);
   border-radius: 9px;
-  color: var(--ink);
-  background: var(--surface);
+  color:var(--ink);
+  background:var(--surface);
   transition: background var(--motion-color) ease;
 }
 
 .case-prototype-reload svg {
   width: 18px;
   height: 18px;
-  fill: none;
-  stroke: currentColor;
+  fill:none;
+  stroke:currentColor;
   stroke-width: 1.5;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
 
-@media (hover: hover) { .case-prototype-reload:hover { background: #292929; } }
+@media (hover: hover) { .case-prototype-reload:hover { background:var(--gray-41); } }
 @media (pointer: coarse) { .case-prototype-reload { width: 44px; height: 44px; } }
 @media (prefers-reduced-motion: reduce) { .case-prototype-reload { transition: none; } }
