@@ -329,33 +329,44 @@ body.case-gallery-layout .sidebar .case-reachout::before {
 body.case-gallery-layout .sidebar .case-reachout h2 { font-size: 20px; }
 body.case-gallery-layout .sidebar .case-reachout p { color: #d2d2d2; }
 
-/* ---------- About: fact and toolkit tiles ---------- */
+/* ---------- About: facts as one card, a row per fact ---------- */
 body.case-gallery-layout .sidebar :is(.about-working-facts, .about-toolkit) {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 8px;
-}
-body.case-gallery-layout .sidebar :is(.about-working-facts, .about-toolkit) > div {
-  min-width: 0;
-  padding: 14px;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+  margin: 4px 0 0;
+  padding: 2px 16px;
   border: 1px solid var(--sv-rule);
-  border-radius: 14px;
+  border-radius: var(--sv-radius);
   background: var(--sv-panel);
 }
-body.case-gallery-layout .sidebar .about-working-facts > div:last-child { grid-column: 1 / -1; }
+body.case-gallery-layout .sidebar .about-toolkit { margin: var(--group-gap) 0; }
+body.case-gallery-layout .sidebar :is(.about-working-facts, .about-toolkit) > div {
+  min-width: 0;
+  padding: 14px 0;
+}
+body.case-gallery-layout .sidebar :is(.about-working-facts, .about-toolkit) > div + div { border-top: 1px dashed var(--sv-rule); }
 body.case-gallery-layout .sidebar :is(.about-working-facts, .about-toolkit) dt {
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-bottom: 8px;
+  margin: 0 0 8px;
+  font-size: 12px;
+  line-height: 1.4;
   color: #9a9a9a;
 }
-body.case-gallery-layout .sidebar :is(.about-working-facts, .about-toolkit) dd { color: var(--ink); }
+body.case-gallery-layout .sidebar :is(.about-working-facts, .about-toolkit) dd {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.45;
+  letter-spacing: -.01em;
+  color: var(--ink);
+}
 body.case-gallery-layout .sidebar .about-working-facts dt::before {
   content: '';
   flex: none;
-  width: 16px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
   background: var(--sv-accent);
   -webkit-mask: var(--sv-icon) center / contain no-repeat;
           mask: var(--sv-icon) center / contain no-repeat;
@@ -363,7 +374,41 @@ body.case-gallery-layout .sidebar .about-working-facts dt::before {
 body.case-gallery-layout .sidebar .about-working-facts > div:nth-child(1) { --sv-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z'/%3E%3C/svg%3E"); }
 body.case-gallery-layout .sidebar .about-working-facts > div:nth-child(2) { --sv-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M4 4h16a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H9l-5 4v-4H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Z'/%3E%3C/svg%3E"); }
 body.case-gallery-layout .sidebar .about-working-facts > div:nth-child(3) { --sv-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2 14.9 8.6 22 9.3l-5.4 4.7 1.6 7L12 17.3 5.8 21l1.6-7L2 9.3l7.1-.7L12 2Z'/%3E%3C/svg%3E"); }
-body.case-gallery-layout .sidebar .about-working-facts .about-proof-link { margin-top: 10px; }
+
+/* Languages: one line each, level right-aligned. */
+body.case-gallery-layout .sidebar .fact-languages { display: grid; gap: 6px; }
+body.case-gallery-layout .sidebar .fact-pair {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  min-width: 0;
+}
+body.case-gallery-layout .sidebar .fact-level {
+  font-size: 13px;
+  color: #a9a9a9;
+  text-align: right;
+  text-wrap: balance;
+}
+
+/* Expert profiles: two badges, then the link. */
+body.case-gallery-layout .sidebar .fact-badges { display: flex; flex-wrap: wrap; gap: 6px; }
+body.case-gallery-layout .sidebar .fact-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 30px;
+  padding: 4px 11px 4px 7px;
+  border-radius: 999px;
+  background: #222;
+  font-size: 13px;
+  white-space: nowrap;
+}
+body.case-gallery-layout .sidebar .fact-badge img { width: 16px; height: 16px; flex: none; }
+body.case-gallery-layout .sidebar .fact-experts .about-proof-link {
+  display: inline-flex;
+  margin-top: 12px;
+}
 
 /* ---------- Project links with a thumbnail ---------- */
 body .site-shell .secondary-action-button.project-preview-link:has(> .proof-thumb),
