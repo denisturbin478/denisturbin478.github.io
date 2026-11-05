@@ -63,6 +63,21 @@
     }).observe(button, { attributes: true, attributeFilter: ['data-state'] });
   });
 
+  /* ---------- Card tool piles: measure where each chip rests in the pile ---------- */
+  function pileTools() {
+    document.querySelectorAll('.card-tools').forEach(group => {
+      const chips = [...group.children];
+      const end = group.offsetWidth;
+      chips.forEach((chip, i) => {
+        const rest = end - 28 - (chips.length - 1 - i) * 18;
+        chip.style.setProperty('--sx', `${rest - chip.offsetLeft}px`);
+      });
+    });
+  }
+  pileTools();
+  addEventListener('resize', pileTools);
+  document.fonts?.ready.then(pileTools);
+
   /* ---------- Phone tab bar ---------- */
   const nav = document.querySelector('.mobile-switch');
   if (!nav) return;
@@ -72,7 +87,7 @@
   // Stretch the highlight from the current tab to the target, then shrink onto it.
   function stretchTo(target) {
     const current = nav.querySelector('a[aria-current]');
-    if (!current || current === target || reduced.matches || !phone.matches) return Promise.resolve();
+    if (!current || current === target || reduced.matches) return Promise.resolve();
     const box = nav.getBoundingClientRect();
     const a = current.getBoundingClientRect();
     const b = target.getBoundingClientRect();
@@ -100,7 +115,7 @@
 
   nav.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', e => {
-      if (link.hasAttribute('aria-current') || !phone.matches || reduced.matches) return;
+      if (link.hasAttribute('aria-current') || reduced.matches) return;
       if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
       e.preventDefault();
       go(link);

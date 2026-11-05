@@ -375,7 +375,8 @@ button.footer-email.is-confirmed [data-evil-face="success"] svg { animation: cop
   .mobile-switch.is-stretching a.is-target { color: #121212; }
 }
 
-/* Work cards: tool logos stacked at rest, spread with names on hover */
+/* Work cards: tool logos piled at rest, spread with names on hover.
+   Only transform, clip-path and opacity animate; micro.js measures the pile offsets. */
 .project-link { position: relative; }
 .card-tools {
   position: absolute;
@@ -384,27 +385,28 @@ button.footer-email.is-confirmed [data-evil-face="success"] svg { animation: cop
   z-index: 3;
   display: flex;
   align-items: center;
+  gap: 4px;
   pointer-events: none;
 }
 .card-tool {
   display: inline-flex;
   align-items: center;
-  gap: 0;
+  gap: 6px;
   height: 28px;
-  padding: 0 6px;
+  padding: 0 10px 0 6px;
   border-radius: 999px;
   background: rgba(18, 18, 18, .82);
   -webkit-backdrop-filter: blur(8px);
           backdrop-filter: blur(8px);
-  box-shadow: 0 0 0 1.5px rgba(18, 18, 18, .9);
   color: #f0f0f0;
   font-size: 12px;
   font-weight: 500;
   white-space: nowrap;
-  transition: margin 320ms cubic-bezier(.22, .68, 0, 1), gap 320ms cubic-bezier(.22, .68, 0, 1), padding 320ms cubic-bezier(.22, .68, 0, 1);
+  transform: translateX(var(--sx, 0px));
+  clip-path: inset(0 calc(100% - 28px) 0 0 round 14px);
+  transition: transform 340ms cubic-bezier(.22, .68, 0, 1), clip-path 340ms cubic-bezier(.22, .68, 0, 1);
   transition-delay: calc(var(--t) * 30ms);
 }
-.card-tool + .card-tool { margin-left: -10px; }
 .card-tool img { width: 16px; height: 16px; border-radius: 4px; object-fit: contain; flex: none; }
 .card-tool b {
   display: grid;
@@ -417,17 +419,10 @@ button.footer-email.is-confirmed [data-evil-face="success"] svg { animation: cop
   font-weight: 600;
   flex: none;
 }
-.card-tool-name {
-  max-width: 0;
-  overflow: hidden;
-  opacity: 0;
-  transition: max-width 320ms cubic-bezier(.22, .68, 0, 1), opacity 200ms ease;
-  transition-delay: calc(var(--t) * 30ms);
-}
+.card-tool-name { opacity: 0; transition: opacity 200ms ease calc(var(--t) * 30ms); }
 @media (hover: hover) and (pointer: fine) {
-  .project-link:is(:hover, :focus-visible) .card-tool { gap: 6px; padding: 0 10px 0 6px; }
-  .project-link:is(:hover, :focus-visible) .card-tool + .card-tool { margin-left: 4px; }
-  .project-link:is(:hover, :focus-visible) .card-tool-name { max-width: 140px; opacity: 1; }
+  .project-link:is(:hover, :focus-visible) .card-tool { transform: none; clip-path: inset(0 0 0 0 round 14px); }
+  .project-link:is(:hover, :focus-visible) .card-tool-name { opacity: 1; }
 }
 @media (prefers-reduced-motion: reduce) {
   .card-tool, .card-tool-name { transition: none; }
@@ -470,17 +465,33 @@ button.footer-email.is-confirmed [data-evil-face="success"] svg { animation: cop
   display: grid;
   justify-items: end;
   gap: 2px;
-  padding: 8px 6px;
-  border-radius: 12px;
+  padding: 10px 6px;
   transform: translateY(-50%);
-  transition: background-color 200ms ease, box-shadow 200ms ease;
 }
 .case-ticks[hidden] { display: none; }
+.case-ticks::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 250px;
+  border-radius: 12px;
+  background: rgba(24, 24, 24, .95);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, .5), 0 0 0 1px rgba(255, 255, 255, .07);
+  opacity: 0;
+  transform: scaleX(.12);
+  transform-origin: right center;
+  transition: opacity 180ms ease, transform 280ms cubic-bezier(.22, .68, 0, 1);
+  pointer-events: none;
+}
+.case-ticks:is(:hover, :focus-within)::before { opacity: 1; transform: none; }
 .case-tick {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 10px;
+  width: 22px;
   min-height: 18px;
   padding: 0;
   border: 0;
@@ -492,31 +503,29 @@ button.footer-email.is-confirmed [data-evil-face="success"] svg { animation: cop
 }
 .case-tick-line {
   display: block;
-  width: 10px;
+  width: 16px;
   height: 2px;
   border-radius: 2px;
   background: #4a4a4a;
-  transition: width 220ms cubic-bezier(.22, .68, 0, 1), background-color 160ms ease;
+  transform: scaleX(.625);
+  transform-origin: right center;
+  transition: transform 220ms cubic-bezier(.22, .68, 0, 1), background-color 160ms ease;
 }
-.case-tick[aria-current] .case-tick-line { width: 16px; background: var(--case-accent, #f3c74b); }
+.case-tick[aria-current] .case-tick-line { transform: none; background: var(--case-accent, #f3c74b); }
 .case-tick:hover .case-tick-line { background: #d0d0d0; }
 .case-tick-label {
-  max-width: 0;
-  overflow: hidden;
+  position: absolute;
+  right: calc(100% + 8px);
   white-space: nowrap;
   opacity: 0;
-  transition: max-width 260ms cubic-bezier(.22, .68, 0, 1), opacity 160ms ease;
+  transform: translateX(8px);
+  transition: opacity 160ms ease, transform 240ms cubic-bezier(.22, .68, 0, 1);
+  pointer-events: none;
 }
-.case-ticks:is(:hover, :focus-within) {
-  background: rgba(24, 24, 24, .94);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, .5), 0 0 0 1px rgba(255, 255, 255, .07);
-  transform: translate(calc(-100% + 22px), -50%);
-}
-.case-ticks:is(:hover, :focus-within) { padding: 10px 12px; }
-.case-ticks:is(:hover, :focus-within) .case-tick-label { max-width: 220px; opacity: 1; }
+.case-ticks:is(:hover, :focus-within) .case-tick-label { opacity: 1; transform: none; pointer-events: auto; }
 .case-tick[aria-current] .case-tick-label, .case-tick:hover .case-tick-label { color: #fff; }
 .case-tick:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; border-radius: 4px; }
-@media (prefers-reduced-motion: reduce) { .case-tick-line, .case-tick-label, .case-ticks { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .case-tick-line, .case-tick-label, .case-ticks::before { transition: none; } }
 
 /* 13. Street observations scrapbook ----------------------------------- */
 .scrapbook-toggle {
@@ -597,3 +606,189 @@ button.footer-email.is-confirmed [data-evil-face="success"] svg { animation: cop
 }
 .filter-preview.is-open .filter-preview-thumbs img { opacity: 1; transform: none; }
 .filter-preview p { margin: 8px 2px 0; font-size: 12.5px; color: #bdbdbd; }
+
+/* 15. Audit fixes (November 2026) ------------------------------------- */
+
+/* Welcome card sits above the phone tab bar. */
+@media (max-width: 809px) {
+  body .regional-welcome {
+    --regional-edge-block: calc(84px + env(safe-area-inset-bottom));
+    max-height: calc(100dvh - 84px - 32px - env(safe-area-inset-bottom));
+  }
+}
+
+/* Live website embeds: a clear start button over the poster. */
+.case-prototype-start {
+  position: absolute;
+  left: 50%;
+  bottom: 18px;
+  z-index: 3;
+  transform: translateX(-50%);
+  min-height: 44px;
+  padding: 0 20px;
+  border: 0;
+  border-radius: 999px;
+  background: #f5f5f5;
+  color: #121212;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, .45);
+  cursor: pointer;
+  transition: transform 220ms cubic-bezier(.22, .68, 0, 1), background-color 160ms ease;
+}
+.case-prototype-start:hover { transform: translateX(-50%) translateY(-2px); background: #fff; }
+.case-prototype-start:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+.case-prototype-start[hidden] { display: none; }
+.case-prototype-viewport .case-prototype-frame { transition: opacity 320ms ease; }
+
+/* Desktop: the same Work · About · Services bar, floating at the foot of the sidebar. */
+@media (min-width: 810px) {
+  .mobile-switch,
+  .case-gallery-layout .mobile-switch,
+  .about-layout-page .mobile-switch,
+  .information-layout-page .mobile-switch {
+    display: flex;
+    position: fixed;
+    top: auto;
+    bottom: 18px;
+    left: calc(var(--sidebar-width) / 2);
+    transform: translateX(-50%);
+    z-index: 60;
+    gap: 2px;
+    padding: 4px;
+    border: 1px solid rgba(255, 255, 255, .09);
+    border-radius: 999px;
+    background: rgba(34, 34, 34, .72);
+    -webkit-backdrop-filter: blur(18px) saturate(160%);
+            backdrop-filter: blur(18px) saturate(160%);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, .5), inset 0 1px 0 rgba(255, 255, 255, .07);
+    isolation: isolate;
+  }
+  .mobile-switch a {
+    display: flex;
+    align-items: center;
+    min-height: 38px;
+    padding: 0 18px;
+    border-radius: 999px;
+    color: #cfcfcf;
+    font-size: 13.5px;
+    font-weight: 500;
+  }
+  .mobile-switch a:hover:not([aria-current]) { color: #fff; background: rgba(255, 255, 255, .06); }
+  .mobile-switch a[aria-current] { background: rgba(245, 245, 245, .96); color: #121212; }
+  .mobile-switch a:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+  .mobile-switch .tab-stretch { position: absolute; top: 4px; bottom: 4px; z-index: -1; border-radius: 999px; background: rgba(245, 245, 245, .96); }
+  .mobile-switch.is-stretching a[aria-current] { background: transparent; color: #cfcfcf; }
+  .mobile-switch.is-stretching a.is-target { color: #121212; }
+  /* Room so the sidebar's last lines clear the bar. */
+  .sidebar { padding-bottom: 76px; }
+  /* The bar replaces "Back to work" on the About, Services and Contact pages. */
+  body:is(.about-layout-page, .information-layout-page) .case-back { display: none; }
+}
+.mobile-switch { view-transition-name: tabbar; }
+.mobile-switch a[aria-current] { view-transition-name: tab-active; }
+
+/* Touch screens: every button at least 44px tall; inline links get a taller hit area. */
+@media (pointer: coarse) {
+  body .site-shell :is(.secondary-action-button, .contact-start-button, .contact-whatsapp-button, .case-prototype-reload, .scrapbook-toggle),
+  body .site-shell .profile-actions .footer-email,
+  body .site-shell button.footer-email {
+    min-height: 44px;
+    height: auto;
+  }
+  body .site-shell .contact-start-button { height: 44px; }
+  .portfolio-like-button { min-height: 44px; }
+  .case-gallery-links a { display: inline-flex; align-items: center; min-height: 44px; }
+  :is(p, dd, li, small) a:not([class*="button"]),
+  .bio-stack { padding-block: 10px; margin-block: -10px; }
+}
+
+/* Desktop grid: full colour and titles always visible; hover lifts gently. */
+@media (min-width: 810px) {
+  .project-media img, .photo-project-media img,
+  .case-video-button[data-hover-video] > img { filter: none !important; }
+  .work-grid .project-caption { opacity: 1 !important; transform: none !important; }
+  .project-link::after { opacity: 1 !important; }
+  .project-media img, .photo-project-media img { transition: transform 420ms cubic-bezier(.22, .68, 0, 1); }
+  .project-link:is(:hover, :focus-visible) .project-media img,
+  .project-link:is(:hover, :focus-visible) .photo-project-media img { transform: scale(1.025); }
+  .project-media, .photo-project-media { overflow: hidden; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .project-link:is(:hover, :focus-visible) :is(.project-media, .photo-project-media) img { transform: none; }
+}
+
+/* Phones: Services and Contact end with their content, not a repeated gallery. */
+@media (max-width: 809px) {
+  .information-layout-page .main-pane { display: none; }
+  .information-layout-page .sidebar { padding-bottom: 24px; }
+}
+
+/* Credentials as compact pills at every width, on one row where they fit. */
+.trust-credentials-inline { display: flex; flex-wrap: wrap; gap: 6px; }
+.trust-credentials-inline .trust-credential {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 30px;
+  padding: 0 10px 0 6px;
+  border-radius: 999px;
+  background: #1c1c1c;
+  font-size: 12px;
+  white-space: nowrap;
+}
+.trust-ranking-details > summary { list-style: none; }
+.trust-ranking-details > summary::-webkit-details-marker { display: none; }
+
+/* Home sidebar: the closing section becomes the same warm card as elsewhere. */
+#profile-contact {
+  margin-top: 28px;
+  padding: 20px;
+  border: 1px solid color-mix(in oklab, #f3c74b 38%, #2b2b2b);
+  border-radius: 20px;
+  background: color-mix(in oklab, #f3c74b 12%, #171717);
+}
+#profile-contact::before {
+  content: '';
+  display: block;
+  width: 44px;
+  height: 44px;
+  margin-bottom: 12px;
+  border-radius: 50%;
+  background: url('/assets/portrait.webp') center / cover;
+  box-shadow: 0 0 0 2px #1c1a14, 0 0 0 4px #f3c74b;
+}
+#profile-contact p { color: #d2d2d2; }
+body .sidebar .trust-credentials-inline { gap: 4px; flex-wrap: nowrap; }
+body .sidebar .trust-credentials-inline .trust-credential { gap: 4px; padding: 0 8px 0 4px; font-size: 11px; letter-spacing: -.01em; }
+@media (max-width: 380px) { body .sidebar .trust-credentials-inline { flex-wrap: wrap; } }
+body .sidebar .trust-credentials-inline .trust-credential-icon img { width: 15px; height: 15px; }
+.case-prototype-viewport .case-prototype-frame:not([src]) { opacity: 0; visibility: hidden; }
+
+/* Touch: 44px minimum for every control (stronger than older fixed heights). */
+@media (pointer: coarse) {
+  body .site-shell :is(.secondary-action-button, .contact-start-button, .contact-whatsapp-button, .contact-secondary-button, .case-prototype-reload, .scrapbook-toggle, .back-to-top, .sidebar-top-button),
+  body .site-shell button.footer-email,
+  body .site-shell .contact-contra-badge,
+  body .site-shell .contact-page-action,
+  body .site-shell .contact-primary-button,
+  body .site-shell form button,
+  body.case-gallery-layout .site-shell .sidebar :is(.secondary-action-button, .contact-start-button) {
+    min-height: 44px !important;
+    height: 44px !important;
+  }
+  /* Small visual chips keep their look but get an invisible 44px hit area. */
+  :is(.portfolio-like-button, .trust-credentials-inline .trust-credential, .case-gallery-links a, .fact-badge, .identity-name) { position: relative; }
+  :is(.portfolio-like-button, .trust-credentials-inline .trust-credential, .case-gallery-links a, .identity-name)::before {
+    content: '';
+    position: absolute;
+    inset: -7px -3px;
+  }
+}
+@media (pointer: coarse) {
+  body .site-shell .contact-contra-badge { display: inline-flex; align-items: center; }
+  body .site-shell .contact-contra-badge img { height: 44px; width: auto; }
+}
+.filter-indicator { border-radius: 0; transition: clip-path 240ms var(--ease-move); }
+@media (prefers-reduced-motion: reduce) { .filter-indicator { transition: none; } }

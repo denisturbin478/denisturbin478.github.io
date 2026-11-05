@@ -17,6 +17,12 @@ export function initLivePrototypes(doc = document) {
     const reload = section.querySelector('[data-prototype-reload]');
     const status = section.querySelector('[data-prototype-status]');
     if (!viewport || !frame || !reload || !status) continue;
+    let requested = false;
+    const start = doc.createElement('button');
+    start.type = 'button';
+    start.className = 'case-prototype-start';
+    start.textContent = 'Explore the live site';
+    viewport.append(start);
     let source;
     try {
       source = new URL(frame.dataset.prototypeSrc);
@@ -40,16 +46,23 @@ export function initLivePrototypes(doc = document) {
       if (width <= 0) return;
       // Transform the complete 1200×900 browsing context, never its CSS width.
       viewport.style.setProperty('--prototype-scale', String(width / PROTOTYPE_WIDTH));
-      if (!frame.hasAttribute('src')) {
+      // The live site loads only when asked; until then the poster stays up.
+      if (!frame.hasAttribute('src') && requested) {
         loading();
         frame.src = source.href;
+      } else if (!requested) {
+        viewport.setAttribute('aria-busy', 'false');
+        status.hidden = true;
       }
     };
     listen(frame, 'load', () => {
       if (!desktop.matches || !frame.hasAttribute('src')) return;
-      // A cross-origin load event is not proof that the remote page is healthy.
-      viewport.setAttribute('aria-busy', 'false');
-      status.hidden = true;
+      // A cross-origin load event fires before the remote site has painted, so
+      // keep the poster up a little longer to avoid a black flash.
+      win.setTimeout(() => {
+        viewport.setAttribute('aria-busy', 'false');
+        status.hidden = true;
+      }, 1600);
     });
     listen(frame, 'error', () => {
       if (!desktop.matches || !frame.hasAttribute('src')) return;
@@ -59,8 +72,16 @@ export function initLivePrototypes(doc = document) {
     });
     listen(reload, 'click', () => {
       if (!desktop.matches) return;
+      requested = true;
+      start.hidden = true;
       loading();
       frame.src = source.href;
+    });
+    listen(start, 'click', () => {
+      requested = true;
+      start.hidden = true;
+      sync();
+      frame.focus({ preventScroll: true });
     });
     listen(desktop, 'change', sync);
     listen(win, 'pageshow', sync);

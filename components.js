@@ -94,9 +94,12 @@ export function initPortfolioComponents(root = document) {
       indicator.hidden = !box;
       if (!box) return;
       indicator.style.transition = reduced.matches || !positioned ? 'none' : '';
-      indicator.style.width = `${box.width}px`;
-      indicator.style.height = `${box.height}px`;
-      indicator.style.transform = `translate3d(${box.x}px, ${box.y}px, 0)`;
+      // Cover the whole row and animate only the clip window: no layout work per frame.
+      const W = container.scrollWidth, H = container.scrollHeight;
+      indicator.style.width = `${W}px`;
+      indicator.style.height = `${H}px`;
+      indicator.style.transform = 'none';
+      indicator.style.clipPath = `inset(${box.y}px ${Math.max(0, W - box.x - box.width)}px ${Math.max(0, H - box.y - box.height)}px ${box.x}px round 25px)`;
       indicator.dataset.ready = 'true';
       container.classList.add('has-filter-indicator');
       positioned = true;

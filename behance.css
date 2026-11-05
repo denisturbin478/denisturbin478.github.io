@@ -15,7 +15,7 @@
 .case-gallery-layout .behance-sidebar .behance-comment blockquote p{font-size:15px;line-height:1.5;letter-spacing:-.015em;color:#dedede;overflow-wrap:break-word}
 .behance-comment-credit{display:flex;flex-wrap:wrap;align-items:baseline;gap:var(--metadata-gap) var(--copy-gap);margin-top:var(--label-gap);font-size:12px;line-height:1.5}
 .behance-comment-credit cite{font-style:normal;color:var(--muted)}
-.behance-comment-credit time{color:#777;font-variant-numeric:tabular-nums}
+.behance-comment-credit time{color:#8f8f8f;font-variant-numeric:tabular-nums}
 .behance-comment-credit a:hover{color:var(--ink)}
 .behance-comment-credit a{display:inline-flex;align-items:center;min-height:28px}
 .behance-community>.case-source-link{margin-top:var(--action-gap)}

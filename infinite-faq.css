@@ -21,7 +21,7 @@
 .faq-input-row input::placeholder{color:#888;opacity:1}
 .infinite-faq .faq-find{display:grid;place-items:center;flex:0 0 32px;width:32px;height:32px;padding:0;border:1px solid #484848;border-radius:50%;background:#282828;color:#eee;cursor:pointer;touch-action:manipulation;transition:background-color 140ms,color 140ms,transform 140ms}
 .faq-find svg{display:block;width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
-.infinite-faq .faq-find:disabled{color:#777;background:#202020;border-color:#333;cursor:default}
+.infinite-faq .faq-find:disabled{color:#8f8f8f;background:#202020;border-color:#333;cursor:default}
 .faq-find:active:not(:disabled){transform:scale(.96)}
 .faq-search-hint{margin:6px 0 0;color:#999;font-size:11px;line-height:16px;letter-spacing:0}
 .faq-response{margin-top:20px;min-width:0}
