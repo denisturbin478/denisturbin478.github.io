@@ -103,3 +103,85 @@
   .mobile-reachout p { font-size: 15px; line-height: 1.5; color: #d2d2d2; margin: 0; }
   .mobile-reachout .contact-actions { display: grid; gap: 10px; justify-items: start; }
 }
+
+/* 6. Phone intro on Home and Work: one composed card ------------------- */
+@media (max-width: 809px) {
+  body:is([data-page=home], [data-page=work]) .profile-content {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    gap: 0 10px;
+    padding: 76px 20px 8px;
+  }
+  /* Flatten the wrappers so their parts can share rows. */
+  body:is([data-page=home], [data-page=work]) :is(.profile-intro, .profile-description) { display: contents; }
+
+  body:is([data-page=home], [data-page=work]) .profile-content .identity { grid-column: 1 / -1; margin: 0; }
+  body:is([data-page=home], [data-page=work]) .identity img { border-radius: 14px; }
+  body:is([data-page=home], [data-page=work]) .identity .portfolio-like-button {
+    min-height: 32px;
+    padding: 0 12px;
+    border-radius: 999px;
+    background: #1f1f1f;
+  }
+
+  body:is([data-page=home], [data-page=work]) .sidebar-statement {
+    grid-column: 1 / -1;
+    margin: 18px 0 0;
+    font-size: clamp(19px, 5.2vw, 23px);
+    line-height: 1.32;
+    letter-spacing: -.025em;
+    max-width: 30ch;
+    text-wrap: pretty;
+  }
+
+  /* Actions: Get in touch + email, side by side. */
+  body:is([data-page=home], [data-page=work]) .profile-content .contact-start-button {
+    grid-column: 1;
+    margin: 20px 0 0;
+    height: 44px;
+    min-height: 44px;
+  }
+  body:is([data-page=home], [data-page=work]) .profile-copyright {
+    grid-column: 2;
+    grid-row: auto;
+    align-self: end;
+    justify-self: start;
+    margin: 20px 0 0;
+    padding: 0;
+    border: 0;
+  }
+  body:is([data-page=home], [data-page=work]) .profile-copyright .footer-email {
+    min-height: 44px;
+    padding: 0 14px;
+    border: 1px solid #333;
+    border-radius: 12px;
+    background: transparent;
+    font-size: 13px;
+    color: #d6d6d6;
+  }
+
+  /* Credentials: small pills under the actions. */
+  body:is([data-page=home], [data-page=work]) .trust-credentials-inline {
+    grid-column: 1 / -1;
+    order: 9;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 16px 0 0;
+  }
+  body:is([data-page=home], [data-page=work]) .trust-credentials-inline .trust-credential {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 32px;
+    padding: 0 11px 0 7px;
+    border-radius: 999px;
+    background: #1c1c1c;
+    font-size: 12.5px;
+  }
+  body:is([data-page=home], [data-page=work]) .trust-ranking-details > summary::-webkit-details-marker { display: none; }
+
+  /* The work starts sooner. */
+  body:is([data-page=home], [data-page=work]) .work-toolbar { margin-top: 8px; }
+}
