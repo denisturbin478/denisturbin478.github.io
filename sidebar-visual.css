@@ -4,12 +4,13 @@
    Every rule styles existing markup; no copy lives in CSS except ornaments. */
 
 body.case-gallery-layout .sidebar {
-  --sv-accent: var(--case-accent, #f3c74b);
-  --sv-tint: var(--case-tint, #241f12);
+  --sv-accent: var(--gray-245);
+  --sv-quiet: var(--gray-143);
+  --sv-tint: #181818;
   --sv-panel: #171717;
   --sv-rule: #2b2b2b;
-  --sv-soft: color-mix(in oklab, var(--sv-accent) 14%, #171717);
-  --sv-edge: color-mix(in oklab, var(--sv-accent) 38%, #2b2b2b);
+  --sv-soft: #1b1b1b;
+  --sv-edge: #333333;
   --sv-on-accent: #121212;
   --sv-radius: 16px;
 }
@@ -102,7 +103,7 @@ body.case-gallery-layout .sidebar .case-copy-challenge + .case-copy-solution::be
   top: -30px;
   width: 2px;
   height: 30px;
-  background:repeating-linear-gradient(to bottom, var(--sv-accent) 0 4px, transparent 4px 8px);
+  background:var(--gray-72);
 }
 body.case-gallery-layout .sidebar .case-copy-challenge + .case-copy-solution::after {
   content: '';
@@ -111,14 +112,13 @@ body.case-gallery-layout .sidebar .case-copy-challenge + .case-copy-solution::af
   top: -8px;
   width: 10px;
   height: 10px;
-  border-right:2px solid var(--sv-accent);
-  border-bottom:2px solid var(--sv-accent);
+  border-right:1px solid var(--gray-72);
+  border-bottom:1px solid var(--gray-72);
   transform: rotate(45deg);
 }
 
 body.case-gallery-layout .sidebar .case-copy-outcome {
-  background:radial-gradient(120% 90% at 100% 0%, color-mix(in oklab, var(--sv-accent) 22%, transparent), transparent 60%),
-    var(--sv-panel);
+  background:var(--sv-panel);
   border:1px solid var(--sv-rule);
   --sv-glyph: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23000'%3E%3Cpath d='M12 2.5c.6 4.7 2.8 6.9 7.5 7.5-4.7.6-6.9 2.8-7.5 7.5-.6-4.7-2.8-6.9-7.5-7.5 4.7-.6 6.9-2.8 7.5-7.5Z'/%3E%3C/svg%3E");
 }
@@ -156,7 +156,7 @@ body.case-gallery-layout .sidebar :is(.case-feature-list, .service-scope-list) >
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background:var(--sv-accent);
+  background:var(--sv-quiet);
   position: static;
   transform: none;
   margin: 0;
@@ -211,17 +211,17 @@ body.case-gallery-layout .sidebar .case-process-list > li:not(:last-child)::befo
   top: 32px;
   bottom: 2px;
   width: 1px;
-  background:repeating-linear-gradient(to bottom, var(--gray-72) 0 3px, transparent 3px 7px);
+  background:var(--gray-48);
 }
 body.case-gallery-layout .sidebar .case-process-index {
   display: grid;
   place-items: center;
   width: 30px;
   height: 30px;
-  border:1.5px solid var(--sv-accent);
+  border:1px solid var(--gray-72);
   border-radius: 50%;
   background:var(--sv-panel);
-  color:var(--sv-accent);
+  color:var(--gray-221);
   font-size: 12px;
   font-weight: 600;
   font-variant-numeric: tabular-nums;
@@ -277,7 +277,7 @@ body.case-gallery-layout .sidebar .case-scope-overview > div:first-child dd::bef
   font-size: 48px;
   line-height: 1;
   font-weight: 600;
-  color:var(--sv-accent);
+  color:var(--gray-72);
 }
 
 /* ---------- Small labels and the media guide ---------- */
@@ -295,7 +295,7 @@ body.case-gallery-layout .sidebar .case-note-label::before {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background:var(--sv-accent);
+  background:var(--sv-quiet);
 }
 body.case-gallery-layout .sidebar .case-visual-index > li > span {
   display: grid;
@@ -317,8 +317,7 @@ body .site-shell :is(.case-reachout, #profile-contact, .mobile-reachout) {
   padding: 20px;
   border: 1px solid rgba(255, 255, 255, .09);
   border-radius: 16px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, .05), rgba(255, 255, 255, .02)), var(--gray-18);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .05);
+  background: #171717;
 }
 body .site-shell :is(.case-reachout, #profile-contact)::before {
   content: '';
@@ -439,7 +438,7 @@ body.case-gallery-layout .sidebar .about-working-facts dt::before {
   flex: none;
   width: 14px;
   height: 14px;
-  background:var(--sv-accent);
+  background:var(--sv-quiet);
   -webkit-mask: var(--sv-icon) center / contain no-repeat;
           mask: var(--sv-icon) center / contain no-repeat;
 }

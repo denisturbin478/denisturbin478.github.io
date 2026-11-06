@@ -18,7 +18,7 @@
 .regional-copy{margin:8px 0 16px;color:var(--gray-187);font-size:13px;line-height:20px;letter-spacing:0;overflow-wrap:anywhere;text-wrap:pretty}
 .regional-close{position:relative;display:grid;place-items:center;box-sizing:border-box;width:36px;height:36px;margin:0;padding:0;border:0;border-radius:8px;background:transparent;color:var(--gray-170);cursor:pointer;transition:background-color 140ms,color 140ms}
 .regional-close svg{display:block;width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round}
-.regional-close:focus-visible{outline:2px solid var(--focus,#c6b9eb);outline-offset:3px}
+.regional-close:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
 @media(hover:hover) and (pointer:fine){.regional-close:hover{background:#ffffff0b;color:var(--gray-255)}}
 @media(pointer:coarse){.regional-close::after{content:'';position:absolute;inset:-4px}}
 @media(max-width:600px){.regional-welcome{--regional-edge-inline:max(16px,env(safe-area-inset-right));--regional-edge-block:max(16px,env(safe-area-inset-bottom));width:min(320px,calc(100vw - var(--regional-edge-inline) - 16px));max-height:calc(100dvh - var(--regional-edge-block) - 16px)}}

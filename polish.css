@@ -66,7 +66,6 @@
   .photo-project-media img,
   .case-video-button[data-hover-video] > img { filter: none !important; }
   .work-grid .project-caption { opacity: 1 !important; transform: none !important; }
-  .project-link::after { opacity: 1 !important; }
 
   /* Only the nav pill stays pinned; filters scroll away with the page. */
   .work-toolbar,
@@ -88,16 +87,16 @@
     justify-items: start;
     margin: 28px 0 40px;
     padding: 22px 20px;
-    border:1px solid color-mix(in oklab, #f3c74b 38%, var(--gray-41));
+    border:1px solid rgba(255, 255, 255, .09);
     border-radius: 20px;
-    background:color-mix(in oklab, #f3c74b 12%, var(--gray-23));
+    background:#171717;
   }
   .mobile-reachout-portrait {
     width: 48px;
     height: 48px;
     border-radius: 50%;
     object-fit: cover;
-    box-shadow:0 0 0 2px #1c1a14, 0 0 0 4px #f3c74b;
+    box-shadow:0 0 0 1px rgba(255, 255, 255, .16);
   }
   .mobile-reachout h2 { font-size: 22px; line-height: 1.2; letter-spacing: -.03em; font-weight: 500; }
   .mobile-reachout p { font-size: 15px; line-height: 1.5; color:var(--gray-214); margin: 0; }
@@ -276,13 +275,13 @@
   text-decoration-line: underline;
   text-decoration-style: dashed;
   text-decoration-thickness: 1.5px;
-  text-decoration-color:color-mix(in oklab, #f3c74b 55%, transparent);
+  text-decoration-color:var(--gray-119);
   text-underline-offset: .22em;
   border-radius: 4px;
   transition: color 160ms ease, text-decoration-color 160ms ease;
 }
 .bio-stack:hover,
-.bio-stack.is-active { color:var(--gray-255); text-decoration-color:#f3c74b; }
+.bio-stack.is-active { color:var(--gray-255); text-decoration-color:var(--gray-245); }
 .bio-stack:focus-visible { outline:2px solid var(--focus); outline-offset: 2px; }
 .sidebar-statement span .bio-stack:not(:hover):not(.is-active) { color:inherit; }
 
@@ -352,7 +351,7 @@
 /* Like: the heart pops, the count bumps */
 .portfolio-like-button.is-popping svg { animation: like-pop 520ms cubic-bezier(.22, .68, 0, 1); }
 .portfolio-like-button.is-popping [data-portfolio-like-total] { display: inline-block; animation: like-bump 420ms cubic-bezier(.22, .68, 0, 1); }
-.portfolio-like-button[aria-pressed="true"] svg { color:#ff6b81; fill:currentColor; }
+.portfolio-like-button[aria-pressed="true"] svg { color:var(--gray-255); fill:currentColor; }
 @keyframes like-pop { 0% { transform: scale(1); } 35% { transform: scale(1.45) rotate(-10deg); } 70% { transform: scale(.92); } 100% { transform: scale(1); } }
 @keyframes like-bump { 0% { transform: translateY(0); } 40% { transform: translateY(-5px); } 100% { transform: translateY(0); } }
 
@@ -510,7 +509,7 @@ button.footer-email.is-confirmed [data-evil-face="success"] svg { animation: cop
   transform-origin: right center;
   transition: transform 220ms cubic-bezier(.22, .68, 0, 1), background-color 160ms ease;
 }
-.case-tick[aria-current] .case-tick-line { transform: none; background:var(--case-accent, #f3c74b); }
+.case-tick[aria-current] .case-tick-line { transform: none; background:var(--gray-245); }
 .case-tick:hover .case-tick-line { background:var(--gray-204); }
 .case-tick-label {
   position: absolute;
@@ -554,7 +553,7 @@ button.footer-email.is-confirmed [data-evil-face="success"] svg { animation: cop
   overflow: visible;
   padding: 7px 7px 22px;
   border-radius: 3px;
-  background:#f1eee8;
+  background:var(--gray-245);
   box-shadow:0 10px 24px rgba(0, 0, 0, .45);
   transform: translateY(var(--sb-y)) rotate(var(--sb-r));
   transition: transform 520ms cubic-bezier(.22, .68, 0, 1), opacity 260ms ease, filter 260ms ease;
@@ -721,7 +720,6 @@ button.footer-email.is-confirmed [data-evil-face="success"] svg { animation: cop
   .project-media img, .photo-project-media img,
   .case-video-button[data-hover-video] > img { filter: none !important; }
   .work-grid .project-caption { opacity: 1 !important; transform: none !important; }
-  .project-link::after { opacity: 1 !important; }
   .project-media img, .photo-project-media img { transition: transform 420ms cubic-bezier(.22, .68, 0, 1); }
   .project-link:is(:hover, :focus-visible) .project-media img,
   .project-link:is(:hover, :focus-visible) .photo-project-media img { transform: scale(1.025); }

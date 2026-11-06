@@ -116,7 +116,7 @@ body.case-gallery-layout .services-sidebar.sidebar .service-scope-list > li::bef
   width: 14px;
   height: 14px;
   border-radius: 0;
-  background: var(--sv-accent, #f3c74b);
+  background: var(--gray-204);
   -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='m2.5 7.5 3 3 6-7' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
           mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='m2.5 7.5 3 3 6-7' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
 }
@@ -178,7 +178,7 @@ body.case-gallery-layout .services-sidebar.sidebar .services-more-reviews .case-
   color: var(--gray-204);
   transition: background-color 160ms ease, color 160ms ease, border-color 160ms ease;
 }
-.services-step[open] > summary > .case-process-index { border-color: var(--sv-accent, #f3c74b); background: var(--sv-accent, #f3c74b); color: var(--gray-18); }
+.services-step[open] > summary > .case-process-index { border-color: var(--gray-245); background: var(--gray-245); color: var(--gray-18); }
 body.case-gallery-layout .services-sidebar.sidebar .services-step > summary > h3 { margin: 0; font-size: 15px; line-height: 20px; font-weight: 400; letter-spacing: -.015em; color: var(--ink); }
 .services-step .service-disclosure-panel > p { margin: 0; padding: 0 24px 12px 42px; font-size: 14px; line-height: 21px; letter-spacing: -.01em; color: var(--muted); }
 @supports selector(details::details-content) and (transition-behavior:allow-discrete) {

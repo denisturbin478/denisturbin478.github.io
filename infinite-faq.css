@@ -16,7 +16,7 @@
 .infinite-faq-answer p{margin:0;color:var(--gray-170);font-size:14px;line-height:21px;letter-spacing:0;overflow-wrap:anywhere}
 .infinite-faq-search{margin-top:18px}
 .faq-input-row{display:flex;align-items:center;gap:8px;min-width:0;border-bottom:1px solid var(--gray-90);padding:0 0 8px}
-.faq-input-row:focus-within{border-color:var(--focus,#c6b9eb);box-shadow:0 1px 0 var(--focus,#c6b9eb)}
+.faq-input-row:focus-within{border-color:var(--focus);box-shadow:0 1px 0 var(--focus)}
 .infinite-faq .faq-input-row input{flex:1;min-width:0;width:100%;height:36px;padding:0;border:0;border-radius:0;background:transparent;color:var(--gray-238);font:400 14px/20px 'Inter Tight',sans-serif;letter-spacing:0;box-shadow:none;outline:none}
 .faq-input-row input::placeholder{color:var(--gray-143);opacity:1}
 .infinite-faq .faq-find{display:grid;place-items:center;flex:0 0 32px;width:32px;height:32px;padding:0;border:1px solid var(--gray-72);border-radius:50%;background:var(--gray-41);color:var(--gray-238);cursor:pointer;touch-action:manipulation;transition:background-color 140ms,color 140ms,transform 140ms}
@@ -31,7 +31,7 @@
 .faq-suggestions{display:flex;flex-direction:column;align-items:flex-start;gap:4px;margin-top:10px;min-width:0}
 .faq-suggestions button{display:block;min-height:36px;max-width:100%;padding:6px 0;border:0;background:transparent;text-align:left;color:var(--gray-221);font:400 13px/20px 'Inter Tight',sans-serif;cursor:pointer;overflow-wrap:anywhere;text-decoration:underline;text-decoration-color:var(--gray-90);text-underline-offset:4px}
 .faq-contact{display:inline-block;margin-top:14px;color:var(--gray-221);font-size:13px;line-height:20px;text-decoration:underline;text-decoration-color:var(--gray-90);text-underline-offset:4px}
-.infinite-faq-item summary:focus-visible,.faq-find:focus-visible,.faq-suggestions button:focus-visible,.faq-contact:focus-visible{outline:2px solid var(--focus,#c6b9eb);outline-offset:3px}
+.infinite-faq-item summary:focus-visible,.faq-find:focus-visible,.faq-suggestions button:focus-visible,.faq-contact:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
 .infinite-faq input:focus-visible{outline:none}
 @media(hover:hover) and (pointer:fine){.infinite-faq-item summary:hover,.faq-suggestions button:hover,.faq-contact:hover{color:var(--gray-255)}.faq-find:hover:not(:disabled){background:var(--gray-58)}}
 @media(pointer:coarse){.infinite-faq .faq-find{flex-basis:44px;width:44px;height:44px}.infinite-faq .faq-input-row input{height:44px}.faq-suggestions button,.faq-contact{min-height:44px}}

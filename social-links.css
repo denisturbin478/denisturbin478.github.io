@@ -13,7 +13,7 @@
 .social-profile-mark{display:block;flex:none;width:16px;height:16px;object-fit:contain;fill:currentColor;stroke:none}
 .social-profile-button:hover{background:var(--gray-34);border-color:var(--gray-90);color:var(--gray-255)}
 .social-profile-button:active{background:var(--gray-48)}
-.social-profile-button:focus-visible{outline:2px solid #d4c4fa;outline-offset:3px}
+.social-profile-button:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
 .about-working-facts .secondary-action-button{margin-top:8px}
 @media (pointer:coarse){.social-profile-button{min-height:44px}}
 @media (prefers-reduced-motion:reduce){.social-profile-button{transition:none}}
