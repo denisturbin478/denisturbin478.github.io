@@ -165,17 +165,18 @@
 
 /* 7. Get in touch + email as one row of buttons (all widths) ------------ */
 .profile-actions {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: stretch;
-  gap: 10px;
+  gap: 8px;
+  width: 100%;
 }
-.profile-actions .contact-start-button { margin: 0; }
-.profile-actions :is(.contact-utility-row, .email-copy-control) { align-items: stretch; flex: 0 1 auto; }
-.profile-actions .footer-email { width: auto; max-width: 100%; }
+body .site-shell .profile-actions .contact-start-button { width: 100%; max-width: none; height: 40px; min-height: 40px; max-height: none; margin: 0; }
+.profile-actions :is(.contact-utility-row, .email-copy-control) { display: flex; align-items: stretch; height: 100%; }
+.profile-actions .footer-email { width: auto; max-width: 100%; white-space: nowrap; }
 .profile-actions .footer-email {
   align-items: center;
-  min-height: 36px;
+  min-height: 40px;
   padding: 0 14px;
   border:1px solid var(--gray-58);
   border-radius: 8px;
