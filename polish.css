@@ -463,10 +463,14 @@ button.footer-email.is-confirmed [data-evil-face="success"] svg { animation: cop
   z-index: 40;
   display: grid;
   justify-items: end;
-  padding: 10px 6px 10px 4px;
+  padding: 10px 6px 10px 0;
   transform: translateY(-50%);
 }
 .case-ticks[hidden] { display: none; }
+/* The markers replace the scrollbar on pages that have them, so the two never collide. */
+@media (min-width: 810px) and (hover: hover) and (pointer: fine) {
+  .case-gallery-layout:not(.about-layout-page, .information-layout-page) .case-sidebar { scrollbar-width: none; scrollbar-gutter: auto; }
+}
 .case-ticks::before {
   content: '';
   position: absolute;
@@ -489,7 +493,7 @@ button.footer-email.is-confirmed [data-evil-face="success"] svg { animation: cop
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  width: 24px;
+  width: 18px;
   min-height: 24px;
   padding: 0;
   border:0;
@@ -501,8 +505,8 @@ button.footer-email.is-confirmed [data-evil-face="success"] svg { animation: cop
 }
 .case-tick-line {
   display: block;
-  width: 16px;
-  height: 2px;
+  width: 12px;
+  height: 1px;
   border-radius: 2px;
   background:var(--gray-72);
   transform: scaleX(.625);
