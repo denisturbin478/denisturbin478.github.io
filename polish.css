@@ -772,9 +772,11 @@ button.footer-email.is-confirmed [data-evil-face="success"] svg { animation: cop
   box-shadow:0 0 0 2px #1c1a14, 0 0 0 4px #f3c74b;
 }
 #profile-contact p { color:var(--gray-214); }
-body .sidebar .trust-credentials-inline { gap: 4px; flex-wrap: nowrap; }
+/* Pills wrap rather than shrink, so "Expert" is never cut off. The open Contra note
+   then takes its own full-width row (profile-trust.css). */
+body .sidebar .trust-credentials-inline { gap: 4px; flex-wrap: wrap; }
+body .sidebar .trust-credentials-inline > * { flex-shrink: 0; }
 body .sidebar .trust-credentials-inline .trust-credential { gap: 4px; padding: 0 8px 0 4px; font-size: 11px; letter-spacing: -.01em; }
-@media (max-width: 380px) { body .sidebar .trust-credentials-inline { flex-wrap: wrap; } }
 body .sidebar .trust-credentials-inline .trust-credential-icon img { width: 15px; height: 15px; }
 .case-prototype-viewport .case-prototype-frame:not([src]) { opacity: 0; visibility: hidden; }
 
