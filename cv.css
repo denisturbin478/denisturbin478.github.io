@@ -1,0 +1,103 @@
+/* CV page: one document for screen and print. Monochrome; hierarchy comes from size,
+   weight and space. Printing it gives the plain single-column PDF for applicant systems. */
+
+.cv-doc {
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 8px 8px 96px;
+  color: var(--gray-204);
+  font-size: 15px;
+  line-height: 23px;
+  letter-spacing: -.012em;
+}
+.cv-print-head { display: none; }
+
+.cv-section { padding: 32px 0; border-top: 1px solid var(--line); }
+.cv-section:first-of-type { padding-top: 12px; border-top: 0; }
+.cv-section > h2 { margin: 0 0 20px; font-size: 20px; line-height: 26px; font-weight: 500; letter-spacing: -.025em; color: var(--gray-245); }
+.cv-section > .cv-lead { margin: -14px 0 20px; font-size: 14px; line-height: 21px; color: var(--muted); }
+
+.cv-entry { margin: 0; padding: 0 0 28px; break-inside: avoid; }
+.cv-entry:last-child { padding-bottom: 0; }
+.cv-entry-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 2px 16px; }
+.cv-entry h3 { margin: 0; font-size: 17px; line-height: 24px; font-weight: 500; letter-spacing: -.02em; color: var(--gray-245); }
+.cv-entry h3 a { color: inherit; text-decoration: none; }
+.cv-entry h3 a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.cv-when { font-size: 13px; line-height: 20px; font-variant-numeric: tabular-nums; color: var(--muted); white-space: nowrap; }
+.cv-role { margin: 0 0 8px; font-size: 14px; line-height: 20px; color: var(--muted); }
+.cv-entry ul { margin: 0; padding: 0; list-style: none; }
+.cv-entry li { position: relative; margin: 0 0 4px; padding-left: 14px; }
+.cv-entry li::before { content: ''; position: absolute; top: 10px; left: 0; width: 4px; height: 4px; border-radius: 50%; background: var(--gray-119); }
+.cv-context { margin: 8px 0 0; font-size: 13.5px; line-height: 20px; color: var(--muted); }
+.cv-context strong { font-weight: 500; color: var(--gray-204); }
+.cv-quote { margin: 10px 0 0; padding: 0; font-size: 15px; line-height: 23px; color: var(--gray-238); }
+.cv-quote p { margin: 0; color: inherit; }
+.cv-quote cite { display: block; margin-top: 2px; font-size: 13px; font-style: normal; color: var(--muted); }
+.cv-link-text { display: none; }
+
+.cv-list { margin: 0; padding: 0; list-style: none; }
+.cv-list li { display: grid; grid-template-columns: 160px minmax(0, 1fr); gap: 2px 16px; padding: 7px 0; border-top: 1px solid var(--gray-28); }
+.cv-list li:first-child { border-top: 0; padding-top: 0; }
+.cv-list b { font-weight: 500; color: var(--gray-238); }
+@media (max-width: 560px) { .cv-list li { grid-template-columns: minmax(0, 1fr); } }
+
+.cv-updated { margin: 0; padding-top: 24px; border-top: 1px solid var(--line); font-size: 13px; color: var(--muted); }
+
+/* Sidebar: the headline, the two things to do, the plain facts */
+.cv-layout-page .cv-headline { margin: 0; font-size: 28px; line-height: 32px; font-weight: 500; letter-spacing: -.035em; color: var(--gray-245); text-wrap: balance; }
+.cv-layout-page .cv-summary { margin: 14px 0 0; font-size: 15px; line-height: 23px; letter-spacing: -.012em; color: var(--gray-204); }
+.cv-actions { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 8px; margin-top: 20px; }
+body .site-shell .cv-actions a { display: flex; align-items: center; justify-content: center; width: 100%; height: 44px; min-height: 44px; max-height: none; padding: 0 14px; border-radius: 10px; font-size: 14px; font-weight: 500; letter-spacing: -.01em; white-space: nowrap; text-decoration: none; }
+.cv-download { background: var(--gray-245); color: var(--gray-18); transition: background-color 160ms ease; }
+.cv-download:hover { background: var(--gray-255); }
+.cv-talk { border: 1px solid rgba(255, 255, 255, .12); background: rgba(255, 255, 255, .05); color: var(--gray-238); transition: background-color 160ms ease, border-color 160ms ease; }
+.cv-talk:hover { border-color: rgba(255, 255, 255, .22); background: rgba(255, 255, 255, .09); }
+.cv-actions a:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.cv-facts { margin: 24px 0 0; padding: 0; }
+.cv-facts > div { padding: 10px 0; border-top: 1px solid var(--line); }
+.cv-facts dt { font-size: 13px; line-height: 18px; color: var(--muted); }
+.cv-facts dd { margin: 2px 0 0; font-size: 14px; line-height: 21px; color: var(--gray-221); }
+.cv-facts a { color: inherit; text-decoration: underline; text-decoration-color: var(--gray-119); text-underline-offset: 3px; }
+
+@media (max-width: 809px) {
+  .cv-doc { padding: 0 0 96px; }
+  .cv-section:first-of-type { padding-top: 32px; border-top: 1px solid var(--line); }
+  .cv-pane .workspace-settings { display: none; }
+}
+
+/* The PDF: black on white, one column, real text */
+@page { size: A4; margin: 12mm 15mm; }
+@media print {
+  html, body, .site-shell, main, .main-pane, .workspace-content { display: block !important; width: auto !important; height: auto !important; max-height: none !important; overflow: visible !important; background: #fff !important; color: #000 !important; padding: 0 !important; margin: 0 !important; }
+  .sidebar, .mobile-switch, .reading-progress, .skip-link, .workspace-settings, .regional-welcome, .lightbox, .cv-updated-screen, .project-preview, body::before, body::after { display: none !important; }
+  .cv-doc { max-width: none; padding: 0; color: #000; font-size: 9.7pt; line-height: 1.32; letter-spacing: 0; }
+  .cv-print-head { display: block; margin: 0 0 10pt; }
+  .cv-print-head .cv-name { margin: 0; font-size: 21pt; line-height: 1.1; font-weight: 600; letter-spacing: -.01em; color: #000; }
+  .cv-print-head p { margin: 2pt 0 0; color: #000; font-size: 10pt; }
+  .cv-print-head .cv-print-summary { margin-top: 5pt; font-size: 9.7pt; }
+  .cv-section, .cv-section:first-of-type { padding: 6pt 0 0; margin-top: 6pt; border-top: .5pt solid #999; }
+  .cv-section > h2 { margin: 0 0 5pt; font-size: 11.5pt; line-height: 1.25; font-weight: 600; letter-spacing: 0; color: #000; }
+  .cv-section > .cv-lead { margin: -2pt 0 5pt; font-size: 9.5pt; line-height: 1.3; color: #333; }
+  .cv-entry { padding: 0 0 5pt; }
+  .cv-entry h3, .cv-entry h3 a { font-size: 10.6pt; line-height: 1.25; font-weight: 600; letter-spacing: 0; color: #000; }
+  .cv-when { font-size: 9.5pt; line-height: 1.25; color: #333; }
+  .cv-role { margin: 0 0 2pt; font-size: 9.5pt; line-height: 1.25; color: #333; }
+  /* Real list bullets and no positioning: positioned items get moved to the end of the PDF's text, which scrambles it for applicant systems. */
+  .cv-entry ul { padding-left: 11pt; list-style: disc; }
+  .cv-entry li { position: static; margin: 0 0 1pt; padding-left: 0; color: #000; }
+  .cv-entry li::before { content: none; }
+  .cv-section > h2, .cv-entry-head, .cv-role { break-after: avoid; }
+  .cv-section:nth-of-type(2) { break-before: page; margin-top: 0; padding-top: 0; border-top: 0; }
+  .cv-context { margin: 2pt 0 0; font-size: 9.5pt; line-height: 1.3; color: #333; }
+  .cv-context strong { color: #000; font-weight: 600; }
+  .cv-quote { margin: 2pt 0 0; font-size: 9.5pt; line-height: 1.3; color: #000; }
+  .cv-quote cite { display: inline; margin: 0 0 0 3pt; font-size: 9.5pt; color: #333; }
+  .cv-quote p { display: inline; }
+  .cv-link-text { display: inline; }
+  .cv-list li { display: block; padding: 0 0 2pt; border: 0; color: #000; }
+  .cv-list b { color: #000; font-weight: 600; }
+  .cv-list b::after { content: ': '; }
+  .cv-updated { margin-top: 6pt; padding-top: 4pt; border-top: .5pt solid #999; font-size: 8.5pt; color: #333; }
+  a { color: inherit !important; text-decoration: none !important; }
+}

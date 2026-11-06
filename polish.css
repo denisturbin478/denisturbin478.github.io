@@ -785,3 +785,7 @@ body .sidebar .trust-credentials-inline .trust-credential-icon img { width: 15px
 }
 .filter-indicator { border-radius: 0; transition: clip-path 240ms var(--ease-move); }
 @media (prefers-reduced-motion: reduce) { .filter-indicator { transition: none; } }
+/* Four tabs still fit the smallest phones. */
+@media (max-width: 359px) {
+  body .mobile-switch a { padding-inline: 10px; font-size: 14px; }
+}
