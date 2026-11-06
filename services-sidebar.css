@@ -1,0 +1,204 @@
+/* Services sidebar: one heading style, one row language, proof visible without a click.
+   Core services are large rows with their work fanned out; additional scopes are
+   compact icon rows; feedback and process show their substance up front. */
+
+/* ---------- One heading style for every section ---------- */
+body.case-gallery-layout .services-sidebar.sidebar :is(.services-practice, .services-feedback, .services-process, .infinite-faq) {
+  margin-top: 44px;
+  padding-top: 0;
+  border-top: 0;
+}
+body.case-gallery-layout .services-sidebar.sidebar :is(.services-practice > h2, .services-feedback > h2, .services-process > h2, .infinite-faq-heading h2) {
+  margin: 0;
+  font-size: 20px;
+  line-height: 26px;
+  font-weight: 500;
+  letter-spacing: -.025em;
+  color: var(--ink);
+}
+body.case-gallery-layout .services-sidebar.sidebar :is(.infinite-faq-heading p, .services-sub) {
+  margin: 4px 0 0;
+  font-size: 13px;
+  line-height: 18px;
+  letter-spacing: -.01em;
+  color: var(--muted);
+}
+
+/* ---------- One plus sign for every row ---------- */
+body.case-gallery-layout .services-sidebar.sidebar :is(.services-step > summary, .infinite-faq-item > summary, .services-more-reviews > summary)::after {
+  content: '';
+  flex: none;
+  width: 12px;
+  height: 12px;
+  margin: 0 0 0 auto;
+  color: var(--gray-153);
+  background:
+    linear-gradient(currentColor, currentColor) center / 12px 1px no-repeat,
+    linear-gradient(currentColor, currentColor) center / 1px 12px no-repeat;
+  transition: background-size 180ms var(--ease-out), color 160ms ease;
+}
+body.case-gallery-layout .services-sidebar.sidebar :is(.services-step[open] > summary, .infinite-faq-item[open]:not([data-expanded=false]) > summary, .services-more-reviews[open]:not([data-expanded=false]) > summary)::after {
+  color: var(--ink);
+  background-size: 12px 1px, 1px 0;
+}
+body.case-gallery-layout .services-sidebar.sidebar .service-indicator { margin-top: 0; align-self: center; }
+body.case-gallery-layout .services-sidebar.sidebar .faq-chevron { display: none; }
+
+/* ---------- Core services: the work is in the row ---------- */
+body.case-gallery-layout .services-sidebar.sidebar .services-core { margin-top: 28px; }
+body.case-gallery-layout .services-sidebar.sidebar .services-core .service-choice { padding: 14px 0; }
+body.case-gallery-layout .services-sidebar.sidebar .services-core .service-choice > h2 { align-items: center; gap: 14px; }
+body.case-gallery-layout .services-sidebar.sidebar .services-core .service-teaser { font-size: 13px; line-height: 18px; }
+body.case-gallery-layout .services-sidebar.sidebar .information-service[open] .service-teaser { display: none; }
+
+.service-fan { position: relative; flex: none; width: 66px; height: 46px; }
+.service-fan img {
+  position: absolute;
+  top: 8px;
+  left: 13px;
+  width: 40px;
+  height: 30px;
+  border-radius: 5px;
+  object-fit: cover;
+  box-shadow: 0 0 0 1.5px var(--gray-18), 0 3px 8px rgba(0, 0, 0, .45);
+  transition: transform 240ms var(--ease-out);
+}
+.service-fan img:nth-child(1):not(:only-child) { transform: translateX(-12px) rotate(-7deg); }
+.service-fan img:nth-child(2):last-child { transform: translateX(12px) rotate(6deg); }
+.service-fan img:nth-child(3) { transform: translateX(12px) rotate(7deg); }
+.service-fan img:nth-child(2):not(:last-child) { z-index: 1; transform: translateY(-1px); }
+@media (hover: hover) and (pointer: fine) {
+  .service-choice:hover .service-fan img:nth-child(1):not(:only-child) { transform: translateX(-14px) rotate(-11deg); }
+  .service-choice:hover .service-fan img:nth-child(2):last-child { transform: translateX(14px) rotate(9deg); }
+  .service-choice:hover .service-fan img:nth-child(3) { transform: translateX(14px) rotate(11deg); }
+  .service-choice:hover .service-fan img:nth-child(2):not(:last-child) { transform: translateY(-3px); }
+  .service-choice:hover .service-fan img:only-child { transform: rotate(-3deg) scale(1.06); }
+}
+
+/* ---------- Additional scopes: compact, clearly secondary ---------- */
+body.case-gallery-layout .services-sidebar.sidebar .information-practice-list { margin-top: 8px; }
+body.case-gallery-layout .services-sidebar.sidebar .services-practice .service-choice { padding: 7px 0; min-height: 48px; }
+body.case-gallery-layout .services-sidebar.sidebar .services-practice .service-choice > h2 { align-items: center; gap: 12px; }
+body.case-gallery-layout .services-sidebar.sidebar .services-practice .service-teaser { display: none; }
+body.case-gallery-layout .services-sidebar.sidebar .services-practice .service-choice-title { font-size: 15px; line-height: 20px; font-weight: 400; letter-spacing: -.015em; }
+.service-icon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  background: var(--gray-28);
+  color: var(--gray-221);
+}
+.service-icon svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ---------- Inside an open service: a clean checklist ---------- */
+body.case-gallery-layout .services-sidebar.sidebar .service-detail { padding-top: 2px; padding-bottom: 20px; }
+body.case-gallery-layout .services-sidebar.sidebar .service-detail-group { margin-top: 18px; }
+body.case-gallery-layout .services-sidebar.sidebar .service-scope-list { display: grid; gap: 7px; margin: 0; }
+body.case-gallery-layout .services-sidebar.sidebar .service-scope-list > li {
+  display: block;
+  position: relative;
+  padding: 0 0 0 22px;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: -.015em;
+  color: var(--gray-221);
+}
+body.case-gallery-layout .services-sidebar.sidebar .service-scope-list > li::before {
+  position: absolute;
+  top: 3px;
+  left: 0;
+  width: 14px;
+  height: 14px;
+  border-radius: 0;
+  background: var(--sv-accent, #f3c74b);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='m2.5 7.5 3 3 6-7' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='m2.5 7.5 3 3 6-7' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+body.case-gallery-layout .services-sidebar.sidebar .service-existing-note { margin-top: 12px; font-size: 13px; line-height: 19px; color: var(--muted); }
+
+/* ---------- Client feedback: a real voice, then the rest ---------- */
+body.case-gallery-layout .services-sidebar.sidebar .services-feedback .information-reviews { margin-top: 14px; }
+body.case-gallery-layout .services-sidebar.sidebar .services-feedback > .information-reviews .information-review { padding: 0; border: 0; }
+body.case-gallery-layout .services-sidebar.sidebar .services-feedback > .information-reviews blockquote { margin: 12px 0 0; }
+body.case-gallery-layout .services-sidebar.sidebar .services-feedback > .information-reviews blockquote p { font-size: 15px; line-height: 23px; letter-spacing: -.015em; color: var(--gray-238); }
+body.case-gallery-layout .services-sidebar.sidebar .services-feedback > .information-reviews .review-actions { margin-top: 12px; }
+body.case-gallery-layout .services-sidebar.sidebar .services-more-reviews { margin: 16px 0 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+body.case-gallery-layout .services-sidebar.sidebar .services-more-reviews > summary { justify-content: flex-start; gap: 10px; min-height: 56px; padding: 10px 0; }
+body.case-gallery-layout .services-sidebar.sidebar .services-more-reviews .case-disclosure-label { font-size: 13px; line-height: 18px; letter-spacing: -.01em; white-space: nowrap; color: var(--gray-221); }
+body.case-gallery-layout .services-sidebar.sidebar .services-more-reviews .case-disclosure-heading { min-width: 0; }
+.review-stack { display: flex; flex: none; }
+.review-stack img {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 0 0 2px var(--gray-18);
+}
+.review-stack img + img { margin-left: -10px; }
+
+/* ---------- How we work: the steps are visible, details on demand ---------- */
+.services-steps { position: relative; margin: 10px 0 0; padding: 0; list-style: none; }
+.services-steps > li { position: relative; margin: 0; padding: 0; }
+.services-steps > li:not(:last-child)::before {
+  content: '';
+  position: absolute;
+  top: 38px;
+  bottom: -8px;
+  left: 14.5px;
+  width: 1px;
+  background: var(--gray-48);
+}
+.services-step > summary {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+  padding: 8px 0;
+  list-style: none;
+  cursor: pointer;
+}
+.services-step > summary::-webkit-details-marker { display: none; }
+.services-step > summary > .case-process-index {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 27px;
+  height: 27px;
+  border: 1px solid var(--gray-72);
+  border-radius: 50%;
+  font-size: 11px;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  color: var(--gray-204);
+  transition: background-color 160ms ease, color 160ms ease, border-color 160ms ease;
+}
+.services-step[open] > summary > .case-process-index { border-color: var(--sv-accent, #f3c74b); background: var(--sv-accent, #f3c74b); color: var(--gray-18); }
+body.case-gallery-layout .services-sidebar.sidebar .services-step > summary > h3 { margin: 0; font-size: 15px; line-height: 20px; font-weight: 400; letter-spacing: -.015em; color: var(--ink); }
+.services-step .service-disclosure-panel > p { margin: 0; padding: 0 24px 12px 42px; font-size: 14px; line-height: 21px; letter-spacing: -.01em; color: var(--muted); }
+@supports selector(details::details-content) and (transition-behavior:allow-discrete) {
+  .services-step::details-content { display: grid; grid-template-rows: 0fr; opacity: 0; transition: grid-template-rows 250ms var(--ease-out), opacity 200ms ease, content-visibility 250ms allow-discrete; }
+  .services-step[open]::details-content { grid-template-rows: 1fr; opacity: 1; }
+}
+
+/* ---------- Questions: same row, same weight as the other small rows ---------- */
+body.case-gallery-layout .services-sidebar.sidebar .infinite-faq-heading p { margin-bottom: 8px; }
+body.case-gallery-layout .services-sidebar.sidebar .infinite-faq-item > summary { font-size: 15px; line-height: 20px; letter-spacing: -.015em; color: var(--ink); }
+
+body.case-gallery-layout .services-sidebar.sidebar :is(.services-step > summary, .infinite-faq-item > summary, .services-more-reviews > summary):focus-visible,
+.services-sidebar .service-choice:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; border-radius: 4px; }
+
+@media (hover: hover) and (pointer: fine) {
+  body.case-gallery-layout .services-sidebar.sidebar :is(.services-step > summary, .infinite-faq-item > summary, .services-more-reviews > summary):hover::after { color: var(--ink); }
+  .services-step > summary:hover > .case-process-index { border-color: var(--gray-153); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .service-fan img, .services-step > summary > .case-process-index { transition: none; }
+  .services-step::details-content { transition: none; }
+  body.case-gallery-layout .services-sidebar.sidebar :is(.services-step > summary, .infinite-faq-item > summary, .services-more-reviews > summary)::after { transition: none; }
+}
