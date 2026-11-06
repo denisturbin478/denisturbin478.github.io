@@ -464,8 +464,7 @@ button.footer-email.is-confirmed [data-evil-face="success"] svg { animation: cop
   z-index: 40;
   display: grid;
   justify-items: end;
-  gap: 2px;
-  padding: 10px 6px;
+  padding: 10px 6px 10px 4px;
   transform: translateY(-50%);
 }
 .case-ticks[hidden] { display: none; }
@@ -491,8 +490,8 @@ button.footer-email.is-confirmed [data-evil-face="success"] svg { animation: cop
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  width: 22px;
-  min-height: 18px;
+  width: 24px;
+  min-height: 24px;
   padding: 0;
   border:0;
   background:none;
@@ -694,7 +693,7 @@ button.footer-email.is-confirmed [data-evil-face="success"] svg { animation: cop
     z-index: 2;
     height: 84px;
     pointer-events: none;
-    background: linear-gradient(to bottom, rgba(18, 18, 18, 0), rgba(18, 18, 18, .92) 42%, rgb(18, 18, 18) 62%);
+    background: linear-gradient(to bottom, rgba(18, 18, 18, 0), rgba(18, 18, 18, .88) 24%, rgb(18, 18, 18) 40%);
   }
   /* The bar replaces "Back to work" on the About, Services and Contact pages. */
   body:is(.about-layout-page, .information-layout-page):not(.photography-layout-page) .case-back { display: none; }
