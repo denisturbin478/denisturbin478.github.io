@@ -589,7 +589,7 @@ body[data-page=contact] .brief-result{border-radius:0;background:transparent;bor
  .contact-actions,.contact-brand-buttons{gap:var(--label-gap)}
  .contact-start-button::after,.contact-contra-badge::after,.contact-whatsapp-button::after{content:'';position:absolute;inset:-4px 0}
 }
-.footer-email:hover{text-decoration:underline;text-underline-offset:3px}
+.footer-email:hover{color:var(--gray-255)}
 .email-copy-control{position:relative;display:inline-flex;align-items:center;max-width:100%;vertical-align:middle}
 button.footer-email{display:inline-flex;align-items:center;min-height:44px;margin:0;padding:0;font:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;text-align:left}
 .email-copy-action{padding-bottom:20px}
