@@ -307,26 +307,99 @@ body.case-gallery-layout .sidebar .case-visual-index > li > span {
   color:var(--gray-187);
 }
 
-/* ---------- Reach out: a warm, personal card ---------- */
-body.case-gallery-layout .sidebar .case-reachout {
-  position: relative;
-  padding: 20px 20px 20px;
-  border:1px solid var(--sv-edge);
-  border-radius: 20px;
-  background:var(--sv-soft);
+/* ---------- Reach out: a quiet card with one clear action ---------- */
+body .site-shell :is(.case-reachout, #profile-contact, .mobile-reachout) {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr);
+  gap: 0 12px;
+  align-items: center;
+  margin-top: var(--section-gap, 32px);
+  padding: 20px;
+  border: 1px solid rgba(255, 255, 255, .09);
+  border-radius: 16px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, .05), rgba(255, 255, 255, .02)), var(--gray-18);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .05);
 }
-body.case-gallery-layout .sidebar .case-reachout::before {
+body .site-shell :is(.case-reachout, #profile-contact)::before {
   content: '';
   display: block;
-  width: 44px;
-  height: 44px;
-  margin-bottom: 12px;
+  grid-column: 1;
+  width: 40px;
+  height: 40px;
+  margin: 0;
   border-radius: 50%;
-  background:url('/assets/portrait.webp') center / cover;
-  box-shadow:0 0 0 2px var(--sv-soft), 0 0 0 4px var(--sv-accent);
+  background: url('/assets/portrait.webp') center / cover;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, .16);
 }
-body.case-gallery-layout .sidebar .case-reachout h2 { font-size: 20px; }
-body.case-gallery-layout .sidebar .case-reachout p { color:var(--gray-214); }
+body .site-shell .mobile-reachout .mobile-reachout-portrait {
+  grid-column: 1;
+  width: 40px;
+  height: 40px;
+  margin: 0;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, .16);
+}
+body .site-shell #profile-contact .profile-section-intro { display: contents; }
+body .site-shell :is(.case-reachout, #profile-contact, .mobile-reachout) h2 {
+  grid-column: 2;
+  margin: 0;
+  font-size: 18px;
+  line-height: 24px;
+  font-weight: 500;
+  letter-spacing: -.025em;
+  color: var(--ink);
+  text-wrap: balance;
+}
+body .site-shell :is(.case-reachout, #profile-contact, .mobile-reachout) p {
+  grid-column: 1 / -1;
+  margin: 14px 0 16px;
+  font-size: 14px;
+  line-height: 21px;
+  letter-spacing: -.012em;
+  color: var(--gray-204);
+}
+body .site-shell :is(.case-reachout, #profile-contact, .mobile-reachout) .contact-actions {
+  display: grid;
+  grid-column: 1 / -1;
+  gap: 8px;
+  justify-items: stretch;
+  margin: 0;
+  width: 100%;
+}
+body .site-shell :is(.case-reachout, #profile-contact, .mobile-reachout) .contact-start-button {
+  width: 100%;
+  height: 44px;
+  min-height: 44px;
+  justify-content: center;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 10px;
+  background: var(--gray-245);
+  color: var(--gray-18);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: -.01em;
+  transition: background-color 160ms ease, transform 160ms ease;
+}
+body .site-shell :is(.case-reachout, #profile-contact, .mobile-reachout) .contact-start-button:hover { opacity: 1; background: var(--gray-255); }
+body .site-shell :is(.case-reachout, #profile-contact, .mobile-reachout) .contact-brand-buttons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(148px, 1fr));
+  gap: 8px;
+  width: 100%;
+}
+body .site-shell :is(.case-reachout, #profile-contact, .mobile-reachout) :is(.contact-contra-badge, .contact-whatsapp-button) {
+  width: 100%;
+  height: 42px;
+  min-height: 42px;
+  gap: 7px;
+  padding: 0 10px;
+  border-radius: 10px;
+  font-size: 13px;
+  letter-spacing: -.01em;
+}
+body .site-shell :is(.case-reachout, #profile-contact, .mobile-reachout) :is(.contact-contra-badge, .contact-whatsapp-button) img { width: 15px; height: 15px; }
 
 /* ---------- About: facts as one card, a row per fact ---------- */
 body.case-gallery-layout .sidebar :is(.about-working-facts, .about-toolkit) {

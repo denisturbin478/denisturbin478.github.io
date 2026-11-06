@@ -753,25 +753,6 @@ button.footer-email.is-confirmed [data-evil-face="success"] svg { animation: cop
 .trust-ranking-details > summary { list-style: none; }
 .trust-ranking-details > summary::-webkit-details-marker { display: none; }
 
-/* Home sidebar: the closing section becomes the same warm card as elsewhere. */
-#profile-contact {
-  margin-top: 28px;
-  padding: 20px;
-  border:1px solid color-mix(in oklab, #f3c74b 38%, var(--gray-41));
-  border-radius: 20px;
-  background:color-mix(in oklab, #f3c74b 12%, var(--gray-23));
-}
-#profile-contact::before {
-  content: '';
-  display: block;
-  width: 44px;
-  height: 44px;
-  margin-bottom: 12px;
-  border-radius: 50%;
-  background:url('/assets/portrait.webp') center / cover;
-  box-shadow:0 0 0 2px #1c1a14, 0 0 0 4px #f3c74b;
-}
-#profile-contact p { color:var(--gray-214); }
 /* Pills wrap rather than shrink, so "Expert" is never cut off. The open Contra note
    then takes its own full-width row (profile-trust.css). */
 body .sidebar .trust-credentials-inline { gap: 4px; flex-wrap: wrap; }
@@ -799,10 +780,6 @@ body .sidebar .trust-credentials-inline .trust-credential-icon img { width: 15px
     position: absolute;
     inset: -7px -3px;
   }
-}
-@media (pointer: coarse) {
-  body .site-shell .contact-contra-badge { display: inline-flex; align-items: center; }
-  body .site-shell .contact-contra-badge img { height: 44px; width: auto; }
 }
 .filter-indicator { border-radius: 0; transition: clip-path 240ms var(--ease-move); }
 @media (prefers-reduced-motion: reduce) { .filter-indicator { transition: none; } }

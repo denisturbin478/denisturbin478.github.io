@@ -579,14 +579,14 @@ body[data-page=contact] .brief-result{border-radius:0;background:transparent;bor
 /* Compact faces follow the authentic Contra raster's optical scale. */
 .contact-actions,.contact-brand-buttons{--contact-width:154px;--contact-height:36px;--contact-icon:16px;--contact-inset:8px;display:flex;flex-direction:column;align-items:flex-start;gap:var(--metadata-gap);width:100%}
 .contact-start-button,.contact-contra-badge,.contact-whatsapp-button{position:relative;display:flex;align-items:center;justify-content:flex-start;width:var(--contact-width);max-width:100%;height:var(--contact-height);min-height:var(--contact-height);text-decoration:none;border-radius:8px;flex-shrink:0;transition:opacity 160ms,transform 160ms var(--ease-out)}
-.contact-start-button,.contact-whatsapp-button{gap:6px;padding:0 var(--contact-inset);font-family:inherit;font-size:12.5px;line-height:18px;font-weight:600;letter-spacing:0;white-space:nowrap}
+.contact-start-button,.contact-contra-badge,.contact-whatsapp-button{gap:6px;padding:0 var(--contact-inset);font-family:inherit;font-size:12.5px;line-height:18px;font-weight:600;letter-spacing:0;white-space:nowrap}
 .contact-start-button{justify-content:center;background:var(--gray-245);color:var(--gray-18)}
-.contact-start-button svg,.contact-whatsapp-button img{display:block;width:var(--contact-icon);height:var(--contact-icon);flex-shrink:0}
+.contact-start-button svg,.contact-contra-badge img,.contact-whatsapp-button img{display:block;width:var(--contact-icon);height:var(--contact-icon);flex-shrink:0}
 .contact-start-button svg{stroke-width:1.75}
-.contact-contra-badge{background:transparent}
-.contact-contra-badge img{display:block;width:100%;height:auto;object-fit:contain}
-.contact-whatsapp-button{background:#25d366;color:var(--gray-18)}
-.contact-start-button:hover,.contact-contra-badge:hover,.contact-whatsapp-button:hover{opacity:.9}
+.contact-contra-badge,.contact-whatsapp-button{justify-content:center;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);color:var(--gray-238);font-weight:500;transition:background-color 160ms,border-color 160ms,transform 160ms}
+.contact-whatsapp-button img{filter:invert(1)}
+.contact-start-button:hover{opacity:.9}
+.contact-contra-badge:hover,.contact-whatsapp-button:hover{border-color:rgba(255,255,255,.22);background:rgba(255,255,255,.09)}
 .contact-start-button:active,.contact-contra-badge:active,.contact-whatsapp-button:active{transform:scale(.98)}
 @media(pointer:coarse){
  .contact-actions,.contact-brand-buttons{gap:var(--label-gap)}
