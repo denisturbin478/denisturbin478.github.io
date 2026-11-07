@@ -854,3 +854,25 @@ body .sidebar .trust-credentials-inline .trust-credential-icon img { width: 15px
 @media (max-width: 809px) { body:is([data-page=home], [data-page=work]) .profile-hiring { grid-column: 1 / -1; } }
 .contact-hiring { margin: 12px 0 0; font-size: 14px; line-height: 21px; color: var(--muted); }
 :is(.contact-hiring, .case-reachout p) a:is([download], [href*="service=role"]) { color: var(--gray-245); text-decoration: underline; text-decoration-color: var(--gray-119); text-underline-offset: 3px; }
+
+/* Why trust me: real client quotes straight under the hero. Phones show one, so the work stays close. */
+.profile-proof { margin-top: 24px; }
+.profile-proof > h2 { margin: 0; font-size: 16px; line-height: 22px; font-weight: 500; letter-spacing: -.02em; color: var(--gray-245); }
+.profile-proof-stats { margin: 2px 0 0; font-size: 13px; line-height: 18px; color: var(--muted); }
+.profile-proof-item { margin: 14px 0 0; padding: 14px 0 0; border-top: 1px solid var(--line); }
+.profile-proof-item blockquote { margin: 0; }
+.profile-proof-item p { margin: 0; font-size: 14px; line-height: 21px; letter-spacing: -.012em; color: var(--gray-221); }
+.profile-proof-item figcaption { display: flex; align-items: center; gap: 8px; margin-top: 8px; font-size: 13px; line-height: 18px; color: var(--muted); }
+.profile-proof-item figcaption img { flex: none; width: 24px; height: 24px; border-radius: 50%; object-fit: cover; }
+.profile-proof-item strong { font-weight: 500; color: var(--gray-221); }
+.profile-proof-more { margin-top: 14px; }
+.service-price { display: block; margin-top: 3px; font-size: 13px; line-height: 18px; font-variant-numeric: tabular-nums; color: var(--gray-221); }
+.profile-services-compact .service-price { display: none; }
+@media (max-width: 809px) {
+  body:is([data-page=home], [data-page=work]) .profile-proof { grid-column: 1 / -1; margin-top: 14px; }
+  .profile-proof > h2 { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .profile-proof-stats { margin-top: 0; }
+  .profile-proof-item { margin-top: 6px; padding-top: 0; border-top: 0; }
+  .profile-proof-item:nth-of-type(n + 2) { display: none; }
+  body .site-shell .sidebar .profile-proof-more { display: none; }
+}
