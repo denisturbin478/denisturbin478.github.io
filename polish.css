@@ -437,78 +437,6 @@ button.footer-email.is-confirmed [data-evil-face="success"] svg { animation: cop
   .case-gallery-footer a:hover { transform: none; }
 }
 
-/* 12. Case sidebar ticks ---------------------------------------------- */
-.case-ticks {
-  position: fixed;
-  top: 50%;
-  z-index: 40;
-  display: grid;
-  justify-items: end;
-  padding: 10px 6px 10px 0;
-  transform: translateY(-50%);
-}
-.case-ticks[hidden] { display: none; }
-/* The markers replace the scrollbar on pages that have them, so the two never collide. */
-@media (min-width: 810px) and (hover: hover) and (pointer: fine) {
-  .case-gallery-layout:not(.about-layout-page, .information-layout-page) .case-sidebar { scrollbar-width: none; scrollbar-gutter: auto; }
-}
-.case-ticks::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  width: 250px;
-  border-radius: 12px;
-  background:rgba(10,10,10, .95);
-  box-shadow:0 12px 30px rgba(0, 0, 0, .5), 0 0 0 1px rgba(255, 255, 255, .07);
-  opacity: 0;
-  transform: scaleX(.12);
-  transform-origin: right center;
-  transition: opacity 180ms ease, transform 280ms cubic-bezier(.22, .68, 0, 1);
-  pointer-events: none;
-}
-.case-ticks:is(:hover, :focus-within)::before { opacity: 1; transform: none; }
-.case-tick {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  width: 18px;
-  min-height: 24px;
-  padding: 0;
-  border:0;
-  background:none;
-  color:var(--gray-153);
-  font: inherit;
-  font-size: 12.5px;
-  cursor: pointer;
-}
-.case-tick-line {
-  display: block;
-  width: 12px;
-  height: 1px;
-  border-radius: 2px;
-  background:var(--gray-72);
-  transform: scaleX(.625);
-  transform-origin: right center;
-  transition: transform 220ms cubic-bezier(.22, .68, 0, 1), background-color 160ms ease;
-}
-.case-tick[aria-current] .case-tick-line { transform: none; background:var(--gray-245); }
-.case-tick:hover .case-tick-line { background:var(--gray-204); }
-.case-tick-label {
-  position: absolute;
-  right: calc(100% + 8px);
-  white-space: nowrap;
-  opacity: 0;
-  transform: translateX(8px);
-  transition: opacity 160ms ease, transform 240ms cubic-bezier(.22, .68, 0, 1);
-  pointer-events: none;
-}
-.case-ticks:is(:hover, :focus-within) .case-tick-label { opacity: 1; transform: none; pointer-events: auto; }
-.case-tick[aria-current] .case-tick-label, .case-tick:hover .case-tick-label { color:var(--gray-255); }
-.case-tick:focus-visible { outline:2px solid var(--focus); outline-offset: 2px; border-radius: 4px; }
-@media (prefers-reduced-motion: reduce) { .case-tick-line, .case-tick-label, .case-ticks::before { transition: none; } }
 
 /* 13. Street observations scrapbook ----------------------------------- */
 .scrapbook-toggle {
@@ -1167,4 +1095,34 @@ body .site-shell :is(.case-reachout, #profile-contact, .mobile-reachout) :is(.co
   .stream-stage { padding: 10px 10px 34px; border: 1px solid var(--gray-41); border-radius: 18px; background: #161616; }
   .stream-track { position: relative; padding: 18px 14px 18px; border-radius: 12px; background: #030303; box-shadow: inset 0 0 0 1px #000, inset 0 0 26px rgba(0, 0, 0, .9); }
   .stream-stage::before { content: ''; position: absolute; left: 50%; bottom: 14px; width: 86px; height: 5px; margin-left: -43px; border-radius: 2px; background: #050505; box-shadow: 0 0 0 1px #2c2c2c; }
+}
+
+/* Project pages are played on the same TV. The body is a render of the 3D set; its edges stretch to fit the panel. */
+@media (min-width: 810px) {
+  .case-gallery-layout:not(.about-layout-page, .information-layout-page:not(.photography-layout-page)) .case-gallery-pane { padding: 0 30px 118px; }
+  .case-gallery-layout:not(.about-layout-page, .information-layout-page:not(.photography-layout-page)) .case-gallery-bar { margin: 0 -30px 34px; padding-inline: 12px; }
+  .case-gallery-layout:not(.about-layout-page, .information-layout-page:not(.photography-layout-page)) .main-pane::after {
+    content: ''; position: fixed; z-index: 11; left: var(--sidebar-width); right: 0; top: 60px; bottom: 0; pointer-events: none;
+    border-style: solid; border-width: 60px 60px 130px;
+    border-image: url("/assets/tv-set.webp") 120 120 260 / 60px 60px 130px stretch;
+  }
+  .case-gallery-layout:not(.about-layout-page, .information-layout-page:not(.photography-layout-page)) .main-pane::before {
+    content: ''; position: fixed; z-index: 10; left: calc(var(--sidebar-width) + 21px); right: 21px; top: 80px; bottom: 96px; pointer-events: none;
+    border-radius: 20px; background: repeating-linear-gradient(0deg, rgba(255, 255, 255, .022) 0 1px, transparent 1px 3px);
+    box-shadow: inset 0 0 70px rgba(0, 0, 0, .62), inset 0 0 0 1px #000;
+  }
+  .tv-plate {
+    position: fixed; z-index: 29; left: calc(var(--sidebar-width) + 34px); right: 34px; bottom: 0; height: 90px; pointer-events: none;
+    display: flex; align-items: baseline; align-content: center; flex-wrap: wrap; gap: 2px 14px; padding-right: 310px;
+    background: url("/assets/tv-slot.webp") right center / 300px auto no-repeat;
+  }
+  .tv-plate b { font-size: clamp(22px, 2.5vw, 36px); line-height: 1.06; font-weight: 500; letter-spacing: -.035em; color: var(--gray-255); }
+  .tv-plate span { font-size: 13px; line-height: 1.3; letter-spacing: -.01em; color: var(--muted); white-space: nowrap; }
+}
+@media (min-width: 810px) and (max-width: 1100px) { .tv-plate { background: none; padding-right: 0; } }
+@media (max-width: 809px) {
+  .case-gallery-layout:not(.about-layout-page, .information-layout-page:not(.photography-layout-page)) .case-gallery-pane {
+    margin: 0 8px 24px; padding: 0 10px 14px; border: solid #161616; border-width: 10px 10px 34px; border-radius: 18px; background: #030303; box-shadow: 0 0 0 1px var(--gray-41);
+  }
+  .case-gallery-layout:not(.about-layout-page, .information-layout-page:not(.photography-layout-page)) .case-gallery-bar { margin-inline: -10px; }
 }
