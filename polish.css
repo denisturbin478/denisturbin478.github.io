@@ -1017,7 +1017,7 @@ body .site-shell :is(.case-reachout, #profile-contact, .mobile-reachout) :is(.co
   --led-rule: rgba(255, 255, 255, .28);
   --ghost: 1.5px 0 0 rgba(255, 64, 64, .2), -1.5px 0 0 rgba(64, 140, 255, .2), 0 0 6px rgba(255, 255, 255, .26);
 }
-.vhs, .tv-osd, .tv-plate { display: none; }
+.vhs, .tv-osd, .tv-plate, .tv-deck, .tv-shell, .tv-spill, .tv-badge { display: none; }
 .vhs-defs { position: absolute; width: 0; height: 0; }
 
 /* All type on a screen is the dot-matrix face, on its grid: 16 on 22, 24 on 33. */
@@ -1185,52 +1185,67 @@ html body .site-shell .main-pane :is(.project-media img, .case-gallery img, .cas
 /* Phones: the shelf and the galleries sit inside a small TV frame; the channels are real keys along the bottom. */
 @media (max-width: 809px) {
   .work-stream { margin-inline: 0; }
-  .stream-stage { padding: 10px 10px 34px; border: 1px solid var(--gray-41); border-radius: 18px; background: #101010; }
+  .stream-stage { padding: 10px 10px 34px; border: 0; border-radius: 18px; background: linear-gradient(to bottom, #39393c, #29292b); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .2), 0 0 0 1px #050505; }
   .stream-track { position: relative; padding: 18px 14px 18px; border-radius: 12px; background: #030303; box-shadow: inset 0 0 0 1px #000, inset 0 0 26px rgba(0, 0, 0, .9); }
   .stream-stage::before { content: ''; position: absolute; left: 50%; bottom: 14px; width: 86px; height: 5px; margin-left: -43px; border-radius: 2px; background: #050505; box-shadow: 0 0 0 1px #2c2c2c; }
   .case-gallery-layout:not(.about-layout-page, .information-layout-page:not(.photography-layout-page)) .case-gallery-pane {
-    margin: 0 8px 24px; padding: 0 10px 14px; border: solid #101010; border-width: 10px 10px 34px; border-radius: 18px; background: #030303; box-shadow: 0 0 0 1px var(--gray-41);
+    margin: 0 8px 24px; padding: 0 10px 14px; border: solid #2c2c2e; border-width: 10px 10px 34px; border-radius: 18px; background: #030303; box-shadow: 0 0 0 1px #050505, inset 0 0 0 1px #000;
   }
   .case-gallery-layout:not(.about-layout-page, .information-layout-page:not(.photography-layout-page)) .case-gallery-bar { margin-inline: -10px; }
   .case-gallery-layout .case-gallery-bar .case-gallery-links { display: none; }
   html body .site-shell .case-gallery-bar { justify-content: flex-end; }
   html body .mobile-switch, html body.case-gallery-layout .mobile-switch, html body.about-layout-page .mobile-switch, html body.information-layout-page .mobile-switch {
-    position: fixed; left: 0; right: 0; bottom: 0; top: auto; width: auto; margin: 0; display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 6px; height: auto; padding: 8px 10px calc(8px + env(safe-area-inset-bottom)); transform: none; border: 0; border-radius: 0; background: #0d0d0d; backdrop-filter: none; box-shadow: 0 -1px 0 #262626;
+    position: fixed; left: 0; right: 0; bottom: 0; top: auto; width: auto; margin: 0; display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 6px; height: auto; padding: 8px 10px calc(8px + env(safe-area-inset-bottom)); transform: none; border: 0; border-radius: 0; background: linear-gradient(to bottom, #39393c, #2b2b2e 40%, #232325); backdrop-filter: none; box-shadow: 0 -1px 0 #030303, inset 0 1px 0 rgba(255, 255, 255, .2);
   }
 }
 
 /* The keys. A render of a real cap: satin black metal in a sunk well, a polished bezel round it. */
 html body .mobile-switch a, html body .mobile-switch a:hover:not([aria-current]) {
   position: relative; display: flex; align-items: center; justify-content: center; height: 44px; min-height: 44px; padding: 5px 4px 0; border: 1px solid transparent; border-radius: 0; background: none;
-  border-image: url("/assets/tv-key.webp?v=369fb67deb") 54 fill / 18px stretch; box-shadow: none; color: #e9e9e9; font: 600 11.5px/1 "Inter Tight", sans-serif; letter-spacing: .08em; text-transform: uppercase; text-shadow: 0 -1px 0 #000; transition: filter 140ms ease;
+  border-image: url("/assets/tv-key.webp?v=7e38e1c0fc") 72 fill / 18px stretch; box-shadow: none; color: #e9e9e9; font: 600 11.5px/1 "Inter Tight", sans-serif; letter-spacing: .08em; text-transform: uppercase; text-shadow: 0 -1px 0 #000; transition: filter 140ms ease;
 }
 html body .mobile-switch a::before { content: ''; position: absolute; left: 50%; top: 8px; width: 14px; height: 2px; margin-left: -7px; background: #000; box-shadow: 0 1px 0 rgba(255, 255, 255, .13); }
 html body .mobile-switch a:hover:not([aria-current]) { color: #fff; filter: brightness(1.2); }
 html body .mobile-switch a[aria-current], html body .mobile-switch a:active, html body .mobile-switch.is-stretching a.is-target {
-  border: 1px solid transparent; border-image: url("/assets/tv-key-on.webp?v=e2be1386a4") 54 fill / 18px stretch; background: none; box-shadow: none; color: #fff; padding-top: 7px;
+  border: 1px solid transparent; border-image: url("/assets/tv-key-on.webp?v=bab7d78d4d") 72 fill / 18px stretch; background: none; box-shadow: none; color: #fff; padding-top: 7px;
 }
 html body .mobile-switch a[aria-current]::before, html body .mobile-switch.is-stretching a.is-target::before { background: #fff; box-shadow: 0 0 7px 1px rgba(255, 255, 255, .85); }
-html body .mobile-switch.is-stretching a[aria-current]:not(.is-target) { border-image: url("/assets/tv-key.webp?v=369fb67deb") 54 fill / 18px stretch; padding-top: 5px; color: #e9e9e9; }
+html body .mobile-switch.is-stretching a[aria-current]:not(.is-target) { border-image: url("/assets/tv-key.webp?v=7e38e1c0fc") 72 fill / 18px stretch; padding-top: 5px; color: #e9e9e9; }
 html body .mobile-switch.is-stretching a[aria-current]:not(.is-target)::before { background: #000; box-shadow: 0 1px 0 rgba(255, 255, 255, .13); }
 html body .mobile-switch .tab-stretch { display: none !important; }
 html body .mobile-switch a:focus-visible, .tv-transport a:focus-visible, html body .site-shell .ui-sound-toggle:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
 
 @media (min-width: 810px) {
-  :root { --m: 14px; --panel-top: 15px; --panel-bottom: 73px; --tube-x: 40px; --tube-top: 40px; --tube-bottom: 98px; --tube-h: calc(100svh - var(--tube-top) - var(--tube-bottom)); --pad: 36px; }
-  /* The body of the set: fine-blasted black metal. */
-  html, html body, html body.case-gallery-layout {
-    background: #0d0d0d url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 .5 0 0 0 -.18'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E");
-  }
-  /* The left screen: flat LED glass in a thin polished ring. Same top and bottom as the tube. */
+  :root { --m: 18px; --deck: 72px; --plate: 14px; --wall: 26px; --panel-top: var(--m); --panel-bottom: calc(var(--deck) + var(--plate)); --tube-x: calc(var(--m) + var(--wall)); --tube-top: calc(var(--m) + var(--wall)); --tube-bottom: calc(var(--panel-bottom) + var(--wall)); --tube-h: calc(100svh - var(--tube-top) - var(--tube-bottom)); --pad: 36px; }
+  /* The body of the set: bead-blasted graphite, lit from above. All the light and shadow on it comes from rendered parts. */
+  html:root { background: url("/assets/tv-grain.webp?v=7c7906b080") 0 0 / 160px 160px, linear-gradient(to bottom, #333336, #2b2b2e 22%, #252528 62%, #1f1f21) #29292b; background-blend-mode: overlay, normal; }
+  html body, html body.case-gallery-layout { background: transparent; }
+  /* The control deck: its own slab, with a seam along the top. */
+  .tv-deck { display: block; position: fixed; z-index: -1; left: 0; right: 0; bottom: 0; height: var(--deck); background: url("/assets/tv-grain.webp?v=7c7906b080") 0 0 / 160px 160px, linear-gradient(to bottom, #39393c, #2d2d30 34%, #232325) #2b2b2d; background-blend-mode: overlay, normal; box-shadow: 0 -1px 0 #030303, 0 -2px 7px rgba(0, 0, 0, .5), inset 0 1px 0 rgba(255, 255, 255, .2), inset 0 2px 1px rgba(255, 255, 255, .04); }
+  /* The rounded edge of the whole set, where it meets the dark room. */
+  .tv-shell { display: block; position: fixed; z-index: 28; inset: 0; box-sizing: border-box; border-style: solid; border-width: 44px; border-image: url("/assets/tv-shell.webp?v=d1088e8e9b") 88 / 44px stretch; pointer-events: none; }
+  /* The maker's mark, moulded in the plate under the tube. */
+  .tv-badge { display: block; position: fixed; z-index: 1; left: calc(var(--sidebar-width) + (100% - var(--sidebar-width)) / 2); bottom: calc(var(--deck) + 1px); transform: translateX(-50%); font: 600 9px/13px "Inter Tight", sans-serif; letter-spacing: .32em; color: rgba(255, 255, 255, .34); text-shadow: 0 -1px 0 rgba(0, 0, 0, .75); pointer-events: none; }
+  /* The picture lights the hood it sits in. */
+  .tv-spill { display: block; position: fixed; z-index: 15; left: calc(var(--sidebar-width) + var(--tube-x)); right: var(--tube-x); top: var(--tube-top); bottom: var(--tube-bottom); border-radius: 62px; pointer-events: none; box-shadow: 0 0 20px 2px rgba(255, 255, 255, .05); clip-path: inset(calc(var(--wall) * -1) round 86px); transition: box-shadow .9s ease; }
+  body.tv-show .tv-spill { box-shadow: 0 0 26px 3px var(--tube-glow, rgba(255, 255, 255, .1)); }
+  body.image-open :is(.tv-spill, .tv-badge) { display: none; }
+
+  /* The left screen: LED glass set back in a window in the plate. Same top and bottom as the tube. */
   html body .site-shell .sidebar, html body.case-gallery-layout .site-shell .sidebar, html body.case-gallery-layout .sidebar.case-sidebar {
-    box-sizing: border-box; align-self: start; width: calc(100% - var(--m)); max-width: none; height: calc(100svh - var(--panel-top) - var(--panel-bottom)); margin: var(--panel-top) 0 0 var(--m); padding: 18px 20px 24px; border: 2px solid transparent; border-radius: 16px; overflow-x: clip;
-    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Crect width='3' height='3' fill='%23fff' fill-opacity='.042'/%3E%3C/svg%3E") padding-box, linear-gradient(#010101, #010101) padding-box, linear-gradient(to bottom, #f6f6f6, #707070 8%, #2a2a2a 50%, #707070 92%, #eaeaea) border-box;
+    box-sizing: border-box; align-self: start; width: calc(100% - var(--m)); max-width: none; height: calc(100svh - var(--panel-top) - var(--panel-bottom)); margin: var(--panel-top) 0 0 var(--m); padding: 26px 24px 32px; border: 0; border-radius: 16px; overflow-x: clip;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Crect width='3' height='3' fill='%23fff' fill-opacity='.042'/%3E%3C/svg%3E"), #010101;
   }
   html body .site-shell .sidebar .profile-content, html body.information-layout-page .information-sidebar .profile-content { padding: 0; }
-  html body .site-shell .sidebar::before { content: none; }
+  /* The window frame, drawn over the edge of the glass, so the text slides under it. */
+  html body .site-shell .sidebar::before {
+    content: ''; display: block; box-sizing: border-box; position: fixed; z-index: 9; left: calc(var(--m) - 8px); top: calc(var(--panel-top) - 8px); width: calc(var(--sidebar-width) - var(--m) + 16px); height: calc(100svh - var(--panel-top) - var(--panel-bottom) + 16px); pointer-events: none;
+    border-style: solid; border-width: 44px; border-image: url("/assets/tv-panel.webp?v=9a0f413dc8") 88 / 44px stretch;
+  }
+  /* The glass: a shadow from the wall, one soft reflection. */
   html body .site-shell .sidebar::after {
-    content: ''; display: block; position: fixed; z-index: 8; left: calc(var(--m) + 2px); top: calc(var(--panel-top) + 2px); bottom: auto; flex: none; width: calc(var(--sidebar-width) - var(--m) - 4px); height: calc(100svh - var(--panel-top) - var(--panel-bottom) - 4px); border-radius: 14px; pointer-events: none;
-    background: none; box-shadow: inset 0 3px 12px rgba(0, 0, 0, .95), inset 0 0 30px rgba(0, 0, 0, .5);
+    content: ''; display: block; position: fixed; z-index: 8; left: calc(var(--m) + 8px); top: calc(var(--panel-top) + 8px); bottom: auto; flex: none; width: calc(var(--sidebar-width) - var(--m) - 16px); height: calc(100svh - var(--panel-top) - var(--panel-bottom) - 16px); border-radius: 9px; pointer-events: none;
+    background: linear-gradient(112deg, rgba(255, 255, 255, .05), rgba(255, 255, 255, .012) 26%, rgba(255, 255, 255, 0) 38%); box-shadow: inset 0 4px 10px rgba(0, 0, 0, .9), inset 0 0 22px rgba(0, 0, 0, .5);
   }
   html body .site-shell .sidebar .bio-stack { padding: 0; margin: 0; }
   :is(.main-pane, .sidebar) { scrollbar-width: none; scrollbar-gutter: auto; }
@@ -1247,10 +1262,10 @@ html body .mobile-switch a:focus-visible, .tv-transport a:focus-visible, html bo
   }
   html body .workspace-content, html body.case-gallery-layout .case-gallery-pane, html body .workspace-content, html body.case-gallery-layout .case-gallery-pane, html body:is([data-page=home], [data-page=work]) .workspace-content { z-index: auto; padding: 72px var(--pad) 72px; }
   html body:is([data-page=home], [data-page=work]) .workspace-content { padding-top: 0; }
-  /* The polished rim and the deep hood. */
+  /* The window in the plate: a polished bead, a satin wall sloping back to the tube. */
   html body main.main-pane::after {
-    content: ''; box-sizing: border-box; position: fixed; z-index: 11; left: var(--sidebar-width); right: 0; top: 0; bottom: 0; pointer-events: none; border-style: solid; border-width: 110px 110px 170px;
-    border-image: url("/assets/tv-set.webp?v=4c533659bd") 220 220 340 / 110px 110px 170px stretch;
+    content: ''; box-sizing: border-box; position: fixed; z-index: 11; left: var(--sidebar-width); right: 0; top: 0; bottom: 0; pointer-events: none; border-style: solid; border-width: 170px 170px 210px;
+    border-image: url("/assets/tv-set.webp?v=e4ea756080") 340 340 420 / 170px 170px 210px stretch;
   }
   /* The glass over real pages: the pillow edge of the picture, phosphor mesh, dark sides, a window reflection. */
   html body main.main-pane::before {
@@ -1277,22 +1292,20 @@ html body .mobile-switch a:focus-visible, .tv-transport a:focus-visible, html bo
   .tv-plate { position: fixed; z-index: 20; display: flex; align-items: center; gap: 6px; left: calc(var(--sidebar-width) + var(--m)); right: var(--m); bottom: 14px; height: 44px; view-transition-name: tv-plate; }
   .tv-plate { pointer-events: none; }
   .tv-plate > :is(.tv-transport, .tv-meter) { pointer-events: auto; }
-  .tv-led {
-    position: relative; box-sizing: border-box; flex: 1 1 auto; min-width: 0; height: 44px; border: 1px solid transparent; border-radius: 5px; overflow: hidden;
-    background: linear-gradient(#010101, #010101) padding-box, linear-gradient(to bottom, #e8e8e8, #5c5c5c 26%, #262626 62%, #8a8a8a) border-box; box-shadow: 0 2px 5px rgba(0, 0, 0, .7);
-  }
-  .tv-led::before { content: ''; position: absolute; left: 9px; right: 9px; top: 7px; height: 28px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Crect width='3' height='3' fill='%23fff' fill-opacity='.055'/%3E%3C/svg%3E") 0 0 / 4px 4px; }
-  .tv-led :is(canvas, .tv-led-first) { position: absolute; left: 9px; top: 7px; display: block; filter: drop-shadow(1.5px 0 0 rgba(255, 64, 64, .3)) drop-shadow(-1.5px 0 0 rgba(64, 140, 255, .3)) drop-shadow(0 0 3px rgba(255, 255, 255, .5)); animation: led-jitter 7.3s steps(1) infinite; }
+  .tv-led { position: relative; flex: 1 1 auto; min-width: 0; height: 44px; border-radius: 6px; overflow: hidden; background: #010101; }
+  .tv-led::before { content: ''; position: absolute; left: 9px; right: 9px; top: 8px; height: 28px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Crect width='3' height='3' fill='%23fff' fill-opacity='.055'/%3E%3C/svg%3E") 0 0 / 4px 4px; }
+  .tv-led::after { content: ''; position: absolute; z-index: 2; inset: 0; box-sizing: border-box; border-style: solid; border-width: 12px; border-image: url("/assets/tv-well.webp?v=f4d70d3242") 36 / 12px stretch; pointer-events: none; }
+  .tv-led :is(canvas, .tv-led-first) { position: absolute; left: 9px; top: 8px; display: block; filter: drop-shadow(1.5px 0 0 rgba(255, 64, 64, .3)) drop-shadow(-1.5px 0 0 rgba(64, 140, 255, .3)) drop-shadow(0 0 3px rgba(255, 255, 255, .5)); animation: led-jitter 7.3s steps(1) infinite; }
   .tv-transport { flex: none; display: flex; gap: 6px; }
   .tv-transport a, html body .site-shell .ui-sound-toggle, html body .site-shell .toolbar-utilities > .ui-sound-toggle, html body .site-shell .workspace-settings > .ui-sound-toggle {
-    display: flex; align-items: center; justify-content: center; width: 52px; height: 44px; min-height: 44px; padding: 0; border: 1px solid transparent; border-radius: 0; background: none; border-image: url("/assets/tv-key.webp?v=369fb67deb") 54 fill / 18px stretch; box-shadow: none; color: #e9e9e9; transition: filter 140ms ease;
+    display: flex; align-items: center; justify-content: center; width: 52px; height: 44px; min-height: 44px; padding: 0; border: 1px solid transparent; border-radius: 0; background: none; border-image: url("/assets/tv-key.webp?v=7e38e1c0fc") 72 fill / 18px stretch; box-shadow: none; color: #e9e9e9; transition: filter 140ms ease;
   }
   .tv-transport a:hover, html body .site-shell .ui-sound-toggle:hover { color: #fff; filter: brightness(1.22); background: none; }
-  .tv-transport a:active, html body .site-shell .ui-sound-toggle:active { border-image-source: url("/assets/tv-key-on.webp?v=e2be1386a4"); color: #fff; filter: none; transform: none; }
-  html body .site-shell .ui-sound-toggle[aria-pressed=true] { border-image-source: url("/assets/tv-key-on.webp?v=e2be1386a4"); color: #fff; }
+  .tv-transport a:active, html body .site-shell .ui-sound-toggle:active { border-image-source: url("/assets/tv-key-on.webp?v=bab7d78d4d"); color: #fff; filter: none; transform: none; }
+  html body .site-shell .ui-sound-toggle[aria-pressed=true] { border-image-source: url("/assets/tv-key-on.webp?v=bab7d78d4d"); color: #fff; }
   html body .site-shell .ui-sound-toggle, html body .site-shell .toolbar-utilities > .ui-sound-toggle, html body .site-shell .workspace-settings > .ui-sound-toggle { position: fixed; z-index: 21; right: calc(var(--m) + 112px); bottom: 14px; flex: none; view-transition-name: tv-sound; }
   .tv-sound-room { flex: none; width: 52px; }
-  .tv-dial { position: relative; flex: none; width: 52px; height: 52px; margin: -4px 0 -4px 12px; background: url("/assets/tv-dial.webp?v=fc86fbfde7") center / contain no-repeat; filter: drop-shadow(0 3px 5px rgba(0, 0, 0, .85)); }
+  .tv-dial { position: relative; flex: none; width: 52px; height: 52px; margin: -4px 0 -4px 12px; background: url("/assets/tv-dial.webp?v=833b1bc597") center / contain no-repeat; }
   .tv-dial-s { width: 36px; height: 36px; margin: 4px 0 4px 12px; }
   @media (max-width: 1000px) {
     .tv-dial-s { display: none; }
@@ -1322,7 +1335,8 @@ html body .mobile-switch a:focus-visible, .tv-transport a:focus-visible, html bo
   .reading-progress { display: none !important; }
 
   /* Tapes: before the picture starts, and wherever WebGL can't run. */
-  html body .tv-canvas { position: fixed; z-index: 12; left: var(--sidebar-width); top: 0; width: calc(100vw - var(--sidebar-width)); height: 100svh; opacity: 0; pointer-events: none; }
+  html body .tv-canvas { position: fixed; z-index: 10; left: calc(var(--sidebar-width) + var(--tube-x)); top: var(--tube-top); width: calc(100vw - var(--sidebar-width) - var(--tube-x) * 2); height: var(--tube-h); border-radius: 62px; opacity: 0; pointer-events: none; }
+  html body.tv-show main.main-pane::before { z-index: 9; }
   html body .work-stream { margin: -112px calc(var(--pad) * -1) 0; }
   .stream-stage { position: relative; }
   .tv-on .stream-track { visibility: hidden; }
@@ -1336,7 +1350,7 @@ html body .mobile-switch a:focus-visible, .tv-transport a:focus-visible, html bo
   /* VHS on every screen. Layers over the picture, so nothing below them has to repaint. */
   .vhs { display: block; position: fixed; z-index: 16; overflow: hidden; pointer-events: none; container-type: size; }
   .vhs-tube { left: calc(var(--sidebar-width) + var(--tube-x)); right: var(--tube-x); top: var(--tube-top); bottom: var(--tube-bottom); border-radius: 62px; }
-  .vhs-panel { left: calc(var(--m) + 2px); top: calc(var(--panel-top) + 2px); width: calc(var(--sidebar-width) - var(--m) - 4px); height: calc(100svh - var(--panel-top) - var(--panel-bottom) - 4px); border-radius: 14px; }
+  .vhs-panel { left: calc(var(--m) + 8px); top: calc(var(--panel-top) + 8px); width: calc(var(--sidebar-width) - var(--m) - 16px); height: calc(100svh - var(--panel-top) - var(--panel-bottom) - 16px); border-radius: 9px; }
   .tv-led .vhs-led { position: absolute; inset: 0; z-index: 1; }
   .vhs i { position: absolute; display: block; }
   .vhs-lines { inset: 0; background: repeating-linear-gradient(to bottom, rgba(0, 0, 0, .24) 0 1px, transparent 1px 3px); animation: vhs-flicker 4.3s steps(1) infinite; }
@@ -1396,4 +1410,4 @@ html body .mobile-switch a:focus-visible, .tv-transport a:focus-visible, html bo
   .stream-track { --cw: 36vw; padding: 8px 0 20px; }
   .stream-caption { position: static; padding-top: 4px; }
 }
-@media print { .tv-plate, .tv-osd, .vhs, .tv-canvas { display: none !important; } main.main-pane::before, main.main-pane::after, .sidebar::after { display: none !important; } }
+@media print { .tv-plate, .tv-osd, .vhs, .tv-canvas, .tv-deck, .tv-shell, .tv-spill, .tv-badge { display: none !important; } main.main-pane::before, main.main-pane::after, .sidebar::after { display: none !important; } }
