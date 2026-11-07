@@ -1,3 +1,6 @@
+/* DT LED: built by scripts/build-led-font.py */
+@font-face { font-family: "DT LED"; font-display: block; src: url("data:font/woff2;base64,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") format("woff2"); }
+/* /DT LED */
 /* November 2026 polish pass. Loaded last so it can refine earlier rules. */
 
 /* 1. Cards show a soft surface, not a black void, while their image loads. */
@@ -1093,14 +1096,12 @@ body .site-shell :is(.secondary-action-button, .work-closing-link, .contact-cont
   /* The left column: a recessed LED panel with a polished ring. */
   .site-shell .sidebar, .case-gallery-layout .site-shell .sidebar, body.case-gallery-layout .sidebar.case-sidebar {
     align-self: start; height: calc(100svh - 86px); margin: 14px 8px 72px 14px; border: 0; border-radius: 14px;
-    background: #020202 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='3' height='3'%3E%3Crect width='2' height='2' fill='%23fff' fill-opacity='.032'/%3E%3C/svg%3E");
-    text-shadow: 0 0 11px rgba(255, 255, 255, .13);
+    background: #010101 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Crect width='3' height='3' fill='%23fff' fill-opacity='.042'/%3E%3C/svg%3E");
   }
   /* The fade that sat under the old floating menu becomes the panel's LED mesh and its recessed edge. */
   body .site-shell .sidebar::after {
     content: ''; display: block; position: fixed; z-index: 8; left: 14px; top: 14px; bottom: auto; flex: none; width: calc(var(--sidebar-width) - 22px); height: calc(100svh - 86px); border-radius: 14px; pointer-events: none;
-    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='3' height='3'%3E%3Cpath fill-opacity='.16' d='M2 0h1v3H0V2h2z'/%3E%3C/svg%3E");
-    box-shadow: inset 0 3px 12px rgba(0, 0, 0, .95), inset 0 0 30px rgba(0, 0, 0, .55);
+    background: none; box-shadow: inset 0 3px 12px rgba(0, 0, 0, .95), inset 0 0 30px rgba(0, 0, 0, .55);
   }
   body .site-shell .sidebar::before {
     content: ''; display: block; box-sizing: border-box; position: fixed; z-index: 9; left: 6px; top: 6px; width: calc(var(--sidebar-width) - 6px); height: calc(100svh - 70px); pointer-events: none;
@@ -1204,3 +1205,96 @@ body .site-shell :is(.secondary-action-button, .work-closing-link, .contact-cont
   .stream-track { padding: 20px 20px; }
 }
 @media print { .tv-plate, .tv-dials, .tv-canvas { display: none !important; } main.main-pane::before, main.main-pane::after, .sidebar::after, .sidebar::before { display: none !important; } }
+
+/* ---------- The left panel is one LED display: every word in dots, real text underneath ---------- */
+body .site-shell .sidebar { font-family: "DT LED", "Inter Tight", sans-serif; font-synthesis: none; font-kerning: none; text-shadow: 0 0 5px rgba(255, 255, 255, .3); }
+body .site-shell .sidebar *:not(svg, svg *, :is(.secondary-action-button, .work-closing-link, .contact-contra-badge, .contact-whatsapp-button, .footer-email, .profile-hiring, .cv-talk, .social-profile-button, .contact-start-button, .cv-download, .contact-primary-button, .case-outbound-primary), :is(.secondary-action-button, .work-closing-link, .contact-contra-badge, .contact-whatsapp-button, .footer-email, .profile-hiring, .cv-talk, .social-profile-button, .contact-start-button, .cv-download, .contact-primary-button, .case-outbound-primary) *) {
+  font-family: "DT LED", "Inter Tight", sans-serif !important; font-size: 16px !important; line-height: 22px !important; font-weight: 400 !important; letter-spacing: 0 !important; overflow-wrap: break-word;
+}
+/* Bigger dots for names and titles. */
+body .site-shell .sidebar :is(h1:not(.sr-only), .identity-name, h1:not(.sr-only) *) { font-size: 24px !important; line-height: 33px !important; color: var(--gray-255); text-transform: uppercase; }
+body .site-shell .sidebar :is(h2, h3, h2 *, h3 *) { color: var(--gray-255); text-transform: uppercase; }
+.identity.identity-row { grid-template-rows: auto auto; }
+.identity.identity-row .identity-copy > small { white-space: normal; margin-top: 0; }
+/* Words that lead somewhere are brightest; touching one inverts it, like a lit block on a display. */
+body .site-shell .sidebar .bio-stack, body .site-shell .sidebar .punk-word { color: var(--gray-255); }
+@media (min-width: 810px) { body .site-shell .sidebar .bio-stack { padding: 0; margin: 0; } }
+body .site-shell .sidebar :is(strong, b) { color: var(--gray-255); }
+body .site-shell .sidebar .bio-stack:hover, body .site-shell .sidebar .bio-stack.is-active { background: var(--gray-255); color: #000; text-shadow: none; }
+body .site-shell .sidebar :is(input, textarea, select) { text-shadow: none; }
+/* Plain selection here: the graffiti effect stays out of the display. */
+body.punk-on .sidebar *:not(input, textarea, select)::selection { background: #fff; color: #000; text-shadow: none; }
+/* Keys are hardware: engraved type, no glow. */
+body .site-shell .sidebar :is(.secondary-action-button, .work-closing-link, .contact-contra-badge, .contact-whatsapp-button, .footer-email, .profile-hiring, .cv-talk, .social-profile-button, .contact-start-button, .cv-download, .contact-primary-button, .case-outbound-primary), body .site-shell .sidebar :is(.secondary-action-button, .work-closing-link, .contact-contra-badge, .contact-whatsapp-button, .footer-email, .profile-hiring, .cv-talk, .social-profile-button, .contact-start-button, .cv-download, .contact-primary-button, .case-outbound-primary) * { font-family: "Inter Tight", sans-serif; text-shadow: none; }
+body .site-shell .sidebar :is(.secondary-action-button, .work-closing-link, .contact-contra-badge, .contact-whatsapp-button, .footer-email, .profile-hiring, .cv-talk, .social-profile-button), body .site-shell .sidebar :is(.secondary-action-button, .work-closing-link, .contact-contra-badge, .contact-whatsapp-button, .footer-email, .profile-hiring, .cv-talk, .social-profile-button) * { text-shadow: 0 -1px 0 rgba(0, 0, 0, .85); }
+
+/* Inside the display there is no chrome: rows of dots instead of boxes, and nothing is rounded. */
+body .site-shell .sidebar { --led-rule: rgba(255, 255, 255, .26); }
+body .site-shell .sidebar *:not(svg, svg *, :is(.secondary-action-button, .work-closing-link, .contact-contra-badge, .contact-whatsapp-button, .footer-email, .profile-hiring, .cv-talk, .social-profile-button, .contact-start-button, .cv-download, .contact-primary-button, .case-outbound-primary), :is(.secondary-action-button, .work-closing-link, .contact-contra-badge, .contact-whatsapp-button, .footer-email, .profile-hiring, .cv-talk, .social-profile-button, .contact-start-button, .cv-download, .contact-primary-button, .case-outbound-primary) *) { border-radius: 0 !important; }
+body .site-shell .sidebar :is(.about-working-facts, .about-toolkit, .case-facts, .case-copy-challenge, .case-copy-solution, .case-copy-outcome, .case-reachout, #profile-contact, .mobile-reachout, .estimate-mode, .brief-file-dropzone, .booking-calendar, .booking-load-status) {
+  background: transparent; border: 2px dotted var(--led-rule); box-shadow: none;
+}
+body .site-shell .sidebar .case-copy-solution { border-color: rgba(255, 255, 255, .55); }
+body .site-shell .sidebar :is(.profile-proof-item, .profile-section, .profile-service, .case-more-details, .case-sidebar-footer, .information-service, .contact-brief, .optional-fields, .contact-tool-section, .contact-direct, .community-response, .brief-options, .review-row, dl > div) { border-top-style: dotted; border-top-color: var(--led-rule); }
+body .site-shell .sidebar :is(.infinite-faq-item, .faq-input-row, .brief-price-guide-content, .brief-options, .services-more-reviews) { border-bottom-style: dotted; border-bottom-color: var(--led-rule); }
+body .site-shell .sidebar :is(.trust-credential, .case-tool-brand, .fact-badge, .case-note-label, .tool-logo:not(.logo-wordmark), dl dd) { background: transparent; border-color: transparent; box-shadow: none; }
+body .site-shell .sidebar :is(.trust-credential, .case-tool-brand, .fact-badge, .case-note-label) { padding-inline: 0; }
+body .site-shell .sidebar :is(input:not([type=checkbox], [type=radio], [type=file]), select, textarea) { background: #000; border: 1px dotted rgba(255, 255, 255, .6); box-shadow: none; }
+body .site-shell .sidebar :is(input:not([type=checkbox], [type=radio], [type=file]), select, textarea):focus { border: 1px solid #fff; }
+/* Keys all carry the same small engraved type. */
+body .site-shell .sidebar :is(.footer-email, .footer-email *) { font-size: 13px; line-height: 1.2; }
+body .site-shell .sidebar .evil-copy-value { left: auto; right: 0; background: #000; border: 2px dotted rgba(255, 255, 255, .6); }
+/* Pictures in the panel are lit dots too. */
+body .site-shell .sidebar .identity-portrait img { image-rendering: pixelated; -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2' height='2'%3E%3Crect width='1.5' height='1.5'/%3E%3C/svg%3E") 0 0 / 2px 2px; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2' height='2'%3E%3Crect width='1.5' height='1.5'/%3E%3C/svg%3E") 0 0 / 2px 2px; filter: brightness(1.3) contrast(1.05); }
+body .site-shell :is(.case-reachout, #profile-contact)::before { background-image: url('/assets/portrait-led.webp') !important; image-rendering: pixelated; -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2' height='2'%3E%3Crect width='1.5' height='1.5'/%3E%3C/svg%3E") 0 0 / 2px 2px; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2' height='2'%3E%3Crect width='1.5' height='1.5'/%3E%3C/svg%3E") 0 0 / 2px 2px; filter: brightness(1.3) contrast(1.05); }
+body .site-shell .sidebar :is(.review-avatar, .profile-proof-item img) { filter: grayscale(1); }
+/* The name stands in big dots beside a big portrait, the role under it, at one height. */
+.identity.identity-row { grid-template-columns: 88px minmax(0, 1fr) auto; column-gap: 14px; }
+.identity.identity-row .identity-portrait, .identity.identity-row .identity-portrait img { width: 88px; height: 88px; }
+@media (min-width: 810px) and (max-width: 1100px) {
+  .identity.identity-row { grid-template-columns: 56px minmax(0, 1fr) auto; column-gap: 12px; }
+  .identity.identity-row .identity-portrait, .identity.identity-row .identity-portrait img { width: 56px; height: 56px; }
+  body .site-shell .sidebar .identity-name { font-size: 16px !important; line-height: 22px !important; }
+}
+
+/* What sits inside a heading but isn't one. */
+body .site-shell .sidebar :is(.service-teaser, .service-price) { text-transform: none; color: var(--muted); }
+body .site-shell .sidebar .service-price { color: var(--gray-229); }
+/* Lists are lines of type, not pills. */
+html body.case-gallery-layout .site-shell .sidebar .case-feature-list > li { border: 0; background: none; box-shadow: none; padding: 2px 0; }
+/* LED figures need the room of two full characters. */
+.case-gallery-layout .case-sidebar .case-chart-parts > li { grid-template-columns: 26px minmax(0, 1fr) auto; }
+
+/* Every control is the same rendered key, whichever older rule styled it first. */
+html body .site-shell :is(.secondary-action-button, .work-closing-link, .contact-contra-badge, .contact-whatsapp-button, .footer-email, .profile-hiring, .cv-talk, .social-profile-button, .contact-secondary-button) {
+  border: 1px solid transparent !important; border-image: url("/assets/tv-key.webp?v=40b397e27d") 28 fill / 14px stretch !important; border-radius: 0 !important; background: none !important; box-shadow: none !important; color: #ececec;
+}
+html body .site-shell :is(.secondary-action-button, .work-closing-link, .contact-contra-badge, .contact-whatsapp-button, .footer-email, .profile-hiring, .cv-talk, .social-profile-button, .contact-secondary-button):hover { color: #fff; filter: brightness(1.24); }
+html body .site-shell :is(.secondary-action-button, .work-closing-link, .contact-contra-badge, .contact-whatsapp-button, .footer-email, .profile-hiring, .cv-talk, .social-profile-button, .contact-secondary-button):active { border-image-source: url("/assets/tv-key-on.webp?v=c7b2c6b1cc") !important; color: #fff; filter: none; transform: none; }
+
+/* The display never scrolls sideways, and its columns fit the wider dots. */
+body .site-shell .sidebar { overflow-x: clip; }
+body .site-shell .sidebar :is(.case-disclosure-label, .case-disclosure-heading) { white-space: normal !important; }
+body.case-gallery-layout .sidebar .case-facts > div:not(.case-tools-fact) { grid-template-columns: 104px minmax(0, 1fr); }
+html body.case-gallery-layout .site-shell .sidebar .case-delivery-checklist { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+html body.case-gallery-layout .site-shell .sidebar .case-delivery-checklist > li { border: 0; background: none; padding: 4px 0; }
+body .site-shell .sidebar .behance-stats { grid-template-columns: minmax(0, 1fr); gap: 0; }
+body .site-shell .sidebar .behance-stats > div { flex-direction: row; justify-content: space-between; align-items: baseline; gap: 12px; padding: 5px 0; border-top: 1px dotted var(--led-rule); }
+.case-gallery-layout .case-sidebar .case-chart-board-items { grid-template-columns: minmax(0, 1fr) !important; }
+@media (min-width: 810px) and (max-width: 1100px) {
+  body.case-gallery-layout .sidebar .case-facts > div:not(.case-tools-fact) { display: block; }
+}
+@media (max-width: 360px) {
+  .identity.identity-row { grid-template-columns: 64px minmax(0, 1fr) auto; column-gap: 12px; }
+  .identity.identity-row .identity-portrait, .identity.identity-row .identity-portrait img { width: 64px; height: 64px; }
+  body.case-gallery-layout .sidebar .case-facts > div:not(.case-tools-fact) { display: block; }
+}
+
+/* Small remains. */
+body .site-shell .sidebar .trust-credential-icon { background: none; box-shadow: none; }
+body .site-shell .sidebar .portfolio-like-button { background: none; box-shadow: none; }
+html body .site-shell .sidebar .case-sidebar-footer .footer-email { padding-inline: 12px; min-height: 36px; height: 36px; }
+@media (max-width: 809px) {
+  /* "Back to work" sits at the top of the page on phones, so the key row stays on one line. */
+  .case-gallery-layout .case-gallery-bar .case-gallery-links a[data-work-return] { display: none; }
+}
