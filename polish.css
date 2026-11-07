@@ -885,8 +885,7 @@ h1 .punk-word, h1 span .punk-word { color: var(--gray-255); }
 
 
 /* The work panel: true black, one line of filters, a stream of projects, then the full list. */
-body:is([data-page=home], [data-page=work]) .workspace-grid { display: none; }
-.workspace-grid { color: rgba(255, 255, 255, .035); }
+.workspace-grid { display: none; }
 .work-all-label { display: none; }
 .work-stream[hidden], .work-all-label[hidden] { display: none !important; }
 
@@ -933,31 +932,6 @@ body:is([data-page=home], [data-page=work]) .workspace-grid { display: none; }
   .tape:hover .tape-case { transform: translateY(-4px); border-color: var(--gray-114); }
 }
 
-@media (min-width: 810px) and (prefers-reduced-motion: no-preference) {
-  .work-stream { --stream-step: 220px; position: relative; margin-top: -84px; height: calc(100svh + 18 * var(--stream-step)); }
-  .stream-stage { position: sticky; top: 0; height: 100svh; overflow: clip; container-type: size; cursor: grab; }
-  .stream-stage.is-pulled { cursor: grabbing; user-select: none; }
-  .stream-track {
-    --cw: min(56cqw, 66cqh);
-    position: absolute; left: 12px; top: 84px; bottom: 104px; width: max-content; align-items: center;
-    gap: calc(var(--cw) * .42); padding: 0; overflow: visible; will-change: transform;
-  }
-  .tape { cursor: inherit; }
-  .tape-title { display: none; }
-  .tape-strip { justify-content: space-between; }
-  .stream-caption {
-    position: absolute; z-index: 3; left: 12px; right: 24px; bottom: 20px;
-    display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; pointer-events: none;
-  }
-  .stream-now { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 16px; min-width: 0; }
-  .stream-name { font-size: clamp(30px, 5.4cqw, 64px); line-height: 1.04; font-weight: 500; letter-spacing: -.04em; color: var(--gray-255); text-wrap: balance; }
-  .stream-kind { font-size: 14px; line-height: 1.3; letter-spacing: -.01em; color: var(--muted); white-space: nowrap; }
-  .stream-skip {
-    flex: none; display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px; pointer-events: auto;
-    font-size: 13px; font-weight: 500; letter-spacing: -.01em; color: var(--gray-229);
-  }
-  .stream-skip:hover { color: var(--gray-255); }
-}
 @media (prefers-reduced-motion: reduce) { .tape-cassette { transition: none; } }
 
 /* The full list under the stream: no chrome, tighter corners, more air. */
@@ -1004,11 +978,6 @@ body:is([data-page=home], [data-page=work]) .profile-intro { gap: 0; }
   body:is([data-page=home], [data-page=work]) .profile-content { padding-inline: 16px; }
 }
 
-/* The letters of a project name arrive one after another. */
-.stream-word { display: inline-block; white-space: nowrap; }
-.stream-word > span { display: inline-block; animation: letter-in 300ms cubic-bezier(.16, 1, .3, 1) both; }
-@keyframes letter-in { from { opacity: 0; transform: translateY(.34em) rotate(4deg); } to { opacity: 1; transform: none; } }
-
 /* Ink-dipped primary button: torn edge, ink running off the bottom. The box itself stays exactly the same size. */
 body .site-shell :is(.contact-start-button, .cv-download, .contact-primary-button, .case-outbound-primary) { position: relative; isolation: isolate; background: transparent !important; border-color: transparent !important; overflow: visible; }
 body .site-shell :is(.contact-start-button, .cv-download, .contact-primary-button, .case-outbound-primary)::before {
@@ -1035,17 +1004,11 @@ body .site-shell .sidebar :is(.profile-section, .profile-proof) > a.secondary-ac
 /* Reach out: a plain black card. */
 body .site-shell :is(.case-reachout, #profile-contact, .mobile-reachout) { position: relative; isolation: isolate; overflow: hidden; background: #000; border-color: var(--gray-48); }
 
-/* A thin scrollbar. Native bars are off only where this one runs. */
+/* Native scrollbars are off only where the LED scale runs. */
 @media (min-width: 810px) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
-  html:not(.case-x) :is(.main-pane, .sidebar) { scrollbar-width: none; scrollbar-gutter: auto; }
+  :is(.main-pane, .sidebar) { scrollbar-width: none; scrollbar-gutter: auto; }
   :is(.main-pane, .sidebar)::-webkit-scrollbar { display: none; }
 }
-.line-bar { position: fixed; z-index: 30; width: 18px; cursor: default; }
-.line-bar[hidden] { display: none; }
-.line-bar i { position: absolute; top: 0; left: 8px; width: 2px; background: var(--gray-204); cursor: grab; transition: left 140ms ease, width 140ms ease; touch-action: none; }
-.line-bar i::before { content: ''; position: absolute; inset: 0 -6px; }
-.line-bar:hover i, .line-bar.is-drag i { left: 7px; width: 4px; background: var(--gray-255); }
-.line-bar.is-drag i { cursor: grabbing; }
 
 /* The CV line burns. */
 .rail-fire { position: fixed; top: 0; left: 0; z-index: 31; pointer-events: none; image-rendering: pixelated; }
@@ -1077,75 +1040,31 @@ body .site-shell :is(.case-reachout, #profile-contact, .mobile-reachout) :is(.co
 .ink i { width: 100%; border-radius: 0; clip-path: polygon(0 0, 100% 0, 66% 22%, 58% 62%, 56% 100%, 44% 100%, 42% 62%, 34% 22%); }
 .ink b { border-radius: 50% 50% 48% 48% / 66% 66% 34% 34%; }
 
-/* The VHS television fills the panel; the flat shelf stays only until it is ready, or if it can't run. */
-.tv-canvas { position: absolute; inset: 0; z-index: 1; width: 100%; height: 100%; opacity: 0; transition: opacity 500ms ease; pointer-events: none; }
-.tv-on .tv-canvas { opacity: 1; }
-.tv-on .stream-track { visibility: hidden; }
-.tv-on.stream-stage { cursor: default; }
-.tv-on .stream-caption { left: 34px; right: 34px; bottom: 18px; min-height: 62px; align-items: center; }
-.tv-on .stream-name { font-size: clamp(22px, 3.2cqw, 36px); line-height: 1.06; letter-spacing: -.035em; }
-.tv-on .stream-now { align-items: baseline; max-width: 54%; }
-@media (min-width: 810px) and (prefers-reduced-motion: no-preference) {
-  .work-stream { margin-inline: -12px; }
-}
-
+/* ---------- One television: the whole page is the set ---------- */
 /* Phones and reduced motion: the shelf sits inside a small TV set. */
-@media (max-width: 809px), (prefers-reduced-motion: reduce) {
+@media (max-width: 809px) {
   .work-stream { margin-inline: 0; }
   .stream-stage { padding: 10px 10px 34px; border: 1px solid var(--gray-41); border-radius: 18px; background: #161616; }
   .stream-track { position: relative; padding: 18px 14px 18px; border-radius: 12px; background: #030303; box-shadow: inset 0 0 0 1px #000, inset 0 0 26px rgba(0, 0, 0, .9); }
   .stream-stage::before { content: ''; position: absolute; left: 50%; bottom: 14px; width: 86px; height: 5px; margin-left: -43px; border-radius: 2px; background: #050505; box-shadow: 0 0 0 1px #2c2c2c; }
-}
-
-/* Project pages are played on the same TV. The body is a render of the 3D set; its edges stretch to fit the panel. */
-@media (min-width: 810px) {
-  .case-gallery-layout:not(.about-layout-page, .information-layout-page:not(.photography-layout-page)) .case-gallery-pane { padding: 0 30px 118px; }
-  .case-gallery-layout:not(.about-layout-page, .information-layout-page:not(.photography-layout-page)) .case-gallery-bar { min-height: 84px; margin: 0 -30px 26px; padding-inline: 24px; background: transparent; backdrop-filter: none; border-bottom: 0; }
-  .case-gallery-layout:not(.about-layout-page, .information-layout-page:not(.photography-layout-page)) .main-pane::after {
-    content: ''; position: fixed; z-index: 11; left: var(--sidebar-width); right: 0; top: 0; bottom: 0; pointer-events: none;
-    border-style: solid; border-width: 130px 70px 140px;
-    border-image: url("/assets/tv-set.webp") 260 140 280 / 130px 70px 140px stretch;
-  }
-  .case-gallery-layout:not(.about-layout-page, .information-layout-page:not(.photography-layout-page)) .main-pane::before {
-    content: ''; position: fixed; z-index: 10; left: calc(var(--sidebar-width) + 21px); right: 21px; top: 88px; bottom: 96px; pointer-events: none;
-    border-radius: 34px; background: repeating-linear-gradient(0deg, rgba(255, 255, 255, .022) 0 1px, transparent 1px 3px);
-    box-shadow: inset 0 0 150px 16px rgba(0, 0, 0, .78), inset 0 0 44px 4px rgba(0, 0, 0, .7), inset 0 0 0 1px #000;
-  }
-  .tv-plate {
-    position: fixed; z-index: 29; left: calc(var(--sidebar-width) + 34px); right: 34px; bottom: 0; height: 90px; pointer-events: none;
-    display: flex; align-items: baseline; align-content: center; flex-wrap: wrap; gap: 2px 14px; padding-right: 310px;
-    background: url("/assets/tv-slot.webp") right center / 300px auto no-repeat;
-  }
-  .tv-plate b { font-size: clamp(22px, 2.5vw, 36px); line-height: 1.06; font-weight: 500; letter-spacing: -.035em; color: var(--gray-255); }
-  .tv-plate span { font-size: 13px; line-height: 1.3; letter-spacing: -.01em; color: var(--muted); white-space: nowrap; }
-}
-@media (min-width: 810px) and (max-width: 1100px) { .tv-plate { background: none; padding-right: 0; } }
-@media (max-width: 809px) {
   .case-gallery-layout:not(.about-layout-page, .information-layout-page:not(.photography-layout-page)) .case-gallery-pane {
     margin: 0 8px 24px; padding: 0 10px 14px; border: solid #161616; border-width: 10px 10px 34px; border-radius: 18px; background: #030303; box-shadow: 0 0 0 1px var(--gray-41);
   }
   .case-gallery-layout:not(.about-layout-page, .information-layout-page:not(.photography-layout-page)) .case-gallery-bar { margin-inline: -10px; }
 }
 
-/* The top of the set: the filters and controls are physical keys on the TV. */
-@media (min-width: 810px) {
-  body:is([data-page=home], [data-page=work]) .work-toolbar { height: 84px; min-height: 84px; padding-inline: 24px; background: #151515; box-shadow: 0 1px 0 #000, 0 2px 0 #242424; }
-  body.tv-show:is([data-page=home], [data-page=work]) .work-toolbar { background: transparent; box-shadow: none; }
-  .work-all-label { margin-top: 56px; }
-}
-.filter-indicator { display: none !important; }
-.work-filters.work-filters { gap: 6px; }
-.work-filters a, .work-filters:not(.has-filter-indicator) a[aria-current],
-body .site-shell .ui-sound-toggle, body .site-shell .scrapbook-toggle,
-.case-gallery-layout .case-gallery-bar .case-gallery-links a, .case-gallery-layout .case-gallery-bar .case-nav > a {
-  position: relative; min-height: 36px; height: 36px; padding: 0 13px; border: 0; border-radius: 4px; background: #1d1d1d; color: var(--gray-214);
+/* Keys: every control on the set is a physical button. */
+.work-filters a, .work-filters:not(.has-filter-indicator) a[aria-current], .ui-sound-toggle, body .site-shell .ui-sound-toggle, body .site-shell .scrapbook-toggle,
+.case-gallery-layout .case-gallery-bar .case-gallery-links a, .case-gallery-layout .case-gallery-bar .case-nav > a, .tv-plate .stream-skip {
+  position: relative; display: inline-flex; align-items: center; justify-content: center; min-height: 36px; height: 36px; padding: 0 13px; border: 0; border-radius: 4px; background: #1f1f1f; color: var(--gray-214);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, .17), inset 0 -2px 0 rgba(0, 0, 0, .55), 0 0 0 1px #040404, 0 2px 0 1px #040404, 0 4px 6px rgba(0, 0, 0, .75);
   transition: transform 110ms ease, background-color 140ms ease, box-shadow 110ms ease, color 140ms ease;
 }
-body .site-shell .ui-sound-toggle, .case-gallery-layout .case-gallery-bar .case-nav > a { width: 36px; padding: 0; border-image: none; }
-.work-filters a:hover, body .site-shell .ui-sound-toggle:hover, body .site-shell .scrapbook-toggle:hover,
-.case-gallery-layout .case-gallery-bar .case-gallery-links a:hover, .case-gallery-layout .case-gallery-bar .case-nav > a:hover { background: #262626; color: var(--gray-255); }
-.work-filters a:active, .work-filters a[aria-current], body .site-shell .ui-sound-toggle:active, body .site-shell .ui-sound-toggle[aria-pressed=true],
+body .site-shell .ui-sound-toggle, .ui-sound-toggle, .case-gallery-layout .case-gallery-bar .case-nav > a { width: 36px; padding: 0; }
+.tv-plate .stream-skip { flex: none; gap: 8px; height: 40px; min-height: 40px; pointer-events: auto; font-size: 13px; font-weight: 500; letter-spacing: -.01em; white-space: nowrap; }
+.work-filters a:hover, body .site-shell .ui-sound-toggle:hover, body .site-shell .scrapbook-toggle:hover, .tv-plate .stream-skip:hover,
+.case-gallery-layout .case-gallery-bar .case-gallery-links a:hover, .case-gallery-layout .case-gallery-bar .case-nav > a:hover { background: #282828; color: var(--gray-255); }
+.work-filters a:active, .work-filters a[aria-current], body .site-shell .ui-sound-toggle:active, body .site-shell .ui-sound-toggle[aria-pressed=true], .tv-plate .stream-skip:active,
 body .site-shell .scrapbook-toggle:active, .case-gallery-layout .case-gallery-bar .case-gallery-links a:active, .case-gallery-layout .case-gallery-bar .case-gallery-links a[aria-current], .case-gallery-layout .case-gallery-bar .case-nav > a:active {
   transform: translateY(2px); background: #101010; color: var(--gray-255);
   box-shadow: inset 0 2px 3px rgba(0, 0, 0, .9), inset 0 -1px 0 rgba(255, 255, 255, .05), 0 0 0 1px #040404;
@@ -1156,16 +1075,128 @@ body .site-shell .scrapbook-toggle:active, .case-gallery-layout .case-gallery-ba
   content: ''; position: absolute; left: 11px; top: 50%; width: 6px; height: 6px; margin-top: -3px; border-radius: 1px; background: var(--gray-255);
   box-shadow: 0 0 6px 1px rgba(255, 255, 255, .75);
 }
-.case-gallery-layout .case-gallery-bar .case-gallery-links { gap: 6px; }
-.case-gallery-layout .case-gallery-bar .case-nav { gap: 6px; }
+.filter-indicator { display: none !important; }
+.work-filters.work-filters { gap: 6px; }
+.case-gallery-layout .case-gallery-bar .case-gallery-links, .case-gallery-layout .case-gallery-bar .case-nav { gap: 6px; }
+.toolbar-utilities { gap: 10px; }
 /* Readouts are small black displays. */
 #work-count, .case-gallery-layout .case-gallery-bar .case-gallery-count {
   display: inline-flex; align-items: center; min-height: 30px; padding: 0 10px; border-radius: 3px; background: #040404; color: var(--gray-229); font-size: 12px; font-variant-numeric: tabular-nums;
   box-shadow: inset 0 1px 3px #000, 0 1px 0 rgba(255, 255, 255, .08);
 }
-.toolbar-utilities { gap: 10px; }
 
-/* Project pages: the gallery stays under the set, the keys stay on top of it. */
 @media (min-width: 810px) {
-  .case-gallery-layout:not(.about-layout-page, .information-layout-page:not(.photography-layout-page)) .case-gallery-pane { z-index: auto; }
+  :root { --tv-side: 34px; --tv-top: 94px; --tv-bottom: 98px; --tv-band: 72px; --tv-gutter: 44px; }
+  html, body { background: linear-gradient(to bottom, #1b1b1b, #131313) fixed #171717; }
+  .main-pane { background: #000; }
+
+  /* The left column: a recessed LED panel set into the same body as the screen. */
+  .site-shell .sidebar, .case-gallery-layout .site-shell .sidebar, body.case-gallery-layout .sidebar.case-sidebar {
+    align-self: start; height: calc(100svh - 86px); margin: 14px 8px 72px 14px; border: 0; border-radius: 14px;
+    background: #020202 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='3' height='3'%3E%3Crect width='2' height='2' fill='%23fff' fill-opacity='.032'/%3E%3C/svg%3E");
+    box-shadow: 0 0 0 1px #000, 0 0 0 4px #0c0c0c, 0 1px 0 4px rgba(255, 255, 255, .13), 0 -1px 0 4px rgba(0, 0, 0, .7);
+    text-shadow: 0 0 11px rgba(255, 255, 255, .13);
+  }
+  /* The fade that sat under the old floating menu becomes the panel's LED mesh and its recessed edge. */
+  body .site-shell .sidebar::after {
+    content: ''; display: block; position: fixed; z-index: 8; left: 14px; top: 14px; bottom: auto; flex: none; width: calc(var(--sidebar-width) - 22px); height: calc(100svh - 86px); border-radius: 14px; pointer-events: none;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='3' height='3'%3E%3Cpath fill-opacity='.16' d='M2 0h1v3H0V2h2z'/%3E%3C/svg%3E");
+    box-shadow: inset 0 3px 12px rgba(0, 0, 0, .95), inset 0 0 30px rgba(0, 0, 0, .55);
+  }
+  body .site-shell .sidebar :is(.contact-start-button, .cv-download, .contact-primary-button) { z-index: 9; text-shadow: none; }
+
+  /* The channels: Work, About, Services, CV are keys on the body, under the panel. */
+  .mobile-switch, .case-gallery-layout .mobile-switch, .about-layout-page .mobile-switch, .information-layout-page .mobile-switch {
+    position: fixed; display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 8px; left: 14px; right: auto; top: auto; bottom: 14px; width: calc(var(--sidebar-width) - 22px); height: 44px; margin: 0; padding: 0;
+    transform: none; background: transparent; backdrop-filter: none; border: 0; border-radius: 0; box-shadow: none;
+  }
+  .mobile-switch a, .mobile-switch a:hover:not([aria-current]) {
+    position: relative; display: inline-flex; align-items: center; justify-content: center; min-height: 40px; height: 40px; padding: 0 8px; border: 0; border-radius: 4px; background: #1f1f1f; color: var(--gray-214);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .17), inset 0 -2px 0 rgba(0, 0, 0, .55), 0 0 0 1px #040404, 0 2px 0 1px #040404, 0 4px 6px rgba(0, 0, 0, .75);
+  transition: transform 110ms ease, background-color 140ms ease, box-shadow 110ms ease, color 140ms ease;
+    font-size: 13px; font-weight: 500;
+  }
+  .mobile-switch a:hover:not([aria-current]) { background: #282828; color: var(--gray-255); }
+  .mobile-switch a[aria-current], .mobile-switch a:active, .mobile-switch.is-stretching a.is-target, .mobile-switch.is-stretching a[aria-current] {
+    transform: translateY(2px); background: #101010; color: var(--gray-255);
+    box-shadow: inset 0 2px 3px rgba(0, 0, 0, .9), inset 0 -1px 0 rgba(255, 255, 255, .05), 0 0 0 1px #040404;
+  }
+  .mobile-switch a[aria-current]::before, .mobile-switch.is-stretching a.is-target::before {
+    content: ''; position: absolute; left: 50%; top: 5px; width: 12px; height: 2px; margin-left: -6px; background: var(--gray-255); box-shadow: 0 0 6px 1px rgba(255, 255, 255, .75);
+  }
+  .mobile-switch .tab-stretch { display: none !important; }
+
+  /* The right side: the same set around every page. */
+  .workspace-content, .case-gallery-layout .case-gallery-pane, body:is([data-page=home], [data-page=work]) .workspace-content { z-index: auto; padding: 0 var(--tv-gutter) calc(var(--tv-bottom) + 28px); }
+  .main-pane::after {
+    content: ''; position: fixed; z-index: 11; left: var(--sidebar-width); right: 0; top: 0; bottom: 0; pointer-events: none;
+    border-style: solid; border-width: 140px 70px 140px;
+    border-image: url("/assets/tv-set.webp") 280 140 280 / 140px 70px 140px stretch;
+  }
+  .main-pane::before {
+    content: ''; position: fixed; z-index: 10; left: calc(var(--sidebar-width) + var(--tv-side)); right: var(--tv-side); top: var(--tv-top); bottom: var(--tv-bottom); pointer-events: none; border-radius: 34px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='3' height='3'%3E%3Cpath fill-opacity='.13' d='M2 0h1v3H0V2h2z'/%3E%3C/svg%3E");
+    box-shadow: inset 0 0 150px 22px rgba(0, 0, 0, .8), inset 0 0 46px 6px rgba(0, 0, 0, .72), inset 0 0 0 2px #000;
+  }
+
+  /* The band above the screen. */
+  body:is([data-page=home], [data-page=work]) .work-toolbar {
+    position: sticky; top: 0; z-index: 13; flex-wrap: nowrap; height: var(--tv-band); min-height: var(--tv-band); margin: 0 calc(var(--tv-gutter) * -1); padding: 0 26px; background: transparent; backdrop-filter: none; box-shadow: none;
+  }
+  .work-toolbar .work-filters, .work-toolbar[data-has-concepts] .work-filters, .work-toolbar[data-has-behance] .work-filters { flex: 1 1 auto; flex-wrap: nowrap; min-width: 0; padding-block: 6px; overflow-x: auto; scrollbar-width: none; }
+  .work-toolbar .work-filters::-webkit-scrollbar { display: none; }
+  .work-toolbar .work-filters a { flex: none; white-space: nowrap; font-size: 13px; }
+  .work-toolbar .toolbar-utilities { flex: none; }
+  .case-gallery-layout .case-gallery-bar, .case-gallery-layout .workspace-settings {
+    position: sticky; top: 0; z-index: 13; display: flex; align-items: center; min-height: var(--tv-band); height: var(--tv-band); margin: 0 calc(var(--tv-gutter) * -1) 42px; padding: 0 26px; background: transparent; backdrop-filter: none; border: 0;
+  }
+  .case-gallery-layout .workspace-settings { justify-content: flex-end; }
+
+  /* The strip below the screen. */
+  .tv-plate { position: fixed; z-index: 20; left: calc(var(--sidebar-width) + 20px); right: 20px; bottom: 11px; height: 54px; display: flex; align-items: center; gap: 12px; padding-right: 110px; pointer-events: none; }
+  .tv-plate.is-wide { padding-right: 318px; }
+  .tv-led {
+    flex: 1 1 auto; min-width: 0; height: 54px; display: flex; align-items: center; padding: 0 11px; border-radius: 6px; background: #020202; overflow: hidden;
+    box-shadow: inset 0 2px 6px #000, inset 0 0 0 1px #000, 0 1px 0 rgba(255, 255, 255, .11), 0 -1px 0 rgba(0, 0, 0, .55);
+  }
+  .tv-led canvas { display: block; flex: none; filter: drop-shadow(0 0 3px rgba(255, 255, 255, .5)); }
+  .tv-dials { position: fixed; z-index: 12; right: 0; bottom: 0; width: 130px; height: 77px; pointer-events: none; background: url("/assets/tv-dials.webp") right bottom / 340px 77px no-repeat; }
+  .tv-dials.is-wide { width: 340px; }
+
+  /* The LED scroll scale: segments inside the screen and the panel. */
+  .line-bar { position: fixed; z-index: 21; width: 14px; border-radius: 3px; cursor: pointer; }
+  .line-bar[hidden] { display: none; }
+  .line-bar::before { content: ''; position: absolute; inset: 0 5px; background: repeating-linear-gradient(to bottom, rgba(255, 255, 255, .14) 0 2px, transparent 2px 5px); }
+  .line-bar i { position: absolute; top: 0; left: 5px; width: 4px; background: repeating-linear-gradient(to bottom, rgba(255, 255, 255, .82) 0 2px, transparent 2px 5px); filter: drop-shadow(0 0 2px rgba(0, 0, 0, .8)); cursor: grab; touch-action: none; }
+  .line-bar i::before { content: ''; position: absolute; inset: 0 -5px; }
+  .line-bar.is-drag i { cursor: grabbing; }
+  body.image-open :is(.line-bar, .tv-plate) { display: none; }
+  .reading-progress { display: none !important; }
+
+  /* Tapes: before the picture starts, and wherever WebGL can't run. */
+  .work-stream { margin: 0 calc(var(--tv-gutter) * -1); }
+  .stream-stage { position: relative; }
+  .tv-canvas { position: fixed; z-index: 12; left: var(--sidebar-width); top: 0; width: calc(100vw - var(--sidebar-width)); height: 100svh; opacity: 0; pointer-events: none; }
+  .tv-on .stream-track { visibility: hidden; }
+  .work-all-label { margin-top: 56px; scroll-margin-top: calc(var(--tv-top) + 18px); }
+  .stream-caption { display: none; }
 }
+@media (min-width: 810px) and (prefers-reduced-motion: no-preference) {
+  .work-stream { --stream-step: 220px; position: relative; margin-top: calc(var(--tv-band) * -1); height: calc(100svh + 18 * var(--stream-step)); }
+  .stream-stage { position: sticky; top: 0; height: 100svh; overflow: clip; container-type: size; cursor: grab; }
+  .stream-stage.tv-on { cursor: default; }
+  .stream-stage.is-pulled { cursor: grabbing; user-select: none; }
+  .stream-track {
+    --cw: min(50cqw, 58cqh);
+    position: absolute; left: var(--tv-gutter); top: var(--tv-top); bottom: var(--tv-bottom); width: max-content; align-items: center;
+    gap: calc(var(--cw) * .42); padding: 0; overflow: visible; will-change: transform;
+  }
+  .tape { cursor: inherit; }
+  .tape-title { display: none; }
+  .tape-strip { justify-content: space-between; }
+}
+@media (min-width: 810px) and (prefers-reduced-motion: reduce) {
+  .stream-track { padding: 20px var(--tv-gutter); }
+}
+@media print { .tv-plate, .tv-dials, .tv-canvas { display: none !important; } .main-pane::before, .main-pane::after, .sidebar::after { display: none !important; } }
+@media (max-width: 1023px) { #work-count { display: none; } }
