@@ -235,23 +235,12 @@ body .site-shell .profile-actions .contact-start-button { width: 100%; max-width
   .mobile-switch a[aria-current] {
     background:rgba(245, 245, 245, .96);
     color:var(--gray-18);
-    view-transition-name: tab-active;
   }
   .mobile-switch a:not([aria-current]):active { color:var(--gray-255); }
   .mobile-switch a:focus-visible { outline:2px solid var(--focus); outline-offset: 2px; }
 
   /* Room so the last content is never hidden behind the bar. */
   body { padding-bottom: calc(84px + env(safe-area-inset-bottom)); }
-}
-/* The highlight slides between tabs during page changes. */
-::view-transition-group(tab-active) {
-  animation: revert;
-  animation-duration: 340ms;
-  animation-timing-function: cubic-bezier(.22, .68, 0, 1);
-}
-::view-transition-old(tab-active) { animation: 120ms ease both page-base-out; }
-@media (prefers-reduced-motion: reduce) {
-  ::view-transition-group(tab-active) { animation: none; }
 }
 
 /* 9. Phones: one identity header, same place and style on every page ---- */
@@ -692,7 +681,6 @@ button.footer-email.is-confirmed [data-evil-face="success"] svg { animation: cop
   body:is(.about-layout-page, .information-layout-page):not(.photography-layout-page) .case-back { display: none; }
 }
 .mobile-switch { view-transition-name: tabbar; }
-.mobile-switch a[aria-current] { view-transition-name: tab-active; }
 
 /* Touch screens: every button at least 44px tall; inline links get a taller hit area. */
 @media (pointer: coarse) {
@@ -928,5 +916,8 @@ body .sidebar .bio-stack { color: var(--gray-255); }
 
 /* Page changes: browsers cannot carry blur into a transition snapshot, so a nearly solid bar keeps it from flickering. */
 .mobile-switch, .case-gallery-layout .mobile-switch, .about-layout-page .mobile-switch, .information-layout-page .mobile-switch { background: rgba(28, 28, 28, .9); }
-::view-transition-group(tabbar) { z-index: 100; }
 
+/* One continuous move: the highlight slides on the old page and the new page shows it already in place. Labels swap as it passes. */
+.mobile-switch.is-stretching a:hover { background: transparent; }
+.mobile-switch.is-stretching a[aria-current] { transition: color 110ms linear; }
+.mobile-switch.is-stretching a.is-target { transition: color 60ms linear; }
