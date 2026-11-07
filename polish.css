@@ -845,13 +845,15 @@ body .sidebar .trust-credentials-inline .trust-credential-icon img { width: 15px
 #profile-services .profile-services-compact .service-teaser { display: none; }
 #profile-services .profile-services-compact .service-choice-title { font-size: 15px; line-height: 20px; font-weight: 400; letter-spacing: -.015em; }
 
-/* Open to roles: a quiet row under the hero buttons, the whole row downloads the CV. */
-.profile-hiring { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 44px; margin-top: 10px; padding: 7px 12px; border: 1px solid rgba(255, 255, 255, .1); border-radius: 10px; font-size: 13px; line-height: 18px; letter-spacing: -.01em; color: var(--muted); text-decoration: none; transition: background-color 160ms ease, border-color 160ms ease; }
+/* Open to roles: third item in the hero button grid, so width, gap and edges always match. Same shell as the email button. */
+.profile-hiring { grid-column: 1 / -1; display: flex; align-items: center; justify-content: space-between; gap: 12px; box-sizing: border-box; min-height: 40px; padding: 5px 14px; border: 1px solid var(--gray-58); border-radius: 8px; font-size: 12.5px; line-height: 16px; letter-spacing: -.01em; color: var(--muted); text-decoration: none; transition: background-color 160ms ease, border-color 160ms ease; }
+.profile-hiring > span { text-wrap: balance; }
 .profile-hiring strong { display: inline-flex; flex: none; align-items: center; gap: 6px; font-weight: 500; color: var(--gray-245); }
-.profile-hiring svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
-.profile-hiring:hover { border-color: rgba(255, 255, 255, .22); background: rgba(255, 255, 255, .05); }
-.profile-hiring:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
-@media (max-width: 809px) { body:is([data-page=home], [data-page=work]) .profile-hiring { grid-column: 1 / -1; } }
+.profile-hiring svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.profile-hiring:hover { border-color: var(--gray-90); background: var(--gray-34); }
+.profile-hiring:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) { .profile-hiring { transition: none; } }
+@media (max-width: 809px) { .profile-hiring { min-height: 44px; } }
 .contact-hiring { margin: 12px 0 0; font-size: 14px; line-height: 21px; color: var(--muted); }
 :is(.contact-hiring, .case-reachout p) a:is([download], [href*="service=role"]) { color: var(--gray-245); text-decoration: underline; text-decoration-color: var(--gray-119); text-underline-offset: 3px; }
 
@@ -882,8 +884,8 @@ body .sidebar .trust-credentials-inline .trust-credential-icon img { width: 15px
 .work-closing > h2 { margin: 0; font-size: 28px; line-height: 34px; font-weight: 500; letter-spacing: -.03em; color: var(--gray-245); text-wrap: balance; }
 .work-closing-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
 body .site-shell .work-closing .contact-start-button { display: inline-flex; align-items: center; justify-content: center; width: auto; max-width: none; height: 44px; min-height: 44px; max-height: none; margin: 0; padding: 0 20px; }
-.work-closing-link { display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border: 1px solid rgba(255, 255, 255, .12); border-radius: 10px; font-size: 14px; font-weight: 500; letter-spacing: -.01em; color: var(--gray-221); text-decoration: none; transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease; }
-.work-closing-link:hover { border-color: rgba(255, 255, 255, .22); background: rgba(255, 255, 255, .05); color: var(--gray-255); }
+.work-closing-link { display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border: 1px solid var(--gray-58); border-radius: 8px; font-size: 14px; font-weight: 500; letter-spacing: -.01em; color: var(--gray-221); text-decoration: none; transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease; }
+.work-closing-link:hover { border-color: var(--gray-90); background: var(--gray-34); color: var(--gray-255); }
 .work-closing-link:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 .work-closing-name { margin: 56px 0 0; font-size: 20.3cqw; line-height: .86; font-weight: 500; letter-spacing: -.05em; white-space: nowrap; color: var(--gray-245); user-select: none; }
 @media (max-width: 809px) {
