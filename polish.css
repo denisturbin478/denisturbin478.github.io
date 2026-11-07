@@ -959,7 +959,7 @@ h1 .punk-word, h1 span .punk-word { color: var(--gray-255); }
 /* The work panel: true black, one line of filters, a stream of projects, then the full list. */
 body:is([data-page=home], [data-page=work]) .workspace-grid { display: none; }
 .workspace-grid { color: rgba(255, 255, 255, .035); }
-.work-stream, .work-all-label { display: none; }
+.work-all-label { display: none; }
 .work-stream[hidden], .work-all-label[hidden] { display: none !important; }
 
 @media (min-width: 810px) {
@@ -977,49 +977,66 @@ body:is([data-page=home], [data-page=work]) .workspace-grid { display: none; }
   }
 }
 
+/* The tape shelf: a cover in its case, a cassette sliding out of it. Flat, so everything stays readable. */
+.work-stream { display: block; margin-inline: -12px; }
+.stream-stage { position: relative; }
+.stream-track { --cw: 76vw; display: flex; gap: calc(var(--cw) * .3); padding: 8px 16px 24px; overflow-x: auto; scroll-snap-type: x proximity; scrollbar-width: none; }
+.stream-track::-webkit-scrollbar { display: none; }
+.tape { position: relative; flex: none; display: block; width: var(--cw); scroll-snap-align: start; scroll-margin-left: 16px; color: var(--gray-245); -webkit-user-drag: none; }
+.tape-case { position: relative; z-index: 1; display: block; border: 1px solid var(--gray-58); border-radius: 5px; background: #0b0b0b; padding-left: clamp(10px, 2.6%, 18px); transition: transform 420ms cubic-bezier(.16, 1, .3, 1), border-color 200ms ease; }
+.tape-case::before { content: ''; position: absolute; inset: 0 auto 0 0; width: clamp(10px, 2.6%, 18px); border-right: 1px solid var(--gray-48); background: repeating-linear-gradient(0deg, transparent 0 5px, rgba(255, 255, 255, .09) 5px 6px); border-radius: 5px 0 0 5px; }
+.tape-case::after { content: ''; position: absolute; inset: 0; z-index: 2; pointer-events: none; background: rgba(255, 255, 255, .045); clip-path: polygon(0 0, 34% 0, 13% 100%, 0 100%); }
+.tape-cover { display: block; aspect-ratio: 4 / 3; overflow: hidden; background: var(--gray-28); }
+.tape-cover img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.tape-strip { display: flex; align-items: baseline; gap: 10px; min-height: 40px; padding: 10px 12px; border-top: 1px solid var(--gray-48); font-size: 13px; line-height: 20px; letter-spacing: -.01em; }
+.tape-strip b { flex: none; font-weight: 500; color: var(--gray-255); font-variant-numeric: tabular-nums; }
+.tape-title { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--gray-245); }
+.tape-kind { flex: none; color: var(--muted); }
+.tape-cassette {
+  --out: 1;
+  position: absolute; z-index: 0; top: 6%; left: 5%; display: block; width: 90%; aspect-ratio: 314 / 200;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 314 200'%3E%3Crect x='.75' y='.75' width='312.500' height='198.500' rx='11' fill='%23121212' stroke='%23434343' stroke-width='1.500'/%3E%3Cpath d='M14 12h286v128H14z' fill='%23dcdcda'/%3E%3Cpath d='M14 12h286v14H14z' fill='%23111'/%3E%3Cpath d='M14 34h286M14 42h286' stroke='%23999' stroke-width='.8'/%3E%3Crect x='56' y='58' width='202' height='62' rx='31' fill='%23000' stroke='%23555' stroke-width='1.500'/%3E%3Cpath d='M60 199l14-41h166l14 41' fill='%23191919' stroke='%233c3c3c' stroke-width='1.200'/%3E%3Ccircle cx='118' cy='178' r='5' fill='%23000' stroke='%23444'/%3E%3Ccircle cx='196' cy='178' r='5' fill='%23000' stroke='%23444'/%3E%3Cg fill='%232c2c2c' stroke='%23666' stroke-width='.8'%3E%3Ccircle cx='8' cy='8' r='3.200'/%3E%3Ccircle cx='306' cy='8' r='3.200'/%3E%3Ccircle cx='8' cy='192' r='3.200'/%3E%3Ccircle cx='306' cy='192' r='3.200'/%3E%3C/g%3E%3C/svg%3E") center / contain no-repeat;
+  transform: translateX(calc(5% + var(--out) * 37%)) rotate(calc(var(--out) * 1.4deg)); transform-origin: 0 50%;
+  transition: transform 120ms linear;
+}
+.tape-pack { position: absolute; top: 44.5%; width: 34%; aspect-ratio: 1; margin: -17% 0 0 -17%; border-radius: 50%; background: #2a2a2a; box-shadow: inset 0 0 0 1px #3d3d3d; }
+.tape-pack:nth-child(1) { left: 28.5%; }
+.tape-pack:nth-child(2) { left: 71.5%; }
+.tape-reel { position: absolute; top: 44.5%; width: 12.5%; aspect-ratio: 1; margin: -6.25% 0 0 -6.25%; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Ccircle cx='24' cy='24' r='22' fill='%23f2f2f0'/%3E%3Ccircle cx='24' cy='24' r='13' fill='%23000'/%3E%3Cg fill='%23f2f2f0'%3E%3Crect x='21.800' y='9' width='4.400' height='10'/%3E%3Crect x='21.800' y='29' width='4.400' height='10'/%3E%3Crect x='21.800' y='9' width='4.400' height='10' transform='rotate(60 24 24)'/%3E%3Crect x='21.800' y='29' width='4.400' height='10' transform='rotate(60 24 24)'/%3E%3Crect x='21.800' y='9' width='4.400' height='10' transform='rotate(120 24 24)'/%3E%3Crect x='21.800' y='29' width='4.400' height='10' transform='rotate(120 24 24)'/%3E%3C/g%3E%3C/svg%3E") center / contain no-repeat; }
+.tape-reel:nth-child(3) { left: 28.5%; }
+.tape-reel:nth-child(4) { left: 71.5%; }
+.tape-side { position: absolute; top: 18%; right: 7.500%; font: 400 clamp(18px, 3cqw, 28px) / 1 "DT Punk", "Inter Tight", sans-serif; color: #0a0a0a; }
+.stream-caption { display: none; }
+@media (hover: hover) {
+  .tape:hover .tape-case { transform: translateY(-4px); border-color: var(--gray-114); }
+}
+
 @media (min-width: 810px) and (prefers-reduced-motion: no-preference) {
-  .work-stream {
-    --stream-step: 130px;
-    display: block; position: relative; margin-inline: -12px;
-    height: calc(100svh - 64px + 18 * var(--stream-step));
+  .work-stream { --stream-step: 220px; position: relative; height: calc(100svh - 64px + 18 * var(--stream-step)); }
+  .stream-stage { position: sticky; top: 64px; height: calc(100svh - 64px); overflow: clip; container-type: size; cursor: grab; }
+  .stream-stage.is-pulled { cursor: grabbing; user-select: none; }
+  .stream-track {
+    --cw: min(56cqw, 76cqh);
+    position: absolute; left: 12px; top: 0; bottom: 104px; width: max-content; align-items: center;
+    gap: calc(var(--cw) * .42); padding: 0; overflow: visible; will-change: transform;
   }
-  .stream-stage {
-    position: sticky; top: 64px; height: calc(100svh - 64px); overflow: clip;
-    container-type: size;
-  }
-  .stream-track { position: absolute; inset: 0; }
-  .stream-card {
-    --cw: min(56cqw, 78cqh);
-    position: absolute; left: 50%; top: 46%; display: block;
-    width: var(--cw); aspect-ratio: 4 / 3; margin-left: calc(var(--cw) / -2); margin-top: calc(var(--cw) * -.375);
-    transform: translate(calc(12px + var(--cw) / 2 - 50cqw), 2cqh) perspective(900px) rotateY(3deg);
-    will-change: transform, opacity;
-  }
-  .stream-card img {
-    display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 8px;
-    background: var(--gray-28); box-shadow: 0 0 0 1px rgba(255, 255, 255, .07);
-    transition: transform 420ms cubic-bezier(.16, 1, .3, 1), box-shadow 200ms ease;
-  }
-  .stream-card:hover img { transform: translateY(-2.5%); box-shadow: 0 0 0 1px rgba(255, 255, 255, .5); }
-  .stream-card:focus-visible img { box-shadow: 0 0 0 2px var(--focus); }
+  .tape { cursor: inherit; }
+  .tape-title { display: none; }
+  .tape-strip { justify-content: space-between; }
   .stream-caption {
-    position: absolute; z-index: 2000; left: 12px; right: 12px; bottom: 20px;
+    position: absolute; z-index: 3; left: 12px; right: 24px; bottom: 20px;
     display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; pointer-events: none;
   }
   .stream-now { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 16px; min-width: 0; }
-  .stream-name {
-    font-size: clamp(30px, 5.4cqw, 64px); line-height: 1.04; font-weight: 500; letter-spacing: -.04em;
-    color: var(--gray-255); text-wrap: balance;
-  }
+  .stream-name { font-size: clamp(30px, 5.4cqw, 64px); line-height: 1.04; font-weight: 500; letter-spacing: -.04em; color: var(--gray-255); text-wrap: balance; }
   .stream-kind { font-size: 14px; line-height: 1.3; letter-spacing: -.01em; color: var(--muted); white-space: nowrap; }
   .stream-skip {
-    flex: none; display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px;
-    border: 1px solid var(--gray-58); border-radius: 8px; pointer-events: auto;
-    font-size: 13px; font-weight: 500; letter-spacing: -.01em; color: var(--gray-229); background: #000;
-    transition: border-color 160ms ease, color 160ms ease;
+    flex: none; display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px; pointer-events: auto;
+    font-size: 13px; font-weight: 500; letter-spacing: -.01em; color: var(--gray-229);
   }
-  .stream-skip:hover { border-color: var(--gray-114); color: var(--gray-255); }
+  .stream-skip:hover { color: var(--gray-255); }
 }
+@media (prefers-reduced-motion: reduce) { .tape-cassette { transition: none; } }
 
 /* The full list under the stream: no chrome, tighter corners, more air. */
 .work-grid { --work-card-gap: 20px; }
@@ -1128,3 +1145,15 @@ body .site-shell :is(.case-reachout, #profile-contact, .mobile-reachout) :is(.co
 
 /* Spikes need room to read: small sidebar icons step up to 22px. Tool logos stay as they are. */
 .sidebar img[src*="/assets/icons3d/"]:not([src*="framer"], [src*="figma"], [src*="spline"], [src*="unicorn"], [src*="davinci"], [src*="camera"]) { width: 22px; height: 22px; flex: none; object-fit: contain; }
+
+@media (max-width: 809px) { .work-all-label { display: block; margin: 12px 0 16px; font-size: 24px; line-height: 30px; font-weight: 500; letter-spacing: -.03em; color: var(--gray-245); } }
+
+/* The filters never wrap: when the panel is narrow they scroll sideways. */
+@media (min-width: 810px) {
+  .work-toolbar[data-has-concepts] .work-filters, .work-toolbar[data-has-behance] .work-filters { flex: 1 1 auto; flex-wrap: nowrap; min-width: 0; overflow-x: auto; scrollbar-width: none; }
+}
+
+/* Ink: thick where it leaves the letter, thin as it runs, a heavy drop at the end. No straight pins. */
+.ink { width: calc(var(--w) * 2.6); margin-left: calc(var(--w) * -1.3); }
+.ink i { width: 100%; border-radius: 0; clip-path: polygon(0 0, 100% 0, 66% 22%, 58% 62%, 56% 100%, 44% 100%, 42% 62%, 34% 22%); }
+.ink b { border-radius: 50% 50% 48% 48% / 66% 66% 34% 34%; }
