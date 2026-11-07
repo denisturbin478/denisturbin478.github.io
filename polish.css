@@ -271,20 +271,9 @@ body .site-shell .profile-actions .contact-start-button { width: 100%; max-width
 }
 
 /* 10. Bio photo stacks ------------------------------------------------- */
-.bio-stack {
-  color:inherit;
-  text-decoration-line: underline;
-  text-decoration-style: dashed;
-  text-decoration-thickness: 1.5px;
-  text-decoration-color:var(--gray-119);
-  text-underline-offset: .22em;
-  border-radius: 4px;
-  transition: color 160ms ease, text-decoration-color 160ms ease;
-}
-.bio-stack:hover,
-.bio-stack.is-active { color:var(--gray-255); text-decoration-color:var(--gray-245); }
+.bio-stack { color: var(--gray-255); text-decoration: none; cursor: pointer; transition: opacity 160ms ease; }
+.bio-stack:hover, .bio-stack.is-active { color: var(--gray-255); }
 .bio-stack:focus-visible { outline:2px solid var(--focus); outline-offset: 2px; }
-.sidebar-statement span .bio-stack:not(:hover):not(.is-active) { color:inherit; }
 
 .bio-stack-layer { position: fixed; inset: 0; z-index: 80; pointer-events: none; }
 .bio-stack-pile { position: absolute; width: 0; height: 0; }
@@ -816,17 +805,8 @@ body .sidebar .trust-credentials-inline .trust-credential-icon img { width: 15px
   :is(.service-choice, .profile-service-summary):hover .service-fan img:only-child { transform: rotate(-3deg) scale(1.06); }
 }
 
-.service-icon {
-  display: grid;
-  place-items: center;
-  flex: none;
-  width: 32px;
-  height: 32px;
-  border-radius: 9px;
-  background: var(--gray-28);
-  color: var(--gray-221);
-}
-.service-icon svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.service-icon { display: block; flex: none; width: 32px; height: 32px; }
+.service-icon img { display: block; width: 32px; height: 32px; }
 
 @media (prefers-reduced-motion: reduce) { .service-fan img { transition: none; } }
 
@@ -867,7 +847,7 @@ body .sidebar .trust-credentials-inline .trust-credential-icon img { width: 15px
 .profile-proof-item figcaption { display: flex; align-items: center; gap: 8px; margin-top: 8px; font-size: 13px; line-height: 18px; color: var(--muted); }
 .profile-proof-item figcaption img { flex: none; width: 24px; height: 24px; border-radius: 50%; object-fit: cover; }
 .profile-proof-item strong { font-weight: 500; color: var(--gray-221); }
-.profile-proof-more { margin-top: 14px; }
+body .site-shell .sidebar .profile-proof-more { display: inline-flex; margin-top: 16px; }
 .service-price { display: block; margin-top: 3px; font-size: 13px; line-height: 18px; font-variant-numeric: tabular-nums; color: var(--gray-221); }
 .profile-services-compact .service-price { display: none; }
 @media (max-width: 809px) {
@@ -911,9 +891,13 @@ body .site-shell .work-closing .contact-start-button { display: inline-flex; ali
   .work-closing-name { margin-top: 40px; }
 }
 
-/* Rolling numbers */
-.roll-d { display: inline-block; height: 1em; line-height: 1; overflow: hidden; vertical-align: -.09em; font-variant-numeric: tabular-nums; }
-.roll-strip { display: block; width: 1ch; word-spacing: 1ch; transition: transform 900ms cubic-bezier(.2, .8, .2, 1); will-change: transform; }
+/* Rolling numbers: the strip shows while rolling; plain text returns afterwards so the baseline is always true. */
+.roll-d { display: inline-block; height: 1.2em; line-height: 1.2em; overflow: hidden; vertical-align: bottom; font-variant-numeric: tabular-nums; }
+.roll-strip { display: block; width: 1ch; word-spacing: 1ch; transition: transform 900ms cubic-bezier(.2, .8, .2, 1); }
+
+/* Tools with their silver icons */
+.tool-chip { display: inline-flex; align-items: center; gap: 7px; margin: 2px 14px 2px 0; white-space: nowrap; }
+.tool-chip img { display: block; flex: none; width: 24px; height: 24px; }
 
 /* About: On-line / Off-line */
 .offline { margin: 0 0 12px; }
