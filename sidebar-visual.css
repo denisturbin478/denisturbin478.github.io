@@ -550,8 +550,3 @@ body .site-shell .sidebar :is(.profile-section, .profile-proof) > a.secondary-ac
 @media (max-width: 809px) {
   body .site-shell .sidebar .profile-proof > a.secondary-action-button.small-link.profile-proof-more { display: none; }
 }
-
-/* ---------- Punk stays an accent: the linked words and the closing name only ---------- */
-@media screen {
-  html.liquid-on :is(.bio-stack, .work-closing-mark) { filter: url(#dt-liquid); }
-}

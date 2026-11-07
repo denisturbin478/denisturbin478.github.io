@@ -923,9 +923,35 @@ body .sidebar .bio-stack { color: var(--gray-255); }
 .mobile-switch.is-stretching a[aria-current] { transition: color 110ms linear; }
 .mobile-switch.is-stretching a.is-target { transition: color 60ms linear; }
 
-/* Punk is an accent, never a heading style: linked words, the closing name, and text being selected. */
+/* Punk is an accent, never a heading style: one word or phrase on a page, sized to the line it sits in. */
 .punk-tags { position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: 40; pointer-events: none; }
 body.punk-on *:not(input, textarea, select)::selection { background: transparent; color: transparent; }
 /* Form fields and menus keep a normal visible selection. Selection styles inherit, so this has to be stated. */
 body.punk-on :is(input, textarea, select)::selection, body.punk-on :is(dialog, .mobile-switch) *::selection { background: var(--gray-245); color: var(--gray-18); }
+.punk-word { font-family: "DT Punk", "Inter Tight", sans-serif; font-size: 1.1em; font-weight: 400; letter-spacing: .012em; line-height: 1; color: var(--gray-255); }
+h1 .punk-word, h1 span .punk-word { color: var(--gray-255); }
+.case-reachout h2 .punk-word { font-size: 1.2em; }
+
+/* Ink: slow drips that run from the feet of the letters, a little at a time. Transform and opacity only, so it stays smooth. */
+.ink-host { position: relative; }
+.ink-layer { position: absolute; inset: 0; z-index: 1; overflow: visible; pointer-events: none; }
+.ink { position: absolute; display: block; width: var(--w); height: 0; margin-left: calc(var(--w) / -2); }
+.ink i, .ink b { position: absolute; display: block; background: var(--gray-255); animation-duration: var(--t); animation-delay: var(--delay); animation-iteration-count: infinite; animation-play-state: var(--ink-play, running); will-change: transform, opacity; }
+.ink i { top: -1px; left: 0; width: var(--w); height: var(--h); border-radius: 0 0 999px 999px; transform-origin: top; transform: scaleY(0); animation-name: ink-stem; animation-timing-function: cubic-bezier(.45, .05, .75, .7); }
+.ink b { top: -1px; left: 50%; width: var(--bead); height: calc(var(--bead) * 1.35); margin-left: calc(var(--bead) / -2); border-radius: 50% 50% 50% 50% / 42% 42% 58% 58%; opacity: 0; animation-name: ink-bead; animation-timing-function: cubic-bezier(.45, .05, .75, .7); }
+@keyframes ink-stem {
+  0% { transform: scaleY(0); opacity: 1; }
+  60%, 74% { transform: scaleY(1); opacity: 1; }
+  100% { transform: scaleY(1); opacity: 0; }
+}
+@keyframes ink-bead {
+  0% { transform: translateY(0) scale(.25); opacity: 0; }
+  5% { opacity: 1; }
+  60% { transform: translateY(var(--h)) scale(1); opacity: 1; }
+  70% { transform: translateY(var(--h)) scale(1.16); opacity: 1; }
+  100% { transform: translateY(calc(var(--h) + var(--fall))) scale(.72); opacity: 0; }
+}
+.work-closing-name { position: relative; padding-bottom: 64px; }
+@media print { .ink-layer { display: none !important; } }
+@media (prefers-reduced-motion: reduce) { .ink-layer { display: none; } }
 
