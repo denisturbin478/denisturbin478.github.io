@@ -53,6 +53,8 @@ body .site-shell .cv-actions a { display: flex; align-items: center; justify-con
 .cv-download:hover { background: var(--gray-255); }
 .cv-talk { border: 1px solid rgba(255, 255, 255, .12); background: rgba(255, 255, 255, .05); color: var(--gray-238); transition: background-color 160ms ease, border-color 160ms ease; }
 .cv-talk:hover { border-color: rgba(255, 255, 255, .22); background: rgba(255, 255, 255, .09); }
+.cv-lang-link { display: inline-block; margin-top: 12px; font-size: 14px; line-height: 20px; color: var(--gray-221); text-decoration: underline; text-decoration-color: var(--gray-119); text-underline-offset: 3px; }
+.cv-lang-link:hover { color: var(--gray-255); }
 .cv-actions a:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 .cv-facts { margin: 24px 0 0; padding: 0; }
 .cv-facts > div { padding: 10px 0; border-top: 1px solid var(--line); }
@@ -101,3 +103,7 @@ body .site-shell .cv-actions a { display: flex; align-items: center; justify-con
   .cv-updated { margin-top: 6pt; padding-top: 4pt; border-top: .5pt solid #999; font-size: 8.5pt; color: #333; }
   a { color: inherit !important; text-decoration: none !important; }
 }
+
+/* French page: spaced colon in the printed lists, and a nav label that stays on one line. */
+@media print { :lang(fr) .cv-list b::after { content: ' : '; } }
+:lang(fr) .mobile-switch a { white-space: nowrap; }
