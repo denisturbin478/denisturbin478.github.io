@@ -790,3 +790,57 @@ body .sidebar .trust-credentials-inline .trust-credential-icon img { width: 15px
 @media (max-width: 359px) {
   body .mobile-switch a { padding-inline: 10px; font-size: 14px; }
 }
+
+/* Service rows, shared by Services and the Home and Work sidebars. */
+.service-fan { position: relative; flex: none; width: 66px; height: 46px; }
+.service-fan img {
+  position: absolute;
+  top: 8px;
+  left: 13px;
+  width: 40px;
+  height: 30px;
+  border-radius: 5px;
+  object-fit: cover;
+  box-shadow: 0 0 0 1.5px var(--gray-18), 0 3px 8px rgba(0, 0, 0, .45);
+  transition: transform 240ms var(--ease-out);
+}
+.service-fan img:nth-child(1):not(:only-child) { transform: translateX(-12px) rotate(-7deg); }
+.service-fan img:nth-child(2):last-child { transform: translateX(12px) rotate(6deg); }
+.service-fan img:nth-child(3) { transform: translateX(12px) rotate(7deg); }
+.service-fan img:nth-child(2):not(:last-child) { z-index: 1; transform: translateY(-1px); }
+@media (hover: hover) and (pointer: fine) {
+  :is(.service-choice, .profile-service-summary):hover .service-fan img:nth-child(1):not(:only-child) { transform: translateX(-14px) rotate(-11deg); }
+  :is(.service-choice, .profile-service-summary):hover .service-fan img:nth-child(2):last-child { transform: translateX(14px) rotate(9deg); }
+  :is(.service-choice, .profile-service-summary):hover .service-fan img:nth-child(3) { transform: translateX(14px) rotate(11deg); }
+  :is(.service-choice, .profile-service-summary):hover .service-fan img:nth-child(2):not(:last-child) { transform: translateY(-3px); }
+  :is(.service-choice, .profile-service-summary):hover .service-fan img:only-child { transform: rotate(-3deg) scale(1.06); }
+}
+
+.service-icon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  background: var(--gray-28);
+  color: var(--gray-221);
+}
+.service-icon svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+
+@media (prefers-reduced-motion: reduce) { .service-fan img { transition: none; } }
+
+/* Home and Work: core services with their work, then compact additional scopes. */
+#profile-services > h2 { margin-bottom: 4px; }
+#profile-services .profile-service + .profile-service { border-top: 1px solid var(--line); }
+#profile-services .profile-service-summary { padding: 14px 0; }
+#profile-services .profile-service:first-child > .profile-service-summary { padding-top: 14px; }
+#profile-services .profile-service-summary > h3 { align-items: center; gap: 14px; }
+#profile-services .service-teaser { font-size: 13px; line-height: 18px; }
+#profile-services .service-indicator { margin-top: 0; align-self: center; }
+#profile-services .profile-service[open] .service-teaser { display: none; }
+.profile-services-group { margin: 28px 0 6px; font-size: 16px; line-height: 22px; font-weight: 500; letter-spacing: -.02em; color: var(--gray-245); }
+#profile-services .profile-services-compact .profile-service-summary { min-height: 48px; padding: 7px 0; }
+#profile-services .profile-services-compact .profile-service-summary > h3 { gap: 12px; }
+#profile-services .profile-services-compact .service-teaser { display: none; }
+#profile-services .profile-services-compact .service-choice-title { font-size: 15px; line-height: 20px; font-weight: 400; letter-spacing: -.015em; }
