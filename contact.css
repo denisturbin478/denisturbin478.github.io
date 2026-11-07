@@ -1,5 +1,4 @@
 /* Contact has its own compact field system; other portfolio panes keep their rhythm. */
-.contact-layout-page{--sidebar-width:clamp(380px,33.333333vw,420px)}
 .contact-layout-page .contact-sidebar{container-type:inline-size}
 .contact-layout-page .contact-intro{margin:28px 0 20px}
 .contact-layout-page .contact-intro h1{margin-bottom:12px}

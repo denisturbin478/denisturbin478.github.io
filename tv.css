@@ -1,0 +1,559 @@
+/* The television. Loaded last.
+   Screens: LED type on a dot grid, LED buttons, old-school layouts. Hardware: rendered materials, real keys on the deck.
+   On a real computer screen every screen shares one window and one corner radius (--screen-r). */
+@font-face { font-family: "DT LED"; src: url("/assets/fonts/dt-led-ext.woff2") format("woff2"); unicode-range: U+0100-02FF, U+0400-052F; font-display: swap; }
+
+:root {
+  --lit: #f6f6f6;
+  --led-2: #cdcdcd;
+  --led-3: #9e9e9e;
+  --led-rule: rgba(255, 255, 255, .26);
+  --lit-mesh: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2' height='2'%3E%3Cpath fill-opacity='.2' d='M1.5 0H2V2H0V1.5H1.5Z'/%3E%3C/svg%3E");
+  --dot-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2' height='2'%3E%3Crect width='1.5' height='1.5'/%3E%3C/svg%3E");
+  --ghost: 1.5px 0 0 rgba(255, 64, 64, .2), -1.5px 0 0 rgba(64, 140, 255, .2), 0 0 6px rgba(255, 255, 255, .26);
+}
+.tube-top, .panel-top, .tv-deck, .tv-back, .tv-glass, .tv-frame, .tv-shell, .tv-spill, .tv-plate, .crt-defs { display: none; }
+.crt-defs { position: absolute; width: 0; height: 0; }
+.vhs-fx { position: fixed; z-index: 9; left: 0; top: 0; width: 100vw; height: 100%; pointer-events: none; }
+.work-stream[hidden], .work-all-label[hidden], .tube-preview[hidden] { display: none !important; }
+.workspace-grid { display: none; }
+html.is-recording body .site-shell ::selection { background: var(--lit); }
+::selection { background: var(--lit); color: #000; text-shadow: none; }
+:is(input, textarea, select)::selection { background: var(--lit); color: #000; }
+
+/* ---------- Type: everything on a screen is the dot-matrix face, on its grid: 16 on 22, 24 on 33 ---------- */
+@media screen {
+  body .site-shell :is(.sidebar, .main-pane) { font-family: "DT LED", "Inter Tight", sans-serif; font-synthesis: none; font-kerning: none; text-shadow: var(--ghost); }
+  html.crt body .site-shell :is(.sidebar, .main-pane) { text-shadow: 0 0 5px rgba(255, 255, 255, .2); }
+  body .site-shell :is(.sidebar, .main-pane) *:not(svg, svg *, .ui-sound-toggle, .ui-sound-toggle *) {
+    font-family: "DT LED", "Inter Tight", sans-serif !important; font-size: 16px !important; line-height: 22px !important; font-weight: 400 !important; letter-spacing: 0 !important; overflow-wrap: break-word;
+  }
+  body .site-shell .sidebar :is(h1:not(.sr-only), h1:not(.sr-only) *, .identity-name),
+  body .site-shell .main-pane :is(h2:not(.sr-only, .project-title), h2:not(.sr-only, .project-title) *, .cv-entry h3, .cv-entry h3 *, .work-all-label, .case-gallery-footer a, .tv-osd-mode, .tv-osd-code) {
+    font-size: 24px !important; line-height: 33px !important; color: #fff;
+  }
+  body .site-shell :is(.sidebar, .main-pane) :is(h1:not(.sr-only), h2, h3, h2 *, h3 *, .identity-name, .work-all-label) { color: #fff; text-transform: uppercase; }
+  body .site-shell :is(.sidebar, .main-pane) :is(strong, b) { color: #fff; }
+  html body .site-shell :is(.sidebar, .main-pane) p:not(.sr-only) { color: var(--led-2); }
+  html body .site-shell .sidebar :is(.service-teaser) { text-transform: none; color: var(--led-2); }
+}
+/* Writing the dots don't cover (Chinese, Arabic, Hindi...) keeps the system's own face, in its strongest weight. */
+html:is(:lang(zh-Hans), :lang(ja), :lang(ko), :lang(ar), :lang(hi)) body .site-shell :is(.sidebar, .main-pane) *:not(svg, svg *) { font-weight: 700 !important; }
+/* Labels in other languages can be longer than the old fixed button faces allowed. */
+html:not([lang=en]) body .site-shell [data-evil-button="chrome"] :is(.evil-chrome-label, [data-evil-label], [data-evil-sizer]) { width: auto; max-width: none; }
+html:not([lang=en]) body .site-shell [data-evil-status-button][data-evil-button="chrome"] [data-evil-face] { max-width: none; }
+html:not([lang=en]) body .site-shell [data-evil-status-button][data-evil-button="chrome"] [data-evil-label] { width: auto; max-width: none; }
+/* The screens stay dark for the moment the glass takes to bend, so a page never jumps from flat to curved. */
+html.crt-wait body .site-shell :is(.sidebar, .main-pane) { visibility: hidden; }
+/* A chosen language: the screens stay dark for the moment it takes to tune in. */
+html.is-tuning body .site-shell :is(.sidebar, .main-pane) > :not(.tube-top, .panel-top) { opacity: 0; }
+/* The set stays where it is in right-to-left languages; only the writing turns round. */
+html[dir=rtl] :is(.tv-plate, .tv-osd, .tv-lang) { direction: ltr; }
+
+/* Words that lead somewhere are brightest; touching one lights the block behind it. */
+html body .site-shell .sidebar :is(.bio-stack, .punk-word), html body .site-shell .main-pane .punk-word { color: #fff; }
+html body .site-shell .sidebar .bio-stack:is(:hover, .is-active) { background: var(--lit); color: #000; text-shadow: none; -webkit-text-stroke: .55px #000; }
+@media (min-width: 810px) { html body .site-shell .sidebar .bio-stack { padding: 0; margin: 0; } }
+
+/* ---------- Nothing on a screen is rounded or boxed by a line: rows of dots, lit blocks, old window bars ---------- */
+body .site-shell :is(.sidebar, .main-pane) *:not(svg, svg *, .ui-sound-toggle) { border-radius: 0 !important; }
+html body .site-shell .sidebar :is(.trust-credential, .trust-credential-icon, .case-tool-brand, .fact-badge, .tool-logo:not(.logo-wordmark), .portfolio-like-button, dl dd) { background: transparent; border-color: transparent; box-shadow: none; }
+html body .site-shell .sidebar :is(.trust-credential, .case-tool-brand, .fact-badge) { padding-inline: 0; }
+
+/* Section headings run on into the stripes of an old window title bar, to the end of the last line. */
+html body .site-shell :is(.sidebar, .main-pane) :is(section, div, header) > h2:not(.sr-only, .project-title) { display: block; margin: 0 0 12px; padding: 0; overflow: hidden; text-wrap: balance; }
+html body .site-shell :is(.sidebar, .main-pane) :is(section, div, header) > h2:not(.sr-only, .project-title)::after {
+  content: ''; display: inline-block; position: static; inset: auto; width: 100%; height: 12px; margin: 0 -100% 0 10px; vertical-align: 4px; border: 0; transform: none; background: repeating-linear-gradient(to bottom, rgba(255, 255, 255, .5) 0 2px, transparent 2px 4px);
+}
+html body .site-shell :is(.case-reachout, #profile-contact, .work-closing) > :is(h2, .profile-section-intro > h2)::after,
+html body .site-shell #profile-contact .profile-section-intro > h2::after { content: none; }
+/* A little air between every title and what it introduces. */
+html body .site-shell .sidebar :is(h1, h2, h3, .case-note-label, dt) + :is(p, dd, ul, ol, h3, small, dl) { margin-top: 10px; }
+html body .site-shell .sidebar h1 { margin: 0 0 14px; }
+html body .site-shell .sidebar dt { margin-bottom: 8px; color: var(--led-3); }
+html body .site-shell .sidebar dd { margin: 0; color: #fff; }
+html body .site-shell .sidebar .case-disclosure-heading { gap: 4px; }
+html body .site-shell .sidebar .case-disclosure-heading small, html body .site-shell .sidebar summary > span:not(.case-disclosure-heading) { color: var(--led-3); }
+html body .site-shell .sidebar :is(.case-disclosure-label, .case-disclosure-heading) { white-space: normal !important; }
+
+/* Rows of dots instead of ruled lines. */
+html body .site-shell .sidebar :is(.profile-proof-item, .profile-section, .profile-service, .case-more-details, .case-sidebar-footer, .information-service, .contact-brief, .optional-fields, .contact-tool-section, .contact-direct, .community-response, .brief-options, .review-row, dl > div) { border-top-style: dotted; border-top-color: var(--led-rule); }
+html body .site-shell .sidebar :is(.infinite-faq-item, .faq-input-row, .brief-price-guide-content, .brief-options, .services-more-reviews) { border-bottom-style: dotted; border-bottom-color: var(--led-rule); }
+html body .site-shell .sidebar :is(input:not([type=checkbox], [type=radio], [type=file]), select, textarea) { background: #000; border: 1px dotted rgba(255, 255, 255, .6); box-shadow: none; text-shadow: none; }
+html body .site-shell .sidebar :is(input:not([type=checkbox], [type=radio], [type=file]), select, textarea):focus { border: 1px solid #fff; }
+html body .site-shell .sidebar :is(.estimate-mode, .brief-file-dropzone, .booking-calendar, .booking-load-status) { background: transparent; border: 2px dotted var(--led-rule); box-shadow: none; }
+
+/* Pictures in the panel are lit dots too, except faces too small to survive it. */
+html body .site-shell .sidebar .identity-portrait img, html body .site-shell :is(.case-reachout, #profile-contact)::before {
+  image-rendering: pixelated; -webkit-mask: var(--dot-mask) 0 0 / 2px 2px; mask: var(--dot-mask) 0 0 / 2px 2px; filter: brightness(1.3) contrast(1.05);
+}
+html body .site-shell :is(.case-reachout, #profile-contact)::before { background-image: url("/assets/portrait-led.webp") !important; }
+html body .site-shell .sidebar :is(.review-avatar, .profile-proof-item img) { filter: grayscale(1); }
+
+/* ---------- The identity: one header, same place everywhere ---------- */
+.identity.identity-row { grid-template-columns: 88px minmax(0, 1fr) auto; grid-template-rows: auto auto; column-gap: 14px; row-gap: 0; margin: 0 0 22px !important; }
+.identity.identity-row .identity-portrait { grid-column: 1; grid-row: 1 / span 2; }
+.identity.identity-row .identity-copy { display: contents; }
+.identity.identity-row .identity-name { grid-column: 2; grid-row: 1; }
+.identity.identity-row .identity-copy > small { grid-column: 2 / -1; grid-row: 2; margin-top: 2px; white-space: normal; color: var(--led-3); }
+.identity.identity-row .portfolio-like-button { grid-column: 3; grid-row: 1; align-self: start; margin: 0; padding: 0; min-height: 0; }
+.identity.identity-row .identity-portrait, .identity.identity-row .identity-portrait img { width: 88px; height: 88px; }
+body:is([data-page=home], [data-page=work]) .profile-intro { gap: 0; }
+html body .site-shell .sidebar .case-back { min-height: 0; margin: 0 0 16px; padding: 0; }
+@media (min-width: 810px) and (max-width: 1100px) {
+  .identity.identity-row { grid-template-columns: 56px minmax(0, 1fr) auto; column-gap: 12px; }
+  .identity.identity-row .identity-portrait, .identity.identity-row .identity-portrait img { width: 56px; height: 56px; }
+  body .site-shell .sidebar .identity-name { font-size: 16px !important; line-height: 22px !important; }
+}
+@media (max-width: 360px) {
+  .identity.identity-row { grid-template-columns: 64px minmax(0, 1fr) auto; column-gap: 12px; }
+  .identity.identity-row .identity-portrait, .identity.identity-row .identity-portrait img { width: 64px; height: 64px; }
+  body .site-shell .sidebar .identity-name { font-size: 16px !important; line-height: 22px !important; }
+}
+
+/* ---------- LED buttons. Secondary: an outline of dots. Primary: a lit block. Touching one switches its dots on ---------- */
+html body .site-shell :is(.sidebar, .main-pane) :is(.secondary-action-button, .work-closing-link, .contact-contra-badge, .contact-whatsapp-button, .footer-email, .profile-hiring, .cv-talk, .social-profile-button, .contact-secondary-button, .stream-skip, .scrapbook-toggle, .faq-find, .case-prototype-reload, .contact-start-button, .cv-download, .contact-primary-button, .case-outbound-primary, .case-prototype-start, .led-pager button) {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 44px; height: auto; max-height: none; width: auto; max-width: 100%; padding: 8px 14px; border: 2px dotted rgba(255, 255, 255, .72) !important; border-image: none !important; border-radius: 0 !important;
+  background: rgba(0, 0, 0, .55) !important; box-shadow: none !important; color: #fff !important; text-shadow: none; text-transform: uppercase; opacity: 1; filter: none; transform: none; transition: none; white-space: normal; text-align: center; -webkit-text-stroke: 0;
+}
+html body .site-shell :is(.sidebar, .main-pane) :is(.contact-start-button, .cv-download, .contact-primary-button, .case-outbound-primary, .case-prototype-start),
+html body .site-shell :is(.sidebar, .main-pane) :is(.secondary-action-button, .work-closing-link, .contact-contra-badge, .contact-whatsapp-button, .footer-email, .profile-hiring, .cv-talk, .social-profile-button, .contact-secondary-button, .stream-skip, .scrapbook-toggle, .faq-find, .case-prototype-reload, .led-pager button):is(:hover, :active, :focus-visible) {
+  border: 2px solid var(--lit) !important; background: var(--lit) var(--lit-mesh) !important; box-shadow: 0 0 14px rgba(255, 255, 255, .34) !important; color: #000 !important; text-shadow: none; -webkit-text-stroke: .55px #000;
+}
+html body .site-shell :is(.sidebar, .main-pane) :is(.contact-start-button, .cv-download, .contact-primary-button, .case-outbound-primary, .case-prototype-start):is(:hover, :focus-visible) { background: #fff !important; }
+html body .site-shell :is(.sidebar, .main-pane) :is(.contact-start-button, .cv-download, .contact-primary-button, .case-outbound-primary, .case-prototype-start):active { border: 2px dotted #fff !important; background: #000 !important; color: #fff !important; -webkit-text-stroke: 0; }
+html body .site-shell :is(.sidebar, .main-pane) .contact-primary-button:is([aria-disabled=true], :disabled) { border: 2px dotted rgba(255, 255, 255, .4) !important; background: transparent !important; box-shadow: none !important; color: var(--led-3) !important; -webkit-text-stroke: 0; }
+html body .site-shell :is(.sidebar, .main-pane) :is(.contact-start-button, .cv-download, .contact-primary-button, .case-outbound-primary, .case-prototype-start)::before { content: none !important; }
+html body .site-shell :is(.sidebar, .main-pane) .contact-start-button::after,
+html body .site-shell .sidebar :is(.profile-section, .profile-proof) > a.secondary-action-button.small-link::after {
+  content: "\2192"; position: static; flex: none; width: auto; height: auto; background: none; -webkit-mask: none; mask: none; transform: none; font: inherit;
+}
+html body .site-shell :is(.sidebar, .main-pane) button[data-evil-status-button].contact-start-button::after { content: none; }
+html body .site-shell .sidebar :is(.profile-section, .profile-proof) > a.secondary-action-button.small-link[target=_blank]::after { content: "\2197"; -webkit-mask: none; mask: none; }
+html body .site-shell .sidebar :is(.profile-section, .profile-proof) > a.secondary-action-button.small-link { display: flex; justify-content: space-between; width: 100%; }
+
+/* In the panel every button is one full-width row. */
+html body .site-shell .sidebar :is(.secondary-action-button, .contact-contra-badge, .contact-whatsapp-button, .footer-email, .profile-hiring, .cv-talk, .social-profile-button, .contact-secondary-button, .contact-start-button, .cv-download, .contact-primary-button, .case-outbound-primary) {
+  width: 100% !important; max-width: none !important; min-height: 44px !important; height: auto !important; flex: none;
+}
+html body .site-shell .sidebar :is(.case-action-row, .contact-entry-options, .case-chart-sources, .case-evidence-sources, .contact-actions, .profile-actions, .contact-brand-buttons, .about-proof-links, .information-proof-links, .concept-source-actions, .cv-actions, .case-outbound, .case-sidebar-footer) { display: grid !important; grid-template-columns: minmax(0, 1fr) !important; gap: 8px !important; width: 100% !important; max-width: none !important; }
+html body .site-shell .sidebar :is(.case-action-row, .contact-entry-options, .case-chart-sources, .case-evidence-sources, .contact-actions, .profile-actions, .contact-brand-buttons, .about-proof-links, .information-proof-links, .concept-source-actions, .cv-actions, .case-outbound, .case-sidebar-footer) > * { width: 100%; max-width: none; margin: 0; }
+html body .site-shell .sidebar :is(.contact-utility-row, .email-copy-control) { display: block; width: 100%; }
+html body .site-shell .sidebar .disclosure-content:has(> .social-profile-button) { display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; }
+html body .site-shell .sidebar .footer-email { text-transform: none; }
+html body .site-shell .sidebar .profile-hiring { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 2px 12px; text-align: left; }
+html body .site-shell .sidebar .profile-hiring > span { text-transform: none; }
+html body .site-shell .sidebar .profile-hiring > strong svg { display: none; }
+html body .site-shell .sidebar .profile-hiring > strong::after { content: " \2193"; }
+html body .site-shell .sidebar :is(.secondary-action-button, .about-proof-link):has(> .proof-thumb) { justify-content: flex-start; text-align: left; padding-block: 4px; }
+html body .site-shell .sidebar .evil-copy-value { left: auto; right: 0; background: #000; border: 2px dotted rgba(255, 255, 255, .6); }
+html body .site-shell :is(.sidebar, .main-pane) button[data-evil-status-button] { display: grid; grid-template-columns: minmax(0, 1fr); justify-items: center; }
+html body .site-shell .sidebar button.footer-email[data-evil-status-button] [data-evil-face] { justify-self: center; flex-direction: row; gap: 10px; }
+html body .site-shell .sidebar .footer-email [data-evil-icon] svg { stroke-width: 2; }
+
+html body .site-shell .sidebar .case-action-row > * { width: 100% !important; min-width: 0; flex: none; }
+html body .site-shell .sidebar .proof-thumb { flex: none; }
+html body .site-shell .sidebar :is(.trust-credential, .trust-credentials-inline .trust-credential) { min-height: 26px; height: auto; gap: 8px; }
+html body .site-shell .sidebar .trust-credentials-inline { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0; justify-items: start; }
+
+/* Sub-pages, as on teletext. */
+.led-pages { display: grid; }
+.led-pages > * { grid-area: 1 / 1; min-width: 0; }
+.led-pages > .is-off { visibility: hidden; }
+html body .site-shell .led-pager { display: flex; align-items: center; gap: 8px; margin: 12px 0 14px; }
+html body .site-shell .sidebar .led-pager button { width: 44px !important; min-height: 34px !important; padding: 0 !important; flex: none; }
+html body .site-shell .led-pager span { color: var(--led-3); min-width: 38px; text-align: center; }
+
+/* ---------- Old-school layouts for long text ---------- */
+/* Windows: a lit title bar with stripes, the text inside. */
+html body.case-gallery-layout .site-shell .sidebar :is(.case-copy-challenge, .case-copy-solution, .case-copy-outcome, .about-working-facts, .about-toolkit, .case-facts) { background: transparent; border: 2px dotted var(--led-rule); border-radius: 0; box-shadow: none; }
+html body.case-gallery-layout .site-shell .sidebar :is(.case-copy-challenge, .case-copy-solution, .case-copy-outcome) { padding: 0; margin: 0 0 14px; overflow: hidden; }
+html body.case-gallery-layout .site-shell .sidebar :is(.case-copy-challenge, .case-copy-solution, .case-copy-outcome) > h2 {
+  display: flex; align-items: center; gap: 10px; margin: 0; padding: 3px 10px; overflow: visible; background: var(--lit); color: #000; text-shadow: none; -webkit-text-stroke: .55px #000; font-size: 16px !important; line-height: 22px !important;
+}
+html body.case-gallery-layout .site-shell .sidebar :is(.case-copy-challenge, .case-copy-solution, .case-copy-outcome) > h2::before { content: none; display: none; }
+html body.case-gallery-layout .site-shell .sidebar :is(.case-copy-challenge, .case-copy-solution, .case-copy-outcome) > h2::after {
+  content: ''; display: block; flex: 1 1 24px; width: auto; min-width: 24px; height: 12px; margin: 0; background: repeating-linear-gradient(to bottom, #000 0 2px, transparent 2px 4px);
+}
+html body.case-gallery-layout .site-shell .sidebar :is(.case-copy-challenge, .case-copy-solution, .case-copy-outcome) > p { margin: 0; padding: 10px 12px 12px; color: #fff; }
+/* Key and value tables. */
+html body.case-gallery-layout .site-shell .sidebar .case-facts { padding: 2px 12px; margin: 0 0 14px; }
+html body.case-gallery-layout .sidebar .case-facts > div:not(.case-tools-fact) { display: grid; grid-template-columns: 104px minmax(0, 1fr); gap: 10px; padding: 8px 0; }
+html body.case-gallery-layout .sidebar .case-facts > div > dt { margin: 0; text-transform: uppercase; }
+html body.case-gallery-layout .sidebar .case-facts > div > dd { margin: 0; }
+html body.case-gallery-layout .sidebar .case-facts > .case-tools-fact { grid-template-columns: max-content minmax(0, 1fr); column-gap: 12px; }
+html body.case-gallery-layout .sidebar .case-facts > .case-tools-fact > dt { overflow-wrap: normal; }
+html body.case-gallery-layout .site-shell .sidebar :is(.about-working-facts, .about-toolkit) { padding: 2px 12px; }
+html body.case-gallery-layout .site-shell .sidebar :is(.about-working-facts, .about-toolkit) dd { margin-top: 8px; }
+@media (min-width: 810px) and (max-width: 1100px) { html body.case-gallery-layout .sidebar .case-facts > div:not(.case-tools-fact) { display: block; } }
+@media (max-width: 360px) { html body.case-gallery-layout .sidebar .case-facts > div:not(.case-tools-fact) { display: block; } }
+/* Lists are lines of type with a prompt, not pills. */
+html body .site-shell .sidebar :is(.case-feature-list, .case-delivery-checklist) { display: grid; grid-template-columns: minmax(0, 1fr); gap: 4px; margin: 0; padding: 0; list-style: none; }
+html body.case-gallery-layout .site-shell .sidebar :is(.case-feature-list, .case-delivery-checklist) > li { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 0; padding: 0; border: 0; background: none; box-shadow: none; color: var(--led-2); }
+html body.case-gallery-layout .site-shell .sidebar .case-feature-list > li::before { content: ">"; display: block; position: static; width: auto; height: auto; margin: 0; background: none; color: #fff; }
+html body.case-gallery-layout .site-shell .sidebar .case-delivery-checklist > li > svg { display: none; }
+html body.case-gallery-layout .site-shell .sidebar .case-delivery-checklist > li { grid-template-columns: 34px minmax(0, 1fr); }
+html body.case-gallery-layout .site-shell .sidebar .case-delivery-checklist > li::before { content: "[x]"; color: #fff; }
+/* Numbered steps: lit numbers, two columns. */
+html body .site-shell .sidebar .case-journey { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px 8px; margin: 12px 0 0; padding: 0; list-style: none; }
+html body .site-shell .sidebar .case-journey > li { display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 8px; align-items: center; padding: 0; border: 0; background: none; min-width: 0; }
+html body .site-shell .sidebar .case-journey > li > span { display: block; padding: 0 2px; white-space: nowrap; background: var(--lit); color: #000; text-align: center; text-shadow: none; -webkit-text-stroke: .4px #000; }
+html body .site-shell .sidebar .case-journey > li > strong { color: var(--led-2); min-width: 0; }
+@media (max-width: 1280px) { html body .site-shell .sidebar .case-journey { grid-template-columns: minmax(0, 1fr); } }
+/* Small labels are tabs. */
+html body .site-shell .sidebar .case-note-label { display: inline-block; padding: 0 8px; background: rgba(255, 255, 255, .16); color: #fff; }
+html body .site-shell .sidebar :is(.case-design-idea, .case-design-journey, .case-evidence-section) > h3 { margin: 10px 0 8px; }
+html body .site-shell .sidebar :is(.case-design-idea, .case-design-journey, .case-evidence-section) { padding: 0; margin: 0; border: 0; background: none; }
+/* The brief and my role: a prompt and an answer. */
+html body .site-shell .sidebar .case-scope-overview { display: grid; gap: 14px; margin: 0 0 14px; }
+html body .site-shell .sidebar .case-scope-overview > div { display: block; padding: 0; border: 0; background: none; }
+html body .site-shell .sidebar .case-scope-overview dt { display: inline-block; margin: 0 0 8px; padding: 0 8px; background: rgba(255, 255, 255, .16); color: #fff; }
+html body .site-shell .sidebar .case-scope-overview dt::before, html body .site-shell .sidebar .case-scope-overview dd::before { content: none; display: none; }
+html body .site-shell .sidebar .case-scope-overview dd { padding: 0; border: 0; background: none; color: var(--led-2); }
+/* Charts: bars made of LED segments, figures that stand out. */
+html body .site-shell .sidebar :is(.case-chart-meter-fill, .case-chart-part) { -webkit-mask: linear-gradient(90deg, #000 0 3px, transparent 3px 5px) 0 0 / 5px 100%; mask: linear-gradient(90deg, #000 0 3px, transparent 3px 5px) 0 0 / 5px 100%; }
+html body .site-shell .sidebar :is(.case-chart-rounded-track, .case-chart-meter-shell) { background: repeating-linear-gradient(90deg, rgba(255, 255, 255, .14) 0 3px, transparent 3px 5px); border: 0; }
+.case-gallery-layout .case-sidebar .case-chart-parts > li { grid-template-columns: 26px minmax(0, 1fr) auto; }
+.case-gallery-layout .case-sidebar .case-chart-board-items { grid-template-columns: minmax(0, 1fr) !important; }
+html body .site-shell .sidebar :is(.case-chart-board-items > li) { padding: 2px 0; background: none; border: 0; }
+html body .site-shell .sidebar .case-chart-board-items > li::before { content: "> "; color: #fff; }
+html body .site-shell .sidebar .behance-stats { grid-template-columns: minmax(0, 1fr); gap: 0; }
+html body .site-shell .sidebar .behance-stats > div { flex-direction: row; justify-content: space-between; align-items: baseline; gap: 12px; padding: 5px 0; border-top: 1px dotted var(--led-rule); }
+/* The programme guide on Services: title, a line about it, the price lit. */
+html body .site-shell .sidebar .service-choice { display: block; padding: 12px 0; }
+html body .site-shell .sidebar .service-choice > h2 { display: grid; grid-template-columns: 72px minmax(0, 1fr) 18px; gap: 12px; align-items: start; margin: 0; }
+html body .site-shell .sidebar .service-choice > h2::after { content: none; }
+html body .site-shell .sidebar .service-choice-copy { display: grid; gap: 6px; min-width: 0; }
+html body .site-shell .sidebar .service-price { display: inline-block; justify-self: start; padding: 0 8px; background: var(--lit); color: #000; text-transform: none; text-shadow: none; -webkit-text-stroke: .4px #000; }
+/* The story of the page in the panel: first line brighter than the rest. */
+html body .site-shell .sidebar :is(.case-sidebar-intro, .about-profile-intro, .information-intro) > p::first-line { color: #fff; }
+/* Reach out */
+html body .site-shell :is(.case-reachout, #profile-contact, .mobile-reachout) { position: relative; isolation: isolate; overflow: hidden; background: transparent; border: 2px dotted var(--led-rule); border-radius: 0; box-shadow: none; }
+html body .site-shell :is(.case-reachout, #profile-contact, .mobile-reachout) :is(p, .reachout-note) { color: #fff; }
+.card-fire { position: absolute; inset: 0; z-index: -1; width: 100%; height: 100%; image-rendering: pixelated; pointer-events: none; -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Crect width='3' height='3'/%3E%3C/svg%3E") 0 0 / 4px 4px; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Crect width='3' height='3'/%3E%3C/svg%3E") 0 0 / 4px 4px; }
+
+/* ---------- The big screen ---------- */
+/* Filters are a menu on the screen: LED tabs, the current one lit. */
+html body .site-shell .work-filters { gap: 2px; }
+html body .site-shell .work-filters a, html body .site-shell .work-filters:not(.has-filter-indicator) a[aria-current] {
+  flex: none; display: inline-flex; align-items: center; justify-content: center; min-height: 34px; height: 34px; padding: 0 9px; border: 0; background: rgba(0, 0, 0, .55); box-shadow: none; color: var(--led-2); text-transform: uppercase; white-space: nowrap; transition: none;
+}
+html body .site-shell .work-filters a:hover { background: rgba(255, 255, 255, .16); color: #fff; }
+html body .site-shell .work-filters a[aria-current] { background: var(--lit) var(--lit-mesh); color: #000; text-shadow: none; -webkit-text-stroke: .55px #000; box-shadow: 0 0 12px rgba(255, 255, 255, .3); }
+.filter-indicator { display: none !important; }
+html body .site-shell #work-count { display: inline-flex; color: var(--led-2); white-space: nowrap; background: none; box-shadow: none; min-height: 0; padding: 0; }
+@media (max-width: 1720px) { html body .site-shell #work-count { display: none; } }
+/* On-line / Off-line is a two-way LED switch. */
+html body .site-shell .offline-switch { display: inline-flex; align-items: stretch; gap: 0; min-height: 34px; padding: 0; border: 2px dotted rgba(255, 255, 255, .6); background: none; }
+html body .site-shell .offline-switch i { display: none; }
+html body .site-shell .offline-switch span { display: inline-flex; align-items: center; padding: 3px 10px; color: var(--led-2); text-transform: uppercase; }
+html body .site-shell .offline-switch:not([aria-checked=true]) span:first-child, html body .site-shell .offline-switch[aria-checked=true] span:last-child { background: var(--lit) var(--lit-mesh); color: #000; text-shadow: none; -webkit-text-stroke: .55px #000; }
+html body .site-shell .offline-bar { align-items: center; gap: 8px 20px; padding: 0 0 16px; }
+/* Small tags over pictures read as a lit tag. */
+html body .site-shell .main-pane .case-media-label { top: 8px; left: 8px; padding: 1px 6px; background: #000; color: #fff; }
+/* Tool names on a project card: a stack of lit lines in the corner, inside the card. */
+html body .site-shell .main-pane .card-tools { top: 10px; right: 10px; display: flex; flex-direction: column; align-items: flex-end; gap: 2px; max-width: calc(100% - 20px); }
+html body .site-shell .main-pane .card-tool { position: relative; inset: auto; transform: none; display: inline-flex; align-items: center; gap: 8px; height: auto; min-height: 26px; width: auto; max-width: 100%; padding: 2px 8px; background: rgba(0, 0, 0, .86); backdrop-filter: none; clip-path: none; overflow: visible; }
+html body .site-shell .main-pane .card-tool-name { opacity: 1; display: none; white-space: nowrap; }
+@media (hover: hover) { html body .site-shell .main-pane .project-link:is(:hover, :focus-visible) .card-tool-name { display: inline; } }
+/* Previous and next project: two channels at the end of the page. */
+html body .site-shell .main-pane .case-gallery-footer { display: flex; justify-content: space-between; align-items: flex-start; gap: 24px; margin-top: 28px; padding-top: 16px; border-top: 2px dotted var(--led-rule); }
+html body .site-shell .main-pane .case-gallery-footer a { display: block; min-width: 0; padding: 4px 6px; margin: -4px -6px; color: #fff; text-transform: uppercase; }
+html body .site-shell .main-pane .case-gallery-footer a[rel=next] { text-align: right; }
+html body .site-shell .main-pane .case-gallery-footer small { display: block; color: var(--led-3); text-transform: none; }
+html body .site-shell .main-pane .case-gallery-footer a:is(:hover, :focus-visible) { background: var(--lit); color: #000; text-shadow: none; -webkit-text-stroke: .55px #000; }
+html body .site-shell .main-pane .case-gallery-footer a:is(:hover, :focus-visible) small { color: #000; }
+html body .site-shell .main-pane .case-gallery-footer .nav-thumb { display: none; }
+@media (max-width: 809px) { html body .site-shell .main-pane .case-gallery-footer { flex-direction: column; gap: 14px; } html body .site-shell .main-pane .case-gallery-footer a { width: 100%; } }
+@media (min-width: 810px) and (max-width: 1100px) { html body .site-shell .main-pane .case-gallery-footer a { font-size: 16px !important; line-height: 22px !important; } }
+/* The list under the tapes. */
+.work-grid { --work-card-gap: 20px; }
+.project-card .project-media, .project-card .photo-project-media { border-radius: 0; }
+.work-grid .project-caption { padding: 10px 1px 0; }
+@media (hover: hover) and (pointer: fine) and (min-width: 810px) {
+  .card-tools { opacity: 0; transition: opacity 180ms ease; }
+  .project-link:is(:hover, :focus-visible) .card-tools { opacity: 1; }
+}
+@media (max-width: 809px) { .work-all-label { display: block; margin: 12px 0 16px; } }
+/* The name at the end of the list. */
+.work-closing { container-type: inline-size; margin-top: 44px; padding-top: 22px; border-top: 2px dotted var(--led-rule); }
+.work-closing-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+.work-closing-name { margin-top: 44px; overflow: visible; touch-action: pan-y; }
+.work-closing-name canvas { display: block; }
+/* A CV line of soft fire. */
+.rail-fire { position: fixed; top: 0; left: 0; z-index: 5; pointer-events: none; image-rendering: pixelated; }
+.cv-rail b.is-boom { animation: rail-boom 460ms cubic-bezier(.16, 1, .3, 1); }
+.cv-rail b.is-boom-final { animation: rail-boom 900ms cubic-bezier(.16, 1, .3, 1); --boom: 2.2; }
+@keyframes rail-boom { 0% { transform: scale(1); box-shadow: 0 0 0 0 #fff; } 30% { transform: scale(var(--boom, 1.5)); box-shadow: 0 0 0 4px rgba(255, 255, 255, .16); } 100% { transform: scale(1); box-shadow: 0 0 0 3px rgba(255, 255, 255, .12); } }
+
+html body .project-preview :is(img, video) { border-radius: 0; box-shadow: none; }
+/* The pictures a lit word brings up. On phones they appear over the word. */
+.bio-stack-layer { position: fixed; inset: 0; z-index: 80; pointer-events: none; }
+.bio-stack-layer .bio-stack-pile { position: absolute; display: flex; width: auto; height: auto; transform: translate(-50%, -100%); border: 2px dotted #fff; background: #000; }
+.bio-stack-layer .bio-stack-pile.is-below { transform: translate(-50%, 0); }
+.bio-stack-layer .bio-stack-pile canvas { display: block; width: 104px; height: 78px; }
+
+/* Without the filter, pictures still sit a little out of register, as tape does. */
+html:not(.crt) body .site-shell .main-pane :is(.project-media img, .case-gallery img, .case-media img, .photo-item img, .offline-stage img) { box-shadow: 2px 0 0 rgba(255, 64, 64, .14), -2px 0 0 rgba(64, 140, 255, .14); }
+
+/* ---------- The real keys ---------- */
+html body .mobile-switch a, html body .mobile-switch a:hover:not([aria-current]), .tv-lang-phone {
+  position: relative; display: flex; align-items: center; justify-content: center; height: 44px; min-height: 44px; padding: 5px 4px 0; border: 1px solid transparent; border-radius: 0; background: none;
+  border-image: url("/assets/tv-key.webp?v=7e38e1c0fc") 72 fill / 18px stretch; box-shadow: none; color: #e9e9e9; font: 600 11.5px/1 "Inter Tight", sans-serif; letter-spacing: .08em; text-transform: uppercase; text-shadow: 0 -1px 0 #000; transition: filter 140ms ease; cursor: pointer;
+}
+html body .mobile-switch a::before { content: ''; position: absolute; left: 50%; top: 8px; width: 14px; height: 2px; margin-left: -7px; background: #000; box-shadow: 0 1px 0 rgba(255, 255, 255, .13); }
+html body .mobile-switch a:hover:not([aria-current]), .tv-lang-phone:hover { color: #fff; filter: brightness(1.2); }
+html:not([lang=en]) body .mobile-switch a { letter-spacing: .03em; white-space: nowrap; overflow: hidden; text-overflow: clip; }
+html body .mobile-switch a[aria-current], html body .mobile-switch a:active, html body .mobile-switch.is-stretching a.is-target {
+  border: 1px solid transparent; border-image: url("/assets/tv-key-on.webp?v=bab7d78d4d") 72 fill / 18px stretch; background: none; box-shadow: none; color: #fff; padding-top: 7px;
+}
+html body .mobile-switch a[aria-current]::before, html body .mobile-switch.is-stretching a.is-target::before { background: #fff; box-shadow: 0 0 7px 1px rgba(255, 255, 255, .85); }
+html body .mobile-switch.is-stretching a[aria-current]:not(.is-target) { border-image: url("/assets/tv-key.webp?v=7e38e1c0fc") 72 fill / 18px stretch; padding-top: 5px; color: #e9e9e9; }
+html body .mobile-switch.is-stretching a[aria-current]:not(.is-target)::before { background: #000; box-shadow: 0 1px 0 rgba(255, 255, 255, .13); }
+html body .mobile-switch .tab-stretch { display: none !important; }
+html body .mobile-switch a:focus-visible, .tv-transport a:focus-visible, .tv-plate :is(.ui-sound-toggle, .tv-lang-key):focus-visible, .tv-lang-phone:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+
+/* The language menu: the on-screen menu of an old set. */
+html body .tv-lang { position: fixed; inset: 0; width: 100%; height: 100%; max-width: none; max-height: none; margin: 0; padding: 22px 18px; border: 0; background: rgba(0, 0, 0, .94); color: #fff; font: 400 16px/22px "DT LED", "Inter Tight", sans-serif; font-synthesis: none; font-kerning: none; overflow: auto; text-shadow: 0 0 5px rgba(255, 255, 255, .2); }
+.tv-lang:not([open]) { display: none; }
+.tv-lang::backdrop { background: transparent; }
+html body .tv-lang-title { display: flex; align-items: center; gap: 10px; margin: 0 0 16px; font-size: 24px; line-height: 33px; color: #fff; }
+.tv-lang-title::after { content: ''; flex: 1 1 24px; height: 12px; background: repeating-linear-gradient(to bottom, rgba(255, 255, 255, .5) 0 2px, transparent 2px 4px); }
+.tv-lang-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 4px 10px; }
+html body .tv-lang-list button { position: relative; display: block; width: 100%; min-height: 44px; padding: 5px 12px 5px 30px; border: 0; border-radius: 0; background: transparent; box-shadow: none; color: var(--led-2); font: 400 24px/33px "DT LED", "Inter Tight", sans-serif; font-synthesis: none; font-kerning: none; text-align: left; cursor: pointer; transition: none; }
+.tv-lang-list button::before { content: ''; position: absolute; left: 12px; top: 50%; width: 6px; height: 10px; margin-top: -5px; }
+html body .tv-lang-list button:is(:hover, :focus-visible) { background: rgba(255, 255, 255, .16); color: #fff; outline: 0; }
+.tv-lang-list button:is(:hover, :focus-visible)::before { background: #fff; }
+html body .tv-lang-list button[aria-current] { background: var(--lit) var(--lit-mesh); color: #000; text-shadow: none; -webkit-text-stroke: .55px #000; }
+.tv-lang-list button[aria-current]::before { background: #000; }
+html body .tv-lang-note { margin: 18px 0 0; color: var(--led-3); }
+
+/* Without the filter, pictures still sit a little out of register, as tape does. */
+html:not(.crt) body .site-shell .main-pane :is(.project-media img, .case-gallery img, .case-media img, .photo-item img, .offline-stage img) { box-shadow: 2px 0 0 rgba(255, 64, 64, .14), -2px 0 0 rgba(64, 140, 255, .14); }
+
+/* ---------- The real keys ---------- */
+html body .mobile-switch a, html body .mobile-switch a:hover:not([aria-current]), .tv-lang-phone {
+  position: relative; display: flex; align-items: center; justify-content: center; height: 44px; min-height: 44px; padding: 5px 4px 0; border: 1px solid transparent; border-radius: 0; background: none;
+  border-image: url("/assets/tv-key.webp?v=7e38e1c0fc") 72 fill / 18px stretch; box-shadow: none; color: #e9e9e9; font: 600 11.5px/1 "Inter Tight", sans-serif; letter-spacing: .08em; text-transform: uppercase; text-shadow: 0 -1px 0 #000; transition: filter 140ms ease; cursor: pointer;
+}
+html body .mobile-switch a::before { content: ''; position: absolute; left: 50%; top: 8px; width: 14px; height: 2px; margin-left: -7px; background: #000; box-shadow: 0 1px 0 rgba(255, 255, 255, .13); }
+html body .mobile-switch a:hover:not([aria-current]), .tv-lang-phone:hover { color: #fff; filter: brightness(1.2); }
+html body .mobile-switch a[aria-current], html body .mobile-switch a:active, html body .mobile-switch.is-stretching a.is-target {
+  border: 1px solid transparent; border-image: url("/assets/tv-key-on.webp?v=bab7d78d4d") 72 fill / 18px stretch; background: none; box-shadow: none; color: #fff; padding-top: 7px;
+}
+html body .mobile-switch a[aria-current]::before, html body .mobile-switch.is-stretching a.is-target::before { background: #fff; box-shadow: 0 0 7px 1px rgba(255, 255, 255, .85); }
+html body .mobile-switch.is-stretching a[aria-current]:not(.is-target) { border-image: url("/assets/tv-key.webp?v=7e38e1c0fc") 72 fill / 18px stretch; padding-top: 5px; color: #e9e9e9; }
+html body .mobile-switch.is-stretching a[aria-current]:not(.is-target)::before { background: #000; box-shadow: 0 1px 0 rgba(255, 255, 255, .13); }
+html body .mobile-switch .tab-stretch { display: none !important; }
+html body .mobile-switch a:focus-visible, .tv-transport a:focus-visible, .tv-plate :is(.ui-sound-toggle, .tv-lang-key):focus-visible, .tv-lang-phone:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+
+/* The language menu: the on-screen menu of an old set. */
+.tv-lang { position: fixed; inset: 0; width: 100%; height: 100%; max-width: none; max-height: none; margin: 0; padding: 22px 18px; border: 0; background: rgba(0, 0, 0, .9); color: #fff; font: 400 16px/22px "DT LED", "Inter Tight", sans-serif; font-synthesis: none; overflow: auto; }
+.tv-lang:not([open]) { display: none; }
+.tv-lang::backdrop { background: transparent; }
+.tv-lang-title { margin: 0 0 14px; font-size: 24px; line-height: 33px; color: #fff; }
+.tv-lang-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 4px 8px; }
+.tv-lang-list button { display: block; width: 100%; min-height: 40px; padding: 4px 10px; border: 2px dotted transparent; background: transparent; color: var(--led-2); font: inherit; text-align: left; cursor: pointer; }
+.tv-lang-list button:is(:hover, :focus-visible) { border-color: #fff; color: #fff; outline: 0; }
+.tv-lang-list button[aria-current] { background: var(--lit) var(--lit-mesh); color: #000; -webkit-text-stroke: .55px #000; }
+
+/* ---------- Phones: one screen, the channels are real keys along the bottom on a graphite strip ---------- */
+@media (max-width: 809px) {
+  body::after { content: ''; position: fixed; inset: 0; z-index: 25; pointer-events: none; background: repeating-linear-gradient(to bottom, rgba(0, 0, 0, .18) 0 1px, transparent 1px 3px); }
+  .work-stream { display: block; margin-inline: 0; }
+  .stream-stage { position: relative; padding: 10px 10px 34px; border: 0; border-radius: 18px; background: linear-gradient(to bottom, #39393c, #29292b); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .2), 0 0 0 1px #050505; }
+  .stream-track { position: relative; display: flex; gap: 24%; padding: 18px 14px; overflow-x: auto; scroll-snap-type: x proximity; scrollbar-width: none; border-radius: 12px; background: #030303; box-shadow: inset 0 0 0 1px #000, inset 0 0 26px rgba(0, 0, 0, .9); }
+  .stream-stage::before { content: ''; position: absolute; left: 50%; bottom: 14px; width: 86px; height: 5px; margin-left: -43px; border-radius: 2px; background: #050505; box-shadow: 0 0 0 1px #2c2c2c; }
+  .stream-caption { display: none; }
+  .case-gallery-layout:not(.about-layout-page, .information-layout-page:not(.photography-layout-page)) .case-gallery-pane {
+    margin: 0 8px 24px; padding: 0 10px 14px; border: solid #2c2c2e; border-width: 10px 10px 34px; border-radius: 18px; background: #030303; box-shadow: 0 0 0 1px #050505, inset 0 0 0 1px #000;
+  }
+  .case-gallery-layout:not(.about-layout-page, .information-layout-page:not(.photography-layout-page)) .case-gallery-bar { margin-inline: -10px; }
+  .case-gallery-layout .case-gallery-bar .case-gallery-links { display: none; }
+  html body .site-shell .case-gallery-bar { justify-content: flex-end; }
+  html body .mobile-switch, html body.case-gallery-layout .mobile-switch, html body.about-layout-page .mobile-switch, html body.information-layout-page .mobile-switch {
+    position: fixed; left: 0; right: 0; bottom: 0; top: auto; width: auto; margin: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)) 44px; gap: 6px; height: auto; padding: 8px 10px calc(8px + env(safe-area-inset-bottom)); transform: none; border: 0; border-radius: 0; background: linear-gradient(to bottom, #39393c, #2b2b2e 40%, #232325); backdrop-filter: none; box-shadow: 0 -1px 0 #030303, inset 0 1px 0 rgba(255, 255, 255, .2);
+  }
+  html body .site-shell .ui-sound-toggle { width: 44px; min-height: 44px; border: 2px dotted rgba(255, 255, 255, .72); border-radius: 0; background: rgba(0, 0, 0, .55); box-shadow: none; color: #fff; }
+}
+
+/* ---------- On a computer screen the page is the set ---------- */
+@media (min-width: 810px) {
+  :root {
+    --sidebar-width: clamp(390px, 33.333vw, 480px);
+    --m: 16px; --wall: 18px; --swell: 9px; --gap: 8px; --deck: 72px; --plate: 10px; --screen-r: 30px; --pad: 34px;
+    --glass-top: calc(var(--m) + var(--wall));
+    --glass-bottom: calc(var(--deck) + var(--plate) + var(--wall));
+    --tube-h: calc(100svh - var(--glass-top) - var(--glass-bottom));
+    --panel-left: calc(var(--m) + var(--wall));
+    --panel-w: calc(var(--sidebar-width) - var(--panel-left) - var(--wall) - var(--gap));
+    --tube-left: calc(var(--sidebar-width) + var(--wall) + var(--gap));
+    --tube-right: calc(var(--m) + var(--wall));
+    --reach: calc(var(--wall) + var(--swell));
+  }
+  /* Bead-blasted graphite, lit from above. All light and shadow on it come from rendered parts. */
+  html:root { background: url("/assets/tv-grain.webp?v=7c7906b080") 0 0 / 160px 160px, linear-gradient(to bottom, #333336, #2b2b2e 22%, #252528 62%, #1f1f21) #29292b; background-blend-mode: overlay, normal; }
+  html body, html body.case-gallery-layout { background: transparent; }
+  .tv-deck { display: block; position: fixed; z-index: -1; left: 0; right: 0; bottom: 0; height: var(--deck); background: url("/assets/tv-grain.webp?v=7c7906b080") 0 0 / 160px 160px, linear-gradient(to bottom, #39393c, #2d2d30 34%, #232325) #2b2b2d; background-blend-mode: overlay, normal; box-shadow: 0 -1px 0 #030303, 0 -2px 7px rgba(0, 0, 0, .5), inset 0 1px 0 rgba(255, 255, 255, .2), inset 0 2px 1px rgba(255, 255, 255, .04); }
+  .tv-shell { display: block; position: fixed; z-index: 28; inset: 0; box-sizing: border-box; border-style: solid; border-width: 44px; border-image: url("/assets/tv-shell.webp?v=d1088e8e9b") 88 / 44px stretch; pointer-events: none; }
+
+  /* One window, one radius, both screens. */
+  .tv-tube-box, .tv-panel-box { display: block; position: fixed; top: var(--glass-top); height: var(--tube-h); border-radius: var(--screen-r); pointer-events: none; }
+  .tv-tube-box { left: var(--tube-left); right: var(--tube-right); }
+  .tv-panel-box { left: var(--panel-left); width: var(--panel-w); }
+  .tv-back { z-index: -1; background: #000; }
+  /* The glass: a shadow from the wall, darker sides, one soft reflection high on the bulge. */
+  .tv-glass::before { content: ''; position: absolute; left: 12%; top: 13%; width: 26%; height: 1px; border-radius: 50%; box-shadow: 0 0 76px 42px rgba(255, 255, 255, .042); }
+  .tv-glass { z-index: 10; overflow: hidden; box-shadow: inset 0 0 120px 8px rgba(0, 0, 0, .66), inset 0 0 34px 4px rgba(0, 0, 0, .6), inset 0 3px 8px rgba(0, 0, 0, .85); }
+  .tv-glass.tv-panel-box { box-shadow: inset 0 0 70px 2px rgba(0, 0, 0, .45), inset 0 0 26px 2px rgba(0, 0, 0, .5), inset 0 3px 8px rgba(0, 0, 0, .85); }
+  .tv-frame { display: block; position: fixed; z-index: 11; box-sizing: border-box; top: calc(var(--glass-top) - var(--reach)); height: calc(var(--tube-h) + var(--reach) * 2); pointer-events: none; border-style: solid; border-width: 64px; border-image: url("/assets/tv-window.webp?v=6e47e682cd") 128 / 64px stretch; }
+  .tv-frame-tube { left: calc(var(--tube-left) - var(--reach)); right: calc(var(--tube-right) - var(--reach)); }
+  .tv-frame-panel { left: calc(var(--panel-left) - var(--reach)); width: calc(var(--panel-w) + var(--reach) * 2); }
+  /* The picture lights the hood it sits in. */
+  .tv-spill { display: block; position: fixed; z-index: 12; top: var(--glass-top); height: var(--tube-h); left: var(--tube-left); right: var(--tube-right); border-radius: var(--screen-r); pointer-events: none; box-shadow: 0 0 18px 2px rgba(255, 255, 255, .04); clip-path: inset(calc(var(--wall) * -1) round calc(var(--screen-r) + var(--wall))); transition: box-shadow .9s ease; }
+  body.tv-show .tv-spill { box-shadow: 0 0 24px 3px var(--tube-glow, rgba(255, 255, 255, .1)); }
+
+  /* The screens themselves. */
+  html body .site-shell, html body.case-gallery-layout .site-shell { display: grid; grid-template-columns: var(--sidebar-width) minmax(0, 1fr); height: 100svh; }
+  html body .site-shell .sidebar, html body.case-gallery-layout .site-shell .sidebar, html body.case-gallery-layout .sidebar.case-sidebar {
+    box-sizing: border-box; align-self: start; width: var(--panel-w); max-width: none; height: var(--tube-h); margin: var(--glass-top) 0 0 var(--panel-left); padding: 26px 22px 34px; border: 0; border-radius: var(--screen-r); overflow: hidden auto;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Crect width='3' height='3' fill='%23fff' fill-opacity='.042'/%3E%3C/svg%3E"), #010101; scrollbar-width: none; scrollbar-gutter: auto;
+  }
+  html body .site-shell main.main-pane, html body.case-gallery-layout .site-shell main.main-pane {
+    box-sizing: border-box; align-self: start; height: var(--tube-h); margin: var(--glass-top) var(--tube-right) 0 calc(var(--wall) + var(--gap)); border-radius: var(--screen-r); background: #000; overflow: hidden auto; overscroll-behavior: contain; scrollbar-width: none; scrollbar-gutter: auto;
+  }
+  :is(.main-pane, .sidebar)::-webkit-scrollbar { display: none; }
+  html.crt body main.main-pane { filter: url(#crt-main); }
+  html.crt body .site-shell .sidebar { filter: url(#crt-side); }
+  html body .site-shell .sidebar::before, html body .site-shell .sidebar::after { content: none; display: none; }
+  html body main.main-pane::before, html body main.main-pane::after { content: none; display: none; }
+  html body .site-shell .sidebar .profile-content, html body.information-layout-page .information-sidebar .profile-content { padding: 0; }
+  .about-layout-page .sidebar .about-profile-intro, html body.information-layout-page .information-intro { margin-top: 0; padding-top: 0; }
+  .reading-progress { display: none !important; }
+
+  /* Inside each screen, moving with the glass: scan lines, mesh, the tape display. */
+  .tube-top, .panel-top { display: block; position: sticky; top: 0; height: 0; z-index: 15; pointer-events: none; }
+  .panel-top { margin: -26px -22px 26px; z-index: 8; }
+  .tube-fx, .panel-fx { position: absolute; left: 0; right: 0; top: 0; height: var(--tube-h); }
+  .tube-fx { background: linear-gradient(to bottom, #000 34px, rgba(0, 0, 0, 0) 66px) 0 0 / 100% 66px no-repeat, repeating-linear-gradient(to bottom, rgba(0, 0, 0, .17) 0 1px, transparent 1px 3px); }
+  .panel-fx { background: repeating-linear-gradient(to bottom, rgba(0, 0, 0, .13) 0 1px, transparent 1px 3px); }
+  html body .site-shell .tv-osd { position: absolute; z-index: 2; left: var(--pad); right: var(--pad); top: 16px; display: flex; align-items: baseline; gap: 14px; pointer-events: none; color: #fff; text-shadow: 1.5px -2px 0 rgba(255, 255, 255, .16), 0 0 6px rgba(255, 255, 255, .4); }
+  html body .site-shell .tv-osd-code { margin-left: auto; }
+  html body .site-shell .tv-osd-clock { color: var(--led-2); }
+  html.is-recording body .site-shell .tv-osd-mode { animation: rec-blink 1s steps(2) infinite; }
+  @keyframes rec-blink { 50% { opacity: .35; } }
+  html body .site-shell .rail-fire { position: absolute; top: 0; left: 0; }
+  /* A lit word tunes the tube to its pictures. */
+  html body .site-shell .tube-preview { position: absolute; left: 0; right: 0; top: 0; height: var(--tube-h); box-sizing: border-box; padding: 60px 30px 34px; background: #000; }
+  html body .tube-preview .project-preview { position: absolute; left: 30px !important; right: 30px !important; top: 60px !important; bottom: 34px !important; width: auto !important; height: auto !important; padding: 0; transform: none; transition: none; pointer-events: none; }
+  html body .tube-preview .project-preview :is(img, video) { width: 100% !important; height: 100% !important; left: 0 !important; top: 0 !important; object-fit: contain; border-radius: 0; box-shadow: none; }
+  .tube-preview .bio-stack-pile { display: grid; grid-template-columns: 2fr 1fr; grid-template-rows: 1fr 1fr; gap: 8px; height: 100%; }
+  .tube-preview .bio-stack-pile canvas { display: block; width: 100%; height: 100%; object-fit: cover; min-height: 0; background: #0a0a0a; }
+  .tube-preview .bio-stack-pile canvas:first-child { grid-row: 1 / span 2; }
+  .tube-preview .bio-stack-pile canvas:only-child { grid-column: 1 / -1; }
+
+  html body .workspace-content, html body.case-gallery-layout .case-gallery-pane, html body:is([data-page=home], [data-page=work]) .workspace-content { z-index: auto; padding: 64px var(--pad) 60px; }
+  /* Bars that used to float over the page: their keys moved to the deck. */
+  html body.case-gallery-layout .case-gallery-bar { position: sticky; top: 64px; z-index: 16; display: block; height: 0; min-height: 0; margin: 0; padding: 0; background: none; backdrop-filter: none; border: 0; }
+  html body.case-gallery-layout .case-gallery-bar :is(.case-gallery-links, .case-nav) { display: none; }
+  html body .site-shell :is(.workspace-settings, .toolbar-utilities) > .ui-sound-toggle, html body .site-shell .workspace-settings { display: none; }
+  html body .site-shell .scrapbook-toggle { position: absolute; z-index: 15; top: -46px; right: 100px; min-height: 34px !important; padding: 2px 10px !important; }
+  /* The menu of filters, under the tape display. */
+  html body .site-shell .main-pane .work-toolbar, html body:is([data-page=home], [data-page=work]) .site-shell .main-pane .work-toolbar {
+    position: sticky; top: 0; z-index: 14; display: flex; align-items: center; justify-content: space-between; flex-wrap: nowrap; gap: 12px; height: 98px; min-height: 98px; margin: -64px calc(var(--pad) * -1) 8px; padding: 54px var(--pad) 8px; backdrop-filter: none; box-shadow: none; background: linear-gradient(to bottom, #000 82%, rgba(0, 0, 0, 0));
+  }
+  html body.tv-show .site-shell .main-pane .work-toolbar { background: none; }
+  html body .site-shell .work-toolbar .work-filters { flex: 1 1 auto; flex-wrap: nowrap; min-width: 0; overflow-x: auto; scrollbar-width: none; }
+  html body .site-shell .work-toolbar .work-filters::-webkit-scrollbar { display: none; }
+  html body .site-shell .work-toolbar .toolbar-utilities { flex: none; display: flex; align-items: center; gap: 0; }
+
+  /* The deck: one line, the same on every page. */
+  html body .mobile-switch, html body.case-gallery-layout .mobile-switch, html body.about-layout-page .mobile-switch, html body.information-layout-page .mobile-switch {
+    position: fixed; z-index: 20; display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 6px; left: var(--m); right: auto; top: auto; bottom: 14px; width: calc(var(--sidebar-width) - var(--m) - var(--gap)); height: 44px; margin: 0; padding: 0; transform: none; background: transparent; backdrop-filter: none; border: 0; border-radius: 0; box-shadow: none;
+  }
+  .mobile-switch .tv-lang-phone { display: none; }
+  .tv-plate { position: fixed; z-index: 20; display: flex; align-items: center; gap: 6px; left: calc(var(--sidebar-width) + var(--gap)); right: var(--m); bottom: 14px; height: 44px; pointer-events: none; view-transition-name: tv-plate; }
+  .tv-plate > :is(.tv-transport, .tv-meter, .tv-lang-key, .ui-sound-toggle) { pointer-events: auto; }
+  .tv-led { position: relative; flex: 1 1 auto; min-width: 0; height: 44px; border-radius: 14px; overflow: hidden; background: #010101; }
+  .tv-led::before { content: ''; position: absolute; left: 9px; right: 9px; top: 8px; height: 28px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Crect width='3' height='3' fill='%23fff' fill-opacity='.055'/%3E%3C/svg%3E") 0 0 / 4px 4px; }
+  .tv-led::after { content: ''; position: absolute; z-index: 2; inset: 0; box-sizing: border-box; border-style: solid; border-width: 18px; border-image: url("/assets/tv-well.webp?v=ab82de6057") 54 / 18px stretch; pointer-events: none; }
+  .tv-led :is(canvas, .tv-led-first) { position: absolute; left: 9px; top: 8px; display: block; filter: drop-shadow(1.5px 0 0 rgba(255, 64, 64, .3)) drop-shadow(-1.5px 0 0 rgba(64, 140, 255, .3)) drop-shadow(0 0 3px rgba(255, 255, 255, .5)); }
+  .tv-transport { flex: none; display: flex; gap: 6px; }
+  .tv-plate :is(.tv-transport a, .tv-lang-key, .ui-sound-toggle) {
+    position: relative; flex: none; display: flex; align-items: center; justify-content: center; width: 52px; height: 44px; min-height: 44px; padding: 0; border: 1px solid transparent; border-radius: 0; background: none; border-image: url("/assets/tv-key.webp?v=7e38e1c0fc") 72 fill / 18px stretch; box-shadow: none; color: #e9e9e9; font: 600 11.5px/1 "Inter Tight", sans-serif; letter-spacing: .08em; transition: filter 140ms ease; cursor: pointer;
+  }
+  .tv-plate :is(.tv-transport a, .tv-lang-key, .ui-sound-toggle):hover { color: #fff; filter: brightness(1.22); background: none; }
+  .tv-plate :is(.tv-transport a, .tv-lang-key, .ui-sound-toggle):active, .tv-plate .ui-sound-toggle[aria-pressed=true] { border-image-source: url("/assets/tv-key-on.webp?v=bab7d78d4d"); color: #fff; filter: none; transform: none; }
+  .tv-dial { position: relative; flex: none; width: 52px; height: 52px; margin: -4px 0 -4px 10px; background: url("/assets/tv-dial.webp?v=833b1bc597") center / contain no-repeat; }
+  .tv-dial-s { width: 36px; height: 36px; margin: 4px 0 4px 8px; }
+  .tv-dial i { position: absolute; inset: 0; display: block; }
+  .tv-dial i::before { content: ''; position: absolute; left: 50%; top: 12%; width: 2px; height: 18%; margin-left: -1px; background: #fff; box-shadow: 0 0 2px rgba(0, 0, 0, .9); }
+  /* The tape meter: the two scroll bars. Top line: the big screen. Bottom line: the left panel. */
+  .tv-meter { flex: none; display: grid; grid-template-columns: 6px minmax(0, 1fr); grid-template-rows: 22px 22px; align-items: center; column-gap: 10px; width: clamp(92px, 12vw, 180px); height: 44px; margin: 0 6px 0 4px; }
+  .tv-power { grid-row: 1 / span 2; width: 6px; height: 6px; border-radius: 50%; background: #fff; box-shadow: 0 0 7px 1px rgba(255, 255, 255, .8); }
+  .tv-rail { position: relative; grid-column: 2; display: block; height: 22px; cursor: pointer; touch-action: none; }
+  .tv-rail::before { content: ''; position: absolute; left: -3px; right: -3px; top: 50%; height: 10px; margin-top: -5px; border-radius: 2px; background: #020202; box-shadow: inset 0 1px 2px #000, 0 1px 0 rgba(255, 255, 255, .26), 0 -1px 0 rgba(0, 0, 0, .7); }
+  .tv-rail::after { content: ''; position: absolute; left: 0; right: 0; top: 50%; height: 4px; margin-top: -2px; background: repeating-linear-gradient(to right, rgba(255, 255, 255, .15) 0 3px, transparent 3px 5px); }
+  .tv-rail b { position: absolute; z-index: 1; left: 0; top: 50%; width: 15px; height: 4px; margin-top: -2px; background: repeating-linear-gradient(to right, #fff 0 3px, transparent 3px 5px); filter: drop-shadow(0 0 3px rgba(255, 255, 255, .75)); cursor: grab; }
+  .tv-rail.is-drag, .tv-rail.is-drag b { cursor: grabbing; }
+  .tv-rail.is-idle { cursor: default; }
+  .tv-rail.is-idle b { display: none; }
+  @media (max-width: 1000px) {
+    .tv-dial-s { display: none; }
+    .tv-meter { width: 84px; margin: 0 4px 0 0; }
+  }
+  /* The language menu opens on the tube, with the same curve. */
+  html body .tv-lang { inset: auto; left: var(--tube-left); top: var(--glass-top); width: calc(100vw - var(--tube-left) - var(--tube-right)); height: var(--tube-h); padding: 62px var(--pad) 40px; border-radius: var(--screen-r); }
+  html.crt body .tv-lang { filter: url(#crt-main); }
+  body.image-open :is(.tv-plate, .vhs-fx) { display: none; }
+
+  /* Tapes: before the picture starts, and wherever WebGL can't run. */
+  html body .work-stream { display: block; margin: -106px calc(var(--pad) * -1) 0; }
+  .stream-stage { position: relative; }
+  html body .tv-canvas { position: absolute; left: 0; top: 0; width: 100%; height: 100%; opacity: 0; pointer-events: none; }
+  .tv-on .stream-track { visibility: hidden; }
+  .stream-caption { display: flex; justify-content: center; position: absolute; left: 0; right: 0; bottom: 18px; z-index: 3; pointer-events: none; }
+  .is-leaving .stream-caption { visibility: hidden; }
+  .stream-now { display: none; }
+  html body .site-shell .stream-skip { pointer-events: auto; }
+  .work-all-label { display: block; margin: 40px 0 16px; scroll-margin-top: 106px; }
+}
+@media (min-width: 810px) and (prefers-reduced-motion: no-preference) {
+  html body .work-stream { --stream-step: 220px; position: relative; height: calc(var(--tube-h) + 18 * var(--stream-step)); }
+  .stream-stage { position: sticky; top: 0; z-index: 13; height: var(--tube-h); overflow: clip; container-type: size; cursor: grab; }
+  .stream-stage.tv-on { cursor: default; }
+  .stream-stage.is-pulled { cursor: grabbing; user-select: none; }
+  .stream-track {
+    --cw: min(50cqw, 58cqh);
+    position: absolute; left: var(--pad); top: 100px; bottom: 64px; width: max-content; align-items: center;
+    display: flex; gap: calc(var(--cw) * .42); padding: 0; overflow: visible; will-change: transform;
+  }
+  .tape { cursor: inherit; }
+  .tape-title { display: none; }
+  .tape-strip { justify-content: space-between; }
+}
+@media (min-width: 810px) and (prefers-reduced-motion: reduce) {
+  html body .work-stream { margin-top: 0; }
+  .stream-track { --cw: 36vw; display: flex; gap: 24px; padding: 8px 0 20px; overflow-x: auto; }
+  .stream-caption { position: static; padding-top: 4px; }
+}
+@media print {
+  .tube-top, .panel-top, .tv-plate, .tv-deck, .tv-shell, .tv-frame, .tv-glass, .tv-back, .tv-spill, .tv-lang, .vhs-fx, .rail-fire, .tv-canvas, .card-fire, .crt-defs { display: none !important; }
+  html.crt body main.main-pane, html.crt body .site-shell .sidebar { filter: none !important; }
+  html:root { background: #fff !important; }
+}
+
+/* The flat shelf of tapes (phones, reduced motion, and until the tube starts). */
+.tape { position: relative; flex: none; display: block; width: var(--cw, 76vw); scroll-snap-align: start; scroll-margin-left: 16px; color: var(--led-2); -webkit-user-drag: none; }
+.tape-case { position: relative; z-index: 1; display: block; border: 1px solid var(--gray-58); background: #0b0b0b; padding-left: clamp(10px, 2.6%, 18px); }
+.tape-case::before { content: ''; position: absolute; inset: 0 auto 0 0; width: clamp(10px, 2.6%, 18px); border-right: 1px solid var(--gray-48); background: repeating-linear-gradient(0deg, transparent 0 5px, rgba(255, 255, 255, .09) 5px 6px); }
+.tape-cover { display: block; aspect-ratio: 4 / 3; overflow: hidden; background: var(--gray-28); }
+.tape-cover img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.tape-strip { display: flex; align-items: baseline; gap: 10px; min-height: 40px; padding: 10px 12px; border-top: 1px solid var(--gray-48); }
+.tape-strip b { flex: none; color: #fff; }
+.tape-title { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #fff; }
+.tape-kind { flex: none; color: var(--led-3); }
+.tape-cassette { --out: 1; position: absolute; z-index: 0; top: 6%; left: 5%; display: block; width: 96%; aspect-ratio: 1200 / 700; background: url("/assets/tape-vhs.webp?v=0bcbd0d4f9") center / contain no-repeat; transform: translateX(calc(5% + var(--out) * 37%)) rotate(calc(var(--out) * 1.4deg)); transform-origin: 0 50%; }
+.tape-sticker { position: absolute; z-index: 2; width: 30%; height: auto; pointer-events: none; }
+.tape-sticker:first-of-type { right: -5%; top: -6%; transform: rotate(9deg); }
+.tape-sticker:last-of-type { left: 1%; bottom: 8%; transform: rotate(-7deg); }
