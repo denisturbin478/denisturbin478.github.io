@@ -260,7 +260,9 @@ body .site-shell .profile-actions .contact-start-button { width: 100%; max-width
 }
 
 /* 10. Bio photo stacks ------------------------------------------------- */
-.bio-stack { color: var(--gray-255); text-decoration: none; cursor: pointer; transition: opacity 160ms ease; }
+@font-face { font-family: "DT Punk"; src: url(/assets/fonts/sedgwick-hero.woff2) format("woff2"); font-display: swap; }
+/* The linked words: white punk lettering, kept moving by a liquid filter from delight.js. */
+.bio-stack { font-family: "DT Punk", "Inter Tight", sans-serif; font-size: 1.12em; font-weight: 400; line-height: 1; letter-spacing: .012em; color: var(--gray-255); text-decoration: none; cursor: pointer; filter: url(#dt-liquid); }
 .bio-stack:hover, .bio-stack.is-active { color: var(--gray-255); }
 .bio-stack:focus-visible { outline:2px solid var(--focus); outline-offset: 2px; }
 

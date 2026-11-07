@@ -502,3 +502,52 @@ body .site-shell :is(.about-proof-links, .information-proof-links):has(.proof-th
   body .site-shell .proof-thumb { transition: none; }
   body .site-shell .secondary-action-button:has(> .proof-thumb):hover .proof-thumb { transform: none; }
 }
+
+/* ---------- Buttons: one family. Same shell as the hero row, with an arrow that says where it goes. ---------- */
+body .site-shell .contact-start-button { gap: 8px; }
+body .site-shell .contact-start-button::after { content: ''; flex: none; width: 14px; height: 14px; background: currentColor; -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 8h10M9 4l4 4-4 4'/%3E%3C/svg%3E") center / contain no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 8h10M9 4l4 4-4 4'/%3E%3C/svg%3E") center / contain no-repeat; transition: transform 180ms cubic-bezier(.2, .8, .2, 1); }
+body .site-shell .contact-start-button:hover::after { transform: translateX(2px); }
+body .site-shell .sidebar :is(.profile-section, .profile-proof) > a.secondary-action-button.small-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  max-width: none;
+  min-height: 44px;
+  padding: 0 14px;
+  border: 1px solid var(--gray-58);
+  border-radius: 8px;
+  background: transparent;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: -.01em;
+  color: var(--gray-245);
+  transition: background-color 160ms ease, border-color 160ms ease;
+}
+body .site-shell .sidebar :is(.profile-section, .profile-proof) > a.secondary-action-button.small-link::after { content: ''; flex: none; width: 14px; height: 14px; background: currentColor; -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 8h10M9 4l4 4-4 4'/%3E%3C/svg%3E") center / contain no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 8h10M9 4l4 4-4 4'/%3E%3C/svg%3E") center / contain no-repeat; transition: transform 180ms cubic-bezier(.2, .8, .2, 1); }
+body .site-shell .sidebar :is(.profile-section, .profile-proof) > a.secondary-action-button.small-link[target=_blank]::after { -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.500 11.500l7-7M6 4.500h5.500V10'/%3E%3C/svg%3E"); mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.500 11.500l7-7M6 4.500h5.500V10'/%3E%3C/svg%3E"); }
+body .site-shell .sidebar :is(.profile-section, .profile-proof) > a.secondary-action-button.small-link:hover { border-color: var(--gray-90); background: var(--gray-34); }
+body .site-shell .sidebar :is(.profile-section, .profile-proof) > a.secondary-action-button.small-link:hover::after { transform: translateX(2px); }
+body .site-shell .sidebar :is(.profile-section, .profile-proof) > a.secondary-action-button.small-link[target=_blank]:hover::after { transform: translate(1.5px, -1.5px); }
+
+/* ---------- Reach out: portrait and message together, one clear action, two quieter routes, one reassurance ---------- */
+body .site-shell :is(.case-reachout, #profile-contact, .mobile-reachout) { grid-template-columns: 44px minmax(0, 1fr); gap: 0 14px; align-items: start; padding: 18px; border-color: rgba(255, 255, 255, .08); border-radius: 14px; background: var(--gray-24, #181818); }
+body .site-shell :is(.case-reachout, #profile-contact)::before { grid-row: 1 / span 2; width: 44px; height: 44px; margin-top: 2px; }
+body .site-shell :is(.case-reachout, #profile-contact, .mobile-reachout) h2 { font-size: 17px; line-height: 22px; letter-spacing: -.02em; }
+body .site-shell .case-reachout > p:not(.reachout-note) { grid-column: 2; margin: 4px 0 0; font-size: 13.5px; line-height: 20px; color: var(--gray-187); }
+body .site-shell .case-reachout .contact-actions { grid-column: 1 / -1; display: grid; gap: 8px; width: 100%; margin-top: 16px; }
+body .site-shell .case-reachout .contact-start-button { display: flex; align-items: center; justify-content: center; width: 100%; max-width: none; height: 44px; min-height: 44px; max-height: none; margin: 0; border-radius: 8px; font-size: 13.5px; }
+body .site-shell .case-reachout .contact-brand-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; width: 100%; margin: 0; }
+body .site-shell .case-reachout .contact-brand-buttons a { display: flex; align-items: center; justify-content: center; gap: 7px; width: 100%; min-width: 0; height: 44px; min-height: 44px; margin: 0; padding: 0 8px; border: 1px solid var(--gray-58); border-radius: 8px; background: transparent; font-size: 12.5px; font-weight: 500; letter-spacing: -.01em; color: var(--gray-221); white-space: nowrap; transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease; }
+body .site-shell .case-reachout .contact-brand-buttons a:hover { border-color: var(--gray-90); background: var(--gray-34); color: var(--gray-255); }
+body .site-shell .case-reachout .contact-brand-buttons a img { flex: none; width: 20px; height: 20px; opacity: 1; filter: none; mix-blend-mode: normal; }
+body .site-shell .case-reachout .reachout-note { grid-column: 1 / -1; margin: 12px 0 0; font-size: 12px; line-height: 16px; text-align: center; color: var(--muted); }
+
+/* Phones: keep arrows inside their buttons (an older tap-area rule positions ::after), and keep the work close to the top. */
+body .site-shell .contact-start-button::after,
+body .site-shell .sidebar :is(.profile-section, .profile-proof) > a.secondary-action-button.small-link::after { position: static; inset: auto; transform: none; }
+@media (max-width: 809px) {
+  body .site-shell .sidebar .profile-proof > a.secondary-action-button.small-link.profile-proof-more { display: none; }
+}
+
