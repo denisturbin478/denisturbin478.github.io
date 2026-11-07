@@ -926,4 +926,6 @@ body .sidebar .bio-stack { color: var(--gray-255); }
 /* Punk type system. Headlines and signatures only: reading text, buttons, forms and the PDFs stay in Inter Tight. */
 .punk-tags { position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: 40; pointer-events: none; }
 body.punk-on *:not(input, textarea, select)::selection { background: transparent; color: transparent; }
+/* Form fields and menus keep a normal visible selection. Selection styles inherit, so this has to be stated. */
+body.punk-on :is(input, textarea, select)::selection, body.punk-on :is(dialog, .mobile-switch) *::selection { background: var(--gray-245); color: var(--gray-18); }
 
