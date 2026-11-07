@@ -994,18 +994,12 @@ body:is([data-page=home], [data-page=work]) .workspace-grid { display: none; }
 .tape-kind { flex: none; color: var(--muted); }
 .tape-cassette {
   --out: 1;
-  position: absolute; z-index: 0; top: 6%; left: 5%; display: block; width: 90%; aspect-ratio: 314 / 200;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 314 200'%3E%3Crect x='.75' y='.75' width='312.500' height='198.500' rx='11' fill='%23121212' stroke='%23434343' stroke-width='1.500'/%3E%3Cpath d='M14 12h286v128H14z' fill='%23dcdcda'/%3E%3Cpath d='M14 12h286v14H14z' fill='%23111'/%3E%3Cpath d='M14 34h286M14 42h286' stroke='%23999' stroke-width='.8'/%3E%3Crect x='56' y='58' width='202' height='62' rx='31' fill='%23000' stroke='%23555' stroke-width='1.500'/%3E%3Cpath d='M60 199l14-41h166l14 41' fill='%23191919' stroke='%233c3c3c' stroke-width='1.200'/%3E%3Ccircle cx='118' cy='178' r='5' fill='%23000' stroke='%23444'/%3E%3Ccircle cx='196' cy='178' r='5' fill='%23000' stroke='%23444'/%3E%3Cg fill='%232c2c2c' stroke='%23666' stroke-width='.8'%3E%3Ccircle cx='8' cy='8' r='3.200'/%3E%3Ccircle cx='306' cy='8' r='3.200'/%3E%3Ccircle cx='8' cy='192' r='3.200'/%3E%3Ccircle cx='306' cy='192' r='3.200'/%3E%3C/g%3E%3C/svg%3E") center / contain no-repeat;
+  position: absolute; z-index: 0; top: 6%; left: 5%; display: block; width: 96%; aspect-ratio: 1200 / 700;
+  background: url("/assets/tape-vhs.webp") center / contain no-repeat;
   transform: translateX(calc(5% + var(--out) * 37%)) rotate(calc(var(--out) * 1.4deg)); transform-origin: 0 50%;
   transition: transform 120ms linear;
 }
-.tape-pack { position: absolute; top: 44.5%; width: 34%; aspect-ratio: 1; margin: -17% 0 0 -17%; border-radius: 50%; background: #2a2a2a; box-shadow: inset 0 0 0 1px #3d3d3d; }
-.tape-pack:nth-child(1) { left: 28.5%; }
-.tape-pack:nth-child(2) { left: 71.5%; }
-.tape-reel { position: absolute; top: 44.5%; width: 12.5%; aspect-ratio: 1; margin: -6.25% 0 0 -6.25%; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Ccircle cx='24' cy='24' r='22' fill='%23f2f2f0'/%3E%3Ccircle cx='24' cy='24' r='13' fill='%23000'/%3E%3Cg fill='%23f2f2f0'%3E%3Crect x='21.800' y='9' width='4.400' height='10'/%3E%3Crect x='21.800' y='29' width='4.400' height='10'/%3E%3Crect x='21.800' y='9' width='4.400' height='10' transform='rotate(60 24 24)'/%3E%3Crect x='21.800' y='29' width='4.400' height='10' transform='rotate(60 24 24)'/%3E%3Crect x='21.800' y='9' width='4.400' height='10' transform='rotate(120 24 24)'/%3E%3Crect x='21.800' y='29' width='4.400' height='10' transform='rotate(120 24 24)'/%3E%3C/g%3E%3C/svg%3E") center / contain no-repeat; }
-.tape-reel:nth-child(3) { left: 28.5%; }
-.tape-reel:nth-child(4) { left: 71.5%; }
-.tape-side { position: absolute; top: 18%; right: 7.500%; font: 400 clamp(18px, 3cqw, 28px) / 1 "DT Punk", "Inter Tight", sans-serif; color: #0a0a0a; }
+.tape-pack, .tape-reel, .tape-side { display: none; }
 .stream-caption { display: none; }
 @media (hover: hover) {
   .tape:hover .tape-case { transform: translateY(-4px); border-color: var(--gray-114); }
@@ -1128,9 +1122,9 @@ body .site-shell :is(.case-reachout, #profile-contact, .mobile-reachout) { posit
 /* The CV line burns. */
 .rail-fire { position: fixed; top: 0; left: 0; z-index: 31; pointer-events: none; image-rendering: pixelated; }
 .cv-rail b.is-boom { animation: rail-boom 460ms cubic-bezier(.16, 1, .3, 1); }
-.cv-rail b.is-boom-final { animation: rail-boom 900ms cubic-bezier(.16, 1, .3, 1); --boom: 4.2; }
-@keyframes rail-boom { 0% { transform: scale(1); box-shadow: 0 0 0 0 #fff; } 30% { transform: scale(var(--boom, 2.4)); box-shadow: 0 0 0 7px rgba(255, 255, 255, .34); } 100% { transform: scale(1); box-shadow: 0 0 0 3px rgba(255, 255, 255, .12); } }
-@media print { .rail-fire, .line-bar, 
+.cv-rail b.is-boom-final { animation: rail-boom 900ms cubic-bezier(.16, 1, .3, 1); --boom: 2.2; }
+@keyframes rail-boom { 0% { transform: scale(1); box-shadow: 0 0 0 0 #fff; } 30% { transform: scale(var(--boom, 1.5)); box-shadow: 0 0 0 4px rgba(255, 255, 255, .16); } 100% { transform: scale(1); box-shadow: 0 0 0 3px rgba(255, 255, 255, .12); } }
+@media print { .rail-fire, .line-bar { display: none !important; } }
 /* Icons in the fire card are big enough for their spikes to read. */
 body .site-shell :is(.case-reachout, #profile-contact, .mobile-reachout) :is(.contact-contra-badge, .contact-whatsapp-button) img { width: 22px; height: 22px; margin-block: -2px; }
 
@@ -1154,3 +1148,23 @@ body .site-shell :is(.case-reachout, #profile-contact, .mobile-reachout) :is(.co
 .ink { width: calc(var(--w) * 2.6); margin-left: calc(var(--w) * -1.3); }
 .ink i { width: 100%; border-radius: 0; clip-path: polygon(0 0, 100% 0, 66% 22%, 58% 62%, 56% 100%, 44% 100%, 42% 62%, 34% 22%); }
 .ink b { border-radius: 50% 50% 48% 48% / 66% 66% 34% 34%; }
+
+/* The VHS television fills the panel; the flat shelf stays only until it is ready, or if it can't run. */
+.tv-canvas { position: absolute; inset: 0; z-index: 1; width: 100%; height: 100%; opacity: 0; transition: opacity 500ms ease; pointer-events: none; }
+.tv-on .tv-canvas { opacity: 1; }
+.tv-on .stream-track { visibility: hidden; }
+.tv-on.stream-stage { cursor: default; }
+.tv-on .stream-caption { left: 34px; right: 34px; bottom: 18px; min-height: 62px; align-items: center; }
+.tv-on .stream-name { font-size: clamp(22px, 3.2cqw, 36px); line-height: 1.06; letter-spacing: -.035em; }
+.tv-on .stream-now { align-items: baseline; max-width: 54%; }
+@media (min-width: 810px) and (prefers-reduced-motion: no-preference) {
+  .work-stream { margin-inline: -12px; }
+}
+
+/* Phones and reduced motion: the shelf sits inside a small TV set. */
+@media (max-width: 809px), (prefers-reduced-motion: reduce) {
+  .work-stream { margin-inline: 0; }
+  .stream-stage { padding: 10px 10px 34px; border: 1px solid var(--gray-41); border-radius: 18px; background: #161616; }
+  .stream-track { position: relative; padding: 18px 14px 18px; border-radius: 12px; background: #030303; box-shadow: inset 0 0 0 1px #000, inset 0 0 26px rgba(0, 0, 0, .9); }
+  .stream-stage::before { content: ''; position: absolute; left: 50%; bottom: 14px; width: 86px; height: 5px; margin-left: -43px; border-radius: 2px; background: #050505; box-shadow: 0 0 0 1px #2c2c2c; }
+}
