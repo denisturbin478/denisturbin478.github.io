@@ -1110,30 +1110,27 @@ body .site-shell .sidebar :is(.profile-section, .profile-proof) > a.secondary-ac
   background: rgba(0, 0, 0, .9);
 }
 
-/* Reach out: fire behind the card. */
+/* Reach out: a plain black card. */
 body .site-shell :is(.case-reachout, #profile-contact, .mobile-reachout) { position: relative; isolation: isolate; overflow: hidden; background: #000; border-color: var(--gray-48); }
-.card-fire { position: absolute; inset: 0; z-index: -1; width: 100%; height: 100%; image-rendering: pixelated; pointer-events: none; }
 
-/* The scrollbar burns. Native bars are off only where the fire bar runs. */
+/* A thin scrollbar. Native bars are off only where this one runs. */
 @media (min-width: 810px) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
   html:not(.case-x) :is(.main-pane, .sidebar) { scrollbar-width: none; scrollbar-gutter: auto; }
   :is(.main-pane, .sidebar)::-webkit-scrollbar { display: none; }
 }
-.fire-bar { position: fixed; z-index: 30; width: 18px; cursor: default; }
-.fire-bar[hidden] { display: none; }
-.fire-bar canvas { position: absolute; inset: 0; width: 18px; height: 100%; image-rendering: pixelated; pointer-events: none; }
-.fire-bar i { position: absolute; top: 0; left: 8px; width: 2px; background: var(--gray-204); cursor: grab; transition: left 140ms ease, width 140ms ease; touch-action: none; }
-.fire-bar i::before { content: ''; position: absolute; inset: 0 -6px; }
-.fire-bar:hover i, .fire-bar.is-drag i { left: 7px; width: 4px; background: var(--gray-255); }
-.fire-bar.is-drag i { cursor: grabbing; }
+.line-bar { position: fixed; z-index: 30; width: 18px; cursor: default; }
+.line-bar[hidden] { display: none; }
+.line-bar i { position: absolute; top: 0; left: 8px; width: 2px; background: var(--gray-204); cursor: grab; transition: left 140ms ease, width 140ms ease; touch-action: none; }
+.line-bar i::before { content: ''; position: absolute; inset: 0 -6px; }
+.line-bar:hover i, .line-bar.is-drag i { left: 7px; width: 4px; background: var(--gray-255); }
+.line-bar.is-drag i { cursor: grabbing; }
 
 /* The CV line burns. */
 .rail-fire { position: fixed; top: 0; left: 0; z-index: 31; pointer-events: none; image-rendering: pixelated; }
 .cv-rail b.is-boom { animation: rail-boom 460ms cubic-bezier(.16, 1, .3, 1); }
 .cv-rail b.is-boom-final { animation: rail-boom 900ms cubic-bezier(.16, 1, .3, 1); --boom: 4.2; }
 @keyframes rail-boom { 0% { transform: scale(1); box-shadow: 0 0 0 0 #fff; } 30% { transform: scale(var(--boom, 2.4)); box-shadow: 0 0 0 7px rgba(255, 255, 255, .34); } 100% { transform: scale(1); box-shadow: 0 0 0 3px rgba(255, 255, 255, .12); } }
-@media print { .rail-fire, .fire-bar, .card-fire { display: none !important; } }
-
+@media print { .rail-fire, .line-bar, 
 /* Icons in the fire card are big enough for their spikes to read. */
 body .site-shell :is(.case-reachout, #profile-contact, .mobile-reachout) :is(.contact-contra-badge, .contact-whatsapp-button) img { width: 22px; height: 22px; margin-block: -2px; }
 
