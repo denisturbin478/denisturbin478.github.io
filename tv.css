@@ -36,6 +36,8 @@ html.is-recording body .site-shell ::selection { background: var(--lit); }
   body .site-shell :is(.sidebar, .main-pane) :is(strong, b) { color: #fff; }
   html body .site-shell :is(.sidebar, .main-pane) p:not(.sr-only) { color: var(--led-2); }
   html body .site-shell .sidebar :is(.service-teaser) { text-transform: none; color: var(--led-2); }
+  /* The statement on Home: the lit words are the links, so the words around them stay dim enough to tell them apart. */
+  html body .site-shell .sidebar p.sidebar-statement, html body .site-shell .sidebar p.sidebar-statement > span { color: #8f8f8f; }
 }
 /* Writing the dots don't cover (Chinese, Arabic, Hindi...) keeps the system's own face, in its strongest weight. */
 html:is(:lang(zh-Hans), :lang(ja), :lang(ko), :lang(ar), :lang(hi)) body .site-shell :is(.sidebar, .main-pane) *:not(svg, svg *) { font-weight: 700 !important; }
