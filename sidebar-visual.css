@@ -551,28 +551,7 @@ body .site-shell .sidebar :is(.profile-section, .profile-proof) > a.secondary-ac
   body .site-shell .sidebar .profile-proof > a.secondary-action-button.small-link.profile-proof-more { display: none; }
 }
 
-/* ---------- Punk type: names and titles move like liquid, section headings stay still ---------- */
+/* ---------- Punk stays an accent: the linked words and the closing name only ---------- */
 @media screen {
-  body .site-shell :is(.identity-name, .sidebar h1:not(.sr-only), .sidebar h2:not(:has(.service-choice-copy)), .profile-services-group, .cv-section > h2, .work-closing > h2, .case-stat-line strong, .case-chart-total strong) {
-    font-family: "DT Punk", "Inter Tight", sans-serif;
-    font-weight: 400;
-    letter-spacing: .012em;
-    color: var(--gray-255);
-  }
-  body .site-shell .identity-name { font-size: 25px; line-height: 28px; }
-  body .site-shell .sidebar h1:not(.sr-only) { font-size: 34px; line-height: 37px; text-wrap: balance; }
-  body .site-shell .sidebar h1:not(.sr-only) span { color: inherit; }
-  body .site-shell .sidebar h2:not(:has(.service-choice-copy)), body .site-shell .profile-services-group { font-size: 21px; line-height: 26px; }
-  body.case-gallery-layout .sidebar :is(.case-copy-challenge, .case-copy-solution, .case-copy-outcome) > h2 { font-size: 20px; line-height: 24px; }
-  body .site-shell :is(.case-reachout, #profile-contact) h2 { font-size: 21px; line-height: 24px; }
-  body .site-shell .cv-section > h2 { font-size: 26px; line-height: 30px; }
-  body .site-shell .work-closing > h2 { font-size: 38px; line-height: 42px; }
-  body .site-shell .case-stat-line strong { font-size: 1.15em; }
-  .work-grid .project-link:hover .project-title { font-family: "DT Punk", "Inter Tight", sans-serif; font-weight: 400; font-size: 18px; letter-spacing: .012em; color: var(--gray-255); }
-  html.liquid-on :is(.bio-stack, .identity-name, .sidebar h1:not(.sr-only), .work-closing-mark) { filter: url(#dt-liquid); }
+  html.liquid-on :is(.bio-stack, .work-closing-mark) { filter: url(#dt-liquid); }
 }
-@media screen and (max-width: 809px) {
-  body .site-shell .sidebar h1:not(.sr-only) { font-size: 31px; line-height: 34px; }
-  body .site-shell .work-closing > h2 { font-size: 30px; line-height: 34px; }
-}
-

@@ -923,7 +923,7 @@ body .sidebar .bio-stack { color: var(--gray-255); }
 .mobile-switch.is-stretching a[aria-current] { transition: color 110ms linear; }
 .mobile-switch.is-stretching a.is-target { transition: color 60ms linear; }
 
-/* Punk type system. Headlines and signatures only: reading text, buttons, forms and the PDFs stay in Inter Tight. */
+/* Punk is an accent, never a heading style: linked words, the closing name, and text being selected. */
 .punk-tags { position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: 40; pointer-events: none; }
 body.punk-on *:not(input, textarea, select)::selection { background: transparent; color: transparent; }
 /* Form fields and menus keep a normal visible selection. Selection styles inherit, so this has to be stated. */
