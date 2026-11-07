@@ -260,9 +260,9 @@ body .site-shell .profile-actions .contact-start-button { width: 100%; max-width
 }
 
 /* 10. Bio photo stacks ------------------------------------------------- */
-@font-face { font-family: "DT Punk"; src: url(/assets/fonts/sedgwick-hero.woff2) format("woff2"); font-display: swap; }
-/* The linked words: white punk lettering, kept moving by a liquid filter from delight.js. */
-.bio-stack { font-family: "DT Punk", "Inter Tight", sans-serif; font-size: 1.12em; font-weight: 400; line-height: 1; letter-spacing: .012em; color: var(--gray-255); text-decoration: none; cursor: pointer; filter: url(#dt-liquid); }
+@font-face { font-family: "DT Punk"; src: url(/assets/fonts/sedgwick-ave-display-latin-400.woff2) format("woff2"); font-display: swap; }
+/* The linked words: white punk lettering. */
+.bio-stack { font-family: "DT Punk", "Inter Tight", sans-serif; font-size: 1.12em; font-weight: 400; line-height: 1; letter-spacing: .012em; color: var(--gray-255); text-decoration: none; cursor: pointer; }
 .bio-stack:hover, .bio-stack.is-active { color: var(--gray-255); }
 .bio-stack:focus-visible { outline:2px solid var(--focus); outline-offset: 2px; }
 
@@ -861,9 +861,8 @@ body .site-shell .work-closing .contact-start-button { display: inline-flex; ali
 .work-closing-mark { display: block; width: 100%; height: auto; overflow: visible; }
 .wm-hit { fill: transparent; stroke: none; }
 .wm-fill { fill: var(--gray-245); transition: fill-opacity 420ms ease; }
-.wm-line, .wm-handle { fill: none; stroke-width: 1; vector-effect: non-scaling-stroke; opacity: 0; transition: opacity 220ms ease; pointer-events: none; }
+.wm-line { fill: none; stroke-width: 1; vector-effect: non-scaling-stroke; opacity: 0; transition: opacity 220ms ease; pointer-events: none; }
 .wm-line { stroke: var(--gray-204); }
-.wm-handle { stroke: var(--gray-90); }
 .wm-node { fill: var(--gray-245); opacity: 0; transition: opacity 220ms ease; pointer-events: none; }
 .work-closing-mark.is-armed .wm-fill { fill-opacity: 0; }
 .work-closing-mark.is-armed .wm-line, .work-closing-mark.is-armed .wm-node { opacity: 1; }
@@ -871,7 +870,7 @@ body .site-shell .work-closing .contact-start-button { display: inline-flex; ali
 .work-closing-mark.is-armed.is-drawn .wm-line, .work-closing-mark.is-armed.is-drawn .wm-node { opacity: 0; transition-delay: calc(var(--i) * 70ms + 200ms); }
 @media (hover: hover) {
   .work-closing-mark .wm-l:hover .wm-fill { fill-opacity: 0; transition-delay: 0ms; }
-  .work-closing-mark .wm-l:hover :is(.wm-line, .wm-node, .wm-handle) { opacity: 1; transition-delay: 0ms; }
+  .work-closing-mark .wm-l:hover :is(.wm-line, .wm-node) { opacity: 1; transition-delay: 0ms; }
 }
 @media (max-width: 809px) {
   .work-closing { margin: 56px 0 0; padding-bottom: 96px; }
@@ -923,3 +922,8 @@ body .sidebar .bio-stack { color: var(--gray-255); }
 .mobile-switch.is-stretching a:hover { background: transparent; }
 .mobile-switch.is-stretching a[aria-current] { transition: color 110ms linear; }
 .mobile-switch.is-stretching a.is-target { transition: color 60ms linear; }
+
+/* Punk type system. Headlines and signatures only: reading text, buttons, forms and the PDFs stay in Inter Tight. */
+.punk-tags { position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: 40; pointer-events: none; }
+body.punk-on *:not(input, textarea, select)::selection { background: transparent; color: transparent; }
+
