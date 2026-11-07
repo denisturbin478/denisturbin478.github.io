@@ -1,1 +1,1 @@
-export const REGIONAL_CONFIG=Object.freeze({version:"regional-v1",enabled:!0,countries:Object.freeze({AM:Object.freeze({name:"Armenia"}),GE:Object.freeze({name:"Georgia"}),US:Object.freeze({name:"United States"}),FR:Object.freeze({name:"France"})}),offers:Object.freeze([])});
+export const REGIONAL_CONFIG=Object.freeze({version:"regional-v1",enabled:!1,countries:Object.freeze({AM:Object.freeze({name:"Armenia"}),GE:Object.freeze({name:"Georgia"}),US:Object.freeze({name:"United States"}),FR:Object.freeze({name:"France"})}),offers:Object.freeze([])});
