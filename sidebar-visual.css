@@ -94,27 +94,18 @@ body.case-gallery-layout .sidebar .case-copy-solution > h2 { color:var(--ink); }
 body.case-gallery-layout .sidebar .case-copy-solution > h2::before { color:var(--sv-accent); }
 body.case-gallery-layout .sidebar .case-copy-solution p { color:var(--gray-204); }
 
-/* The connector: a short arrow from the question to the answer. */
+/* The connector: one drawn hairline arrow, under the icon's centre, clear of both cards. */
 body.case-gallery-layout .sidebar .case-copy-challenge + .case-copy-solution { margin-top: 30px; }
 body.case-gallery-layout .sidebar .case-copy-challenge + .case-copy-solution::before {
   content: '';
   position: absolute;
-  left: 30px;
-  top: -30px;
-  width: 2px;
-  height: 30px;
-  background:var(--gray-72);
-}
-body.case-gallery-layout .sidebar .case-copy-challenge + .case-copy-solution::after {
-  content: '';
-  position: absolute;
-  left: 26px;
-  top: -8px;
-  width: 10px;
-  height: 10px;
-  border-right:1px solid var(--gray-72);
-  border-bottom:1px solid var(--gray-72);
-  transform: rotate(45deg);
+  left: 25px;
+  top: -25px;
+  width: 13px;
+  height: 18px;
+  background: var(--gray-119);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 13 18' fill='none' stroke='%23000' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6.5 1v15.5M3 13l3.5 3.5L10 13'/%3E%3C/svg%3E") center / 13px 18px no-repeat;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 13 18' fill='none' stroke='%23000' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6.5 1v15.5M3 13l3.5 3.5L10 13'/%3E%3C/svg%3E") center / 13px 18px no-repeat;
 }
 
 body.case-gallery-layout .sidebar .case-copy-outcome {
