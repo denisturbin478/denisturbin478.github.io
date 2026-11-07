@@ -20,7 +20,7 @@
   border-radius: 20px;
   font-size: 13px;
   color:var(--ink, var(--gray-245));
-  background:rgba(18, 18, 18, .84);
+  background:rgba(0,0,0, .84);
   backdrop-filter: blur(8px);
   text-align: center;
 }
@@ -89,7 +89,7 @@
     padding: 22px 20px;
     border:1px solid rgba(255, 255, 255, .09);
     border-radius: 20px;
-    background:#171717;
+    background:#0a0a0a;
   }
   .mobile-reachout-portrait {
     width: 48px;
@@ -216,7 +216,7 @@ body .site-shell .profile-actions .contact-start-button { width: 100%; max-width
     padding: 4px;
     border:1px solid rgba(255, 255, 255, .09);
     border-radius: 999px;
-    background:rgba(34, 34, 34, .58);
+    background:rgba(20,20,20, .58);
     -webkit-backdrop-filter: blur(20px) saturate(170%);
             backdrop-filter: blur(20px) saturate(170%);
     box-shadow:0 12px 32px rgba(0, 0, 0, .5), inset 0 1px 0 rgba(255, 255, 255, .07);
@@ -313,7 +313,7 @@ body .site-shell .profile-actions .contact-start-button { width: 100%; max-width
   padding: 10px 16px;
   border:1px solid rgba(255, 255, 255, .1);
   border-radius: 999px;
-  background:rgba(30, 30, 30, .86);
+  background:rgba(14,14,14, .86);
   -webkit-backdrop-filter: blur(14px);
           backdrop-filter: blur(14px);
   box-shadow:0 10px 28px rgba(0, 0, 0, .45);
@@ -375,7 +375,7 @@ button.footer-email.is-confirmed [data-evil-face="success"] svg { animation: cop
   height: 28px;
   padding: 0 10px 0 6px;
   border-radius: 999px;
-  background:rgba(18, 18, 18, .82);
+  background:rgba(0,0,0, .82);
   -webkit-backdrop-filter: blur(8px);
           backdrop-filter: blur(8px);
   color:var(--gray-238);
@@ -460,7 +460,7 @@ button.footer-email.is-confirmed [data-evil-face="success"] svg { animation: cop
   bottom: 0;
   width: 250px;
   border-radius: 12px;
-  background:rgba(24, 24, 24, .95);
+  background:rgba(10,10,10, .95);
   box-shadow:0 12px 30px rgba(0, 0, 0, .5), 0 0 0 1px rgba(255, 255, 255, .07);
   opacity: 0;
   transform: scaleX(.12);
@@ -566,7 +566,7 @@ button.footer-email.is-confirmed [data-evil-face="success"] svg { animation: cop
   padding: 10px 10px 8px;
   border:1px solid rgba(255, 255, 255, .08);
   border-radius: 14px;
-  background:rgba(24, 24, 24, .94);
+  background:rgba(10,10,10, .94);
   -webkit-backdrop-filter: blur(12px);
           backdrop-filter: blur(12px);
   box-shadow:0 14px 34px rgba(0, 0, 0, .5);
@@ -642,7 +642,7 @@ button.footer-email.is-confirmed [data-evil-face="success"] svg { animation: cop
     padding: 4px;
     border:1px solid rgba(255, 255, 255, .09);
     border-radius: 999px;
-    background:rgba(34, 34, 34, .72);
+    background:rgba(20,20,20, .72);
     -webkit-backdrop-filter: blur(18px) saturate(160%);
             backdrop-filter: blur(18px) saturate(160%);
     box-shadow:0 12px 30px rgba(0, 0, 0, .5), inset 0 1px 0 rgba(255, 255, 255, .07);
@@ -677,7 +677,7 @@ button.footer-email.is-confirmed [data-evil-face="success"] svg { animation: cop
     z-index: 2;
     height: 84px;
     pointer-events: none;
-    background: linear-gradient(to bottom, rgba(18, 18, 18, 0), rgba(18, 18, 18, .88) 24%, rgb(18, 18, 18) 40%);
+    background: linear-gradient(to bottom, rgba(0,0,0, 0), rgba(0,0,0, .88) 24%, rgb(0,0,0) 40%);
   }
   /* The bar replaces "Back to work" on the About, Services and Contact pages. */
   body:is(.about-layout-page, .information-layout-page):not(.photography-layout-page) .case-back { display: none; }
@@ -916,7 +916,7 @@ body .sidebar :is(.sidebar-statement, .bio-stack-text), body .sidebar .sidebar-s
 body .sidebar .bio-stack { color: var(--gray-255); }
 
 /* Page changes: browsers cannot carry blur into a transition snapshot, so a nearly solid bar keeps it from flickering. */
-.mobile-switch, .case-gallery-layout .mobile-switch, .about-layout-page .mobile-switch, .information-layout-page .mobile-switch { background: rgba(28, 28, 28, .9); }
+.mobile-switch, .case-gallery-layout .mobile-switch, .about-layout-page .mobile-switch, .information-layout-page .mobile-switch { background: rgba(14,14,14, .9); }
 
 /* One continuous move: the highlight slides on the old page and the new page shows it already in place. Labels swap as it passes. */
 .mobile-switch.is-stretching a:hover { background: transparent; }
@@ -955,3 +955,88 @@ h1 .punk-word, h1 span .punk-word { color: var(--gray-255); }
 @media print { .ink-layer { display: none !important; } }
 @media (prefers-reduced-motion: reduce) { .ink-layer { display: none; } }
 
+
+/* The work panel: true black, one line of filters, a stream of projects, then the full list. */
+body:is([data-page=home], [data-page=work]) .workspace-grid { display: none; }
+.workspace-grid { color: rgba(255, 255, 255, .035); }
+.work-stream, .work-all-label { display: none; }
+.work-stream[hidden], .work-all-label[hidden] { display: none !important; }
+
+@media (min-width: 810px) {
+  body:is([data-page=home], [data-page=work]) .work-toolbar {
+    flex-wrap: nowrap; min-height: 64px; height: 64px; padding-block: 0; margin-top: 0; margin-bottom: 0;
+    box-shadow: 0 1px 0 var(--gray-34);
+  }
+  .work-toolbar .work-filters { flex: 1 1 auto; flex-wrap: nowrap; gap: 2px; min-width: 0; overflow-x: auto; scrollbar-width: none; }
+  .work-toolbar .work-filters::-webkit-scrollbar { display: none; }
+  .work-toolbar .work-filters a { flex: none; min-height: 36px; padding: 6px 13px; white-space: nowrap; }
+  .work-toolbar .toolbar-utilities { flex: none; }
+  .work-all-label {
+    display: block; margin: 72px 0 20px; scroll-margin-top: 88px;
+    font-size: 28px; line-height: 34px; font-weight: 500; letter-spacing: -.03em; color: var(--gray-245);
+  }
+}
+
+@media (min-width: 810px) and (prefers-reduced-motion: no-preference) {
+  .work-stream {
+    --stream-step: 130px;
+    display: block; position: relative; margin-inline: -12px;
+    height: calc(100svh - 64px + 18 * var(--stream-step));
+  }
+  .stream-stage {
+    position: sticky; top: 64px; height: calc(100svh - 64px); overflow: clip;
+    container-type: size;
+  }
+  .stream-track { position: absolute; inset: 0; }
+  .stream-card {
+    --cw: min(56cqw, 78cqh);
+    position: absolute; left: 50%; top: 46%; display: block;
+    width: var(--cw); aspect-ratio: 4 / 3; margin-left: calc(var(--cw) / -2); margin-top: calc(var(--cw) * -.375);
+    transform: translate(calc(12px + var(--cw) / 2 - 50cqw), 2cqh) perspective(900px) rotateY(3deg);
+    will-change: transform, opacity;
+  }
+  .stream-card img {
+    display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 8px;
+    background: var(--gray-28); box-shadow: 0 0 0 1px rgba(255, 255, 255, .07);
+    transition: transform 420ms cubic-bezier(.16, 1, .3, 1), box-shadow 200ms ease;
+  }
+  .stream-card:hover img { transform: translateY(-2.5%); box-shadow: 0 0 0 1px rgba(255, 255, 255, .5); }
+  .stream-card:focus-visible img { box-shadow: 0 0 0 2px var(--focus); }
+  .stream-caption {
+    position: absolute; z-index: 2000; left: 12px; right: 12px; bottom: 20px;
+    display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; pointer-events: none;
+  }
+  .stream-now { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 16px; min-width: 0; }
+  .stream-name {
+    font-size: clamp(30px, 5.4cqw, 64px); line-height: 1.04; font-weight: 500; letter-spacing: -.04em;
+    color: var(--gray-255); text-wrap: balance;
+  }
+  .stream-kind { font-size: 14px; line-height: 1.3; letter-spacing: -.01em; color: var(--muted); white-space: nowrap; }
+  .stream-skip {
+    flex: none; display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px;
+    border: 1px solid var(--gray-58); border-radius: 8px; pointer-events: auto;
+    font-size: 13px; font-weight: 500; letter-spacing: -.01em; color: var(--gray-229); background: #000;
+    transition: border-color 160ms ease, color 160ms ease;
+  }
+  .stream-skip:hover { border-color: var(--gray-114); color: var(--gray-255); }
+}
+
+/* The full list under the stream: no chrome, tighter corners, more air. */
+.work-grid { --work-card-gap: 20px; }
+.project-card .project-media, .project-card .photo-project-media { border-radius: 8px; }
+.work-grid .project-caption { padding: 10px 1px 0; }
+.work-grid .project-title { font-size: 15px; }
+@media (hover: hover) and (pointer: fine) and (min-width: 810px) {
+  .card-tools { opacity: 0; transition: opacity 180ms ease; }
+  .project-link:is(:hover, :focus-visible) .card-tools { opacity: 1; }
+}
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .work-grid .project-media {
+      animation: plate-in linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 55%;
+    }
+    @keyframes plate-in { from { opacity: .35; transform: scale(.955); } to { opacity: 1; transform: none; } }
+  }
+}
