@@ -891,9 +891,7 @@ body .site-shell .work-closing .contact-start-button { display: inline-flex; ali
   .work-closing-name { margin-top: 40px; }
 }
 
-/* Rolling numbers: the strip shows while rolling; plain text returns afterwards so the baseline is always true. */
-.roll-d { display: inline-block; height: 1.2em; line-height: 1.2em; overflow: hidden; vertical-align: bottom; font-variant-numeric: tabular-nums; }
-.roll-strip { display: block; width: 1ch; word-spacing: 1ch; transition: transform 900ms cubic-bezier(.2, .8, .2, 1); }
+[data-roll] { font-variant-numeric: tabular-nums; }
 
 /* Tools with their silver icons */
 .tool-chip { display: inline-flex; align-items: center; gap: 7px; margin: 2px 14px 2px 0; white-space: nowrap; }
@@ -927,4 +925,8 @@ body .site-shell .work-closing .contact-start-button { display: inline-flex; ali
 /* Linked words are white with no underline, so the words around them step back far enough to tell them apart. */
 body .sidebar :is(.sidebar-statement, .bio-stack-text), body .sidebar .sidebar-statement span { color: var(--gray-143); }
 body .sidebar .bio-stack { color: var(--gray-255); }
+
+/* Page changes: browsers cannot carry blur into a transition snapshot, so a nearly solid bar keeps it from flickering. */
+.mobile-switch, .case-gallery-layout .mobile-switch, .about-layout-page .mobile-switch, .information-layout-page .mobile-switch { background: rgba(28, 28, 28, .9); }
+::view-transition-group(tabbar) { z-index: 100; }
 

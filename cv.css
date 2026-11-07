@@ -113,7 +113,8 @@ body .site-shell .cv-actions a { display: flex; align-items: center; justify-con
 @media screen { .cv-entry-head { align-items: center; } }
 .cv-flower-hint { margin: 12px 0 0; font-size: 13px; line-height: 18px; color: var(--muted); }
 .cv-tags { position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: 40; pointer-events: none; }
-.cv-doc ::selection { background: transparent; color: transparent; }
+.cv-doc ::selection { background: var(--gray-245); color: var(--gray-18); }
+.cv-doc.cv-tag-on ::selection { background: transparent; color: transparent; }
 @media screen {
   .cv-doc { position: relative; padding-left: 30px; }
   .cv-rail { position: absolute; left: 6px; width: 1px; border-left: 1px dashed var(--gray-58); }
