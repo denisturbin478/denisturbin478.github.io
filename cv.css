@@ -122,12 +122,14 @@ body .site-shell .cv-actions a { display: flex; align-items: center; justify-con
   .cv-rail-tip { position: absolute; top: -3px; left: -4px; width: 7px; height: 7px; border-radius: 50%; background: var(--gray-245); }
   .cv-rail b { position: absolute; left: -4px; width: 7px; height: 7px; margin-top: -3px; border-radius: 50%; background: var(--gray-58); transition: background-color 200ms ease, box-shadow 200ms ease; }
   .cv-rail b.is-past { background: var(--gray-245); box-shadow: 0 0 0 3px rgba(255, 255, 255, .12); }
-  .cv-rail-on .cv-entry { opacity: .58; transition: opacity 320ms ease; }
-  .cv-rail-on .cv-entry.is-past { opacity: 1; }
+  /* Progress shows in the line, dots, thumbnails and title brightness. Body text stays fully readable. */
+  .cv-rail-on .cv-entry h3 { transition: color 320ms ease; }
+  .cv-rail-on .cv-entry:not(.is-past) h3 { color: var(--gray-204); }
+  .cv-rail-on .cv-thumb { transition: opacity 320ms ease; }
+  .cv-rail-on .cv-entry:not(.is-past) .cv-thumb { opacity: .5; }
 }
-@media (prefers-reduced-motion: reduce) { .cv-rail-on .cv-entry { opacity: 1; transition: none; } }
+@media (prefers-reduced-motion: reduce) { .cv-rail-on .cv-entry h3, .cv-rail-on .cv-thumb { transition: none; } }
 @media print {
   .cv-rail, .cv-flowers, .cv-thumb, .cv-flower-hint { display: none !important; }
-  .cv-rail-on .cv-entry { opacity: 1 !important; }
   .cv-entry h3 a { display: inline; }
 }
