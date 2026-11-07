@@ -923,3 +923,8 @@ body .site-shell .work-closing .contact-start-button { display: inline-flex; ali
 .offline-strip button:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 .offline-strip img { display: block; width: 100%; height: 100%; object-fit: cover; }
 @media (prefers-reduced-motion: reduce) { .roll-strip, .offline-switch i, .offline-switch i::after { transition: none; } }
+
+/* Linked words are white with no underline, so the words around them step back far enough to tell them apart. */
+body .sidebar :is(.sidebar-statement, .bio-stack-text), body .sidebar .sidebar-statement span { color: var(--gray-143); }
+body .sidebar .bio-stack { color: var(--gray-255); }
+
