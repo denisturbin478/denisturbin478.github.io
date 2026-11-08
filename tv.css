@@ -49,7 +49,9 @@ html:not([lang=en]) body .site-shell [data-evil-status-button][data-evil-button=
 html:not(.booting):not(.boot-out) .tv-boot { display: none !important; }
 @media (max-width: 809px) { .tv-boot { display: none !important; } }
 @media (min-width: 810px) {
-  html.booting body .site-shell :is(.sidebar, .main-pane) { visibility: hidden; }
+  html.booting body .site-shell :is(.sidebar, .main-pane) { opacity: 0; pointer-events: none; }
+  /* When the page is in, the screens come up through the boot screen instead of cutting to it. */
+  html.boot-out body .site-shell :is(.sidebar, .main-pane) { opacity: 1; transition: opacity 560ms cubic-bezier(.22, .68, 0, 1); }
   html .tv-boot { z-index: 9; overflow: hidden; padding: 24px var(--pad) 20px; background: #000; color: #f6f6f6; font: 400 16px/22px "DT LED", "Inter Tight", monospace; font-synthesis: none; font-kerning: none; text-shadow: 0 0 6px rgba(255, 255, 255, .35), 1.5px 0 0 rgba(255, 64, 64, .2), -1.5px 0 0 rgba(64, 140, 255, .2); --step: 58ms; }
   html.boot-first .tv-boot { --step: 120ms; }
   .tv-boot::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: repeating-linear-gradient(to bottom, rgba(0, 0, 0, .24) 0 1px, transparent 1px 3px); }
@@ -57,7 +59,9 @@ html:not(.booting):not(.boot-out) .tv-boot { display: none !important; }
   .tv-boot-head { display: flex; justify-content: space-between; gap: 16px; font-size: 24px; line-height: 33px; }
   .tv-boot-rule { height: 4px; margin: 10px 0 20px; background: repeating-linear-gradient(to right, rgba(255, 255, 255, .55) 0 2px, transparent 2px 5px); }
   .tv-boot-log { display: grid; gap: 8px; width: min(46%, 440px); }
-  .tv-boot-log li { display: flex; align-items: baseline; gap: 8px; clip-path: inset(0 100% 0 0); animation: boot-type calc(var(--step) * 2.4) steps(16, end) calc(var(--i) * var(--step) * 1.6) forwards; }
+  .tv-boot-log li { position: relative; display: flex; align-items: baseline; gap: 8px; }
+  /* Each line is uncovered left to right, in steps like a printer, by a black block sliding off it. */
+  .tv-boot-log li::after { content: ''; position: absolute; z-index: 1; top: -2px; bottom: -2px; left: -2px; right: -2px; background: #000; transform-origin: 100% 50%; animation: boot-uncover calc(var(--step) * 2.4) steps(16, end) calc(var(--i) * var(--step) * 1.6) both; }
   .tv-boot-log li::before { content: '>'; flex: none; }
   .tv-boot-log li > span { flex: none; }
   .tv-boot-log li > i { flex: 1 1 12px; min-width: 12px; height: 2px; background: repeating-linear-gradient(to right, rgba(255, 255, 255, .5) 0 2px, transparent 2px 6px); }
@@ -87,19 +91,22 @@ html:not(.booting):not(.boot-out) .tv-boot { display: none !important; }
   .tv-boot-data div { animation: boot-scroll 5.6s steps(56, end) infinite; }
   .tv-boot-data p { margin: 0; white-space: pre; }
   .tv-boot-panel .tv-boot-log { position: absolute; left: 22px; right: 22px; bottom: 22px; width: auto; }
-  html.boot-out .tv-boot { animation: boot-out 280ms cubic-bezier(.55, 0, .8, .2) forwards; }
+  html.boot-out .tv-boot { animation: boot-out 560ms cubic-bezier(.22, .68, 0, 1) forwards; }
+  /* A bright line runs down once as the picture locks on. */
+  html.boot-out .tv-boot::before { content: ''; position: absolute; z-index: 3; left: 0; right: 0; top: 0; height: 3px; background: #fff; box-shadow: 0 0 18px 4px rgba(255, 255, 255, .5); animation: boot-line 460ms cubic-bezier(.4, 0, .6, 1) forwards; }
 }
-@keyframes boot-type { to { clip-path: inset(0 0 0 0); } }
+@keyframes boot-uncover { from { transform: scaleX(1); } to { transform: scaleX(0); } }
+@keyframes boot-line { from { transform: translateY(0); } to { transform: translateY(var(--tube-h, 760px)); } }
 @keyframes boot-on { to { opacity: 1; } }
 @keyframes boot-fill { to { transform: scaleX(1); } }
 @keyframes boot-blink { 50% { opacity: 0; } }
 @keyframes boot-fly { from { transform: rotateX(80deg) translateY(0); } to { transform: rotateX(80deg) translateY(30px); } }
 @keyframes boot-rows { 0% { transform: scaleY(0); } 80%, 100% { transform: scaleY(1); } }
 @keyframes boot-scroll { to { transform: translateY(-50%); } }
-@keyframes boot-out { 0% { transform: none; opacity: 1; } 60% { transform: scaleY(.01); opacity: 1; filter: brightness(2.4); } 100% { transform: scale(0, .01); opacity: 0; } }
+@keyframes boot-out { 0% { opacity: 1; } 18% { opacity: 1; } 100% { opacity: 0; } }
 @media (prefers-reduced-motion: reduce) {
   .tv-boot, .tv-boot * { animation: none !important; transition: none !important; }
-  .tv-boot-log li { clip-path: none; }
+  .tv-boot-log li::after { display: none; }
   .tv-boot-log li > b, .tv-boot-ready { opacity: 1; }
   html.boot-out .tv-boot { display: none !important; }
 }
@@ -147,6 +154,10 @@ html body .site-shell .sidebar .identity-portrait img, html body .site-shell :is
 }
 html body .site-shell :is(.case-reachout, #profile-contact)::before { background-image: url("/assets/portrait-led.webp") !important; }
 html body .site-shell .sidebar :is(.review-avatar, .profile-proof-item img) { filter: grayscale(1); }
+/* The portrait drawn live in dots: it blinks, follows the pointer and smiles back. */
+html body .site-shell .identity-portrait { position: relative; }
+html body .site-shell .identity-portrait canvas.led-face { position: absolute; inset: 0; width: 100%; height: 100%; filter: brightness(1.25) contrast(1.05); pointer-events: none; }
+html body .site-shell .identity-portrait.is-live img { opacity: 0; }
 
 /* ---------- The identity: one header, same place everywhere ---------- */
 .identity.identity-row { grid-template-columns: 88px minmax(0, 1fr) auto; grid-template-rows: auto auto; column-gap: 14px; row-gap: 0; margin: 0 0 22px !important; }
@@ -355,10 +366,27 @@ html body .site-shell .main-pane .case-gallery-footer a:is(:hover, :focus-visibl
 html body .site-shell .main-pane .case-gallery-footer .nav-thumb { display: none; }
 @media (max-width: 809px) { html body .site-shell .main-pane .case-gallery-footer { flex-direction: column; gap: 14px; } html body .site-shell .main-pane .case-gallery-footer a { width: 100%; } }
 @media (min-width: 810px) and (max-width: 1100px) { html body .site-shell .main-pane .case-gallery-footer a { font-size: 16px !important; line-height: 22px !important; } }
-/* The list under the tapes. */
-.work-grid { --work-card-gap: 20px; }
-.project-card .project-media, .project-card .photo-project-media { border-radius: 0; }
-.work-grid .project-caption { padding: 10px 1px 0; }
+/* ---------- The list under the tapes: a tape library. Every project in the same small monitor, its code lit beside the name ---------- */
+html body .site-shell .work-grid, html body .site-shell .work-grid.masonry, html body .site-shell .work-grid[data-filter] { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); gap: 34px 26px; height: auto !important; }
+html body .site-shell .work-grid.masonry > .project-card { position: relative; top: auto; left: auto; width: auto; }
+html body .site-shell .work-grid > .project-card[hidden] { display: none; }
+html body .site-shell .work-grid .project-link { display: block; padding: 0; overflow: visible; border-radius: 0; }
+html body .site-shell .work-grid :is(.project-media, .photo-project-media) { position: relative; display: block; aspect-ratio: 4 / 3; overflow: hidden; border-radius: 0; background: #050505; outline: 2px dotted rgba(255, 255, 255, .3); outline-offset: 5px; }
+html body .site-shell .work-grid :is(.project-media, .photo-project-media) :is(img, video) { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: none; }
+html body .site-shell .work-grid :is(.project-media, .photo-project-media) img { filter: grayscale(.55) brightness(.78) contrast(1.08); transition: filter 220ms steps(4, end); }
+/* The picture sits behind glass: lines and a little falloff at the edges. */
+html body .site-shell .work-grid :is(.project-media, .photo-project-media)::after { content: ''; position: absolute; inset: 0; z-index: 2; pointer-events: none; background: repeating-linear-gradient(to bottom, rgba(0, 0, 0, .3) 0 1px, transparent 1px 3px); box-shadow: inset 0 0 42px rgba(0, 0, 0, .55); transition: opacity 220ms steps(4, end); }
+html body .site-shell .work-grid .project-caption { display: flex; align-items: baseline; gap: 10px; margin: 0; padding: 16px 0 0; opacity: 1; transform: none; }
+html body .site-shell .work-grid .project-caption::before { content: attr(data-code); flex: none; padding: 0 6px; background: rgba(255, 255, 255, .16); color: #fff; }
+html body .site-shell .work-grid .project-title { flex: 1 1 auto; min-width: 0; margin: 0; overflow: hidden; color: #fff; text-overflow: ellipsis; text-transform: uppercase; white-space: nowrap; }
+html body .site-shell .work-grid .project-category { flex: none; color: var(--led-3); }
+/* Pointing at a tape: its monitor comes on, the frame lights, the code becomes a lit PLAY tag. */
+html body .site-shell .work-grid .project-link:is(:hover, :focus-visible) :is(.project-media, .photo-project-media) { outline: 2px solid #fff; box-shadow: 0 0 22px rgba(255, 255, 255, .16); }
+html body .site-shell .work-grid .project-link:is(:hover, :focus-visible) :is(.project-media, .photo-project-media) img { filter: none; }
+html body .site-shell .work-grid .project-link:is(:hover, :focus-visible) :is(.project-media, .photo-project-media)::after { opacity: .45; }
+html body .site-shell .work-grid .project-link:is(:hover, :focus-visible) .project-caption::before { content: "\25B6 " attr(data-code); background: var(--lit) var(--lit-mesh); color: #000; text-shadow: none; -webkit-text-stroke: .55px #000; }
+html body .site-shell .work-grid .project-link:focus-visible { outline: 0; }
+@media (prefers-reduced-motion: reduce) { html body .site-shell .work-grid :is(.project-media, .photo-project-media) img, html body .site-shell .work-grid :is(.project-media, .photo-project-media)::after { transition: none; } }
 @media (hover: hover) and (pointer: fine) and (min-width: 810px) {
   .card-tools { opacity: 0; transition: opacity 180ms ease; }
   .project-link:is(:hover, :focus-visible) .card-tools { opacity: 1; }
@@ -384,6 +412,30 @@ html body .project-preview :is(img, video) { border-radius: 0; box-shadow: none;
 
 /* Without the filter, pictures still sit a little out of register, as tape does. */
 html:not(.crt) body .site-shell .main-pane :is(.project-media img, .case-gallery img, .case-media img, .photo-item img, .offline-stage img) { box-shadow: 2px 0 0 rgba(255, 64, 64, .14), -2px 0 0 rgba(64, 140, 255, .14); }
+
+/* ---------- The pointer is the set's own: a pixel arrow, a pixel hand on anything that can be pressed ---------- */
+@media (hover: hover) and (pointer: fine) {
+  :root {
+    --cur-arrow: url("/assets/cursor/arrow.png") 0 0, auto;
+    --cur-hand: url("/assets/cursor/hand.png") 5 0, pointer;
+    --cur-text: url("/assets/cursor/text.png") 3 7, text;
+    --cur-grab: url("/assets/cursor/grab.png") 8 5, grab;
+  }
+  @supports (cursor: -webkit-image-set(url("/assets/cursor/arrow.png") 1x) 0 0, auto) {
+    :root {
+      --cur-arrow: -webkit-image-set(url("/assets/cursor/arrow.png") 1x, url("/assets/cursor/arrow@2x.png") 2x) 0 0, auto;
+      --cur-hand: -webkit-image-set(url("/assets/cursor/hand.png") 1x, url("/assets/cursor/hand@2x.png") 2x) 5 0, pointer;
+      --cur-text: -webkit-image-set(url("/assets/cursor/text.png") 1x, url("/assets/cursor/text@2x.png") 2x) 3 7, text;
+      --cur-grab: -webkit-image-set(url("/assets/cursor/grab.png") 1x, url("/assets/cursor/grab@2x.png") 2x) 8 5, grab;
+    }
+  }
+  html, html body, html body * { cursor: var(--cur-arrow); }
+  html body :is(a[href], button:not(:disabled), summary, label[for], select, [role=button], [role=option], [role=tab], [role=combobox], .bio-stack, .tv-rail, [data-lightbox], .case-visual-button) { cursor: var(--cur-hand) !important; }
+  html body :is(a[href], button, summary, label, [role=option]) * { cursor: inherit !important; }
+  html body :is(input:not([type=checkbox], [type=radio], [type=button], [type=submit], [type=file], [type=range]), textarea, [contenteditable=true]) { cursor: var(--cur-text) !important; }
+  html body :is(.tv-dial, .stream-stage, .stream-stage.is-pulled, .tv-rail.is-drag) { cursor: var(--cur-grab) !important; }
+  html body .stream-stage.is-pointing { cursor: var(--cur-hand) !important; }
+}
 
 /* ---------- The real keys ---------- */
 html body .mobile-switch a, html body .mobile-switch a:hover:not([aria-current]), .tv-lang-phone {
@@ -573,9 +625,12 @@ html body .mobile-switch a:focus-visible, .tv-transport a:focus-visible, .tv-pla
   }
   .tv-plate :is(.tv-transport a, .tv-lang-key, .ui-sound-toggle):hover { color: #fff; filter: brightness(1.22); background: none; }
   .tv-plate :is(.tv-transport a, .tv-lang-key, .ui-sound-toggle):active, .tv-plate .ui-sound-toggle[aria-pressed=true] { border-image-source: url("/assets/tv-key-on.webp?v=bab7d78d4d"); color: #fff; filter: none; transform: none; }
-  .tv-dial { position: relative; flex: none; width: 52px; height: 52px; margin: -4px 0 -4px 10px; background: url("/assets/tv-dial.webp?v=833b1bc597") center / contain no-repeat; }
+  .tv-dial { position: relative; flex: none; width: 52px; height: 52px; margin: -4px 0 -4px 10px; border-radius: 50%; background: url("/assets/tv-dial.webp?v=833b1bc597") center / contain no-repeat; pointer-events: auto; touch-action: none; transition: filter 140ms ease; }
+  .tv-dial:hover { filter: brightness(1.18); }
+  .tv-dial:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+  .tv-dial.is-turning { filter: brightness(1.28); }
   .tv-dial-s { width: 36px; height: 36px; margin: 4px 0 4px 8px; }
-  .tv-dial i { position: absolute; inset: 0; display: block; }
+  .tv-dial i { position: absolute; inset: 0; display: block; pointer-events: none; }
   .tv-dial i::before { content: ''; position: absolute; left: 50%; top: 12%; width: 2px; height: 18%; margin-left: -1px; background: #fff; box-shadow: 0 0 2px rgba(0, 0, 0, .9); }
   /* The tape meter: the two scroll bars. Top line: the big screen. Bottom line: the left panel. */
   .tv-meter { flex: none; display: grid; grid-template-columns: 6px minmax(0, 1fr); grid-template-rows: 22px 22px; align-items: center; column-gap: 10px; width: clamp(92px, 12vw, 180px); height: 44px; margin: 0 6px 0 4px; }
