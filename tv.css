@@ -820,7 +820,7 @@ html body .site-shell .profile-proof-stats > .spin-icon { position: absolute; le
   /* A live website shows over its own poster: the poster's box turns back once, so the page inside must not turn again. */
   html.theme-light body .site-shell .main-pane .case-prototype-viewport :is(iframe, img, video) { filter: none !important; }
   html.theme-light body .site-shell .sidebar :is(.review-avatar, .profile-proof-item img) { filter: invert(1) grayscale(1) !important; }
-  html.theme-light body .site-shell :is(.sidebar, .main-pane) .spin-icon > img { filter: invert(1) !important; }
+  html.theme-light body .site-shell :is(.sidebar, .main-pane) .spin-icon > img { filter: none !important; }
   html.theme-light body .site-shell .work-grid :is(.project-media, .photo-project-media) img { filter: invert(1) grayscale(.55) brightness(.78) contrast(1.08) !important; }
   html.theme-light .tv-boot :is(.bs-holo, .bs-cover) { filter: invert(1) grayscale(1) contrast(1.3); }
   /* The tape signal turns from light streaks into dark ones. */
@@ -833,6 +833,8 @@ html body .site-shell .profile-proof-stats > .spin-icon { position: absolute; le
   html.theme-light body .mobile-switch a:not([aria-current]), html.theme-light .tv-plate :is(.tv-transport a, .tv-lang-key, .ui-sound-toggle:not([aria-pressed=true])) { color: #141414; text-shadow: 0 1px 0 rgba(255, 255, 255, .35); }
   /* The small portrait in Reach out is a picture, not lettering: it stays the right way round. */
   html.theme-light body .site-shell :is(.case-reachout, #profile-contact)::before { filter: invert(1); }
+  html.theme-light body .site-shell :is(.case-reachout, #profile-contact)::before { background-image: url("/assets/portrait-led-light.webp") !important; }
+  html.theme-light .card-fire { opacity: .32; }
   /* The room: the set itself turns light grey, its keys stay black. */
   html.theme-light:root { background: url("/assets/tv-grain.webp?v=7c7906b080") 0 0 / 160px 160px, linear-gradient(to bottom, #cfcfcc, #c4c4c1 22%, #babab7 62%, #b0b0ad) #c2c2bf; background-blend-mode: overlay, normal; }
   html.theme-light .tv-deck { background: url("/assets/tv-grain.webp?v=7c7906b080") 0 0 / 160px 160px, linear-gradient(to bottom, #c9c9c6, #bdbdba 34%, #b1b1ae) #bcbcb9; background-blend-mode: overlay, normal; }
@@ -921,7 +923,6 @@ html body .site-shell :is(.sidebar, .main-pane) a.is-writing { position: relativ
 html.holo-on body .site-shell .main-pane .case-masonry { display: none !important; }
 @media screen and (min-width: 810px) {
   html body .site-shell .main-pane .holo-stage { position: sticky; top: 0; height: var(--tube-h); margin: -64px calc(var(--pad) * -1) -60px; overflow: hidden; background: #000; }
-  html.theme-light body .site-shell .main-pane .holo-stage { filter: invert(1); }
   .holo-stage canvas { position: absolute; inset: 0; display: block; width: 100%; height: 100%; }
   .holo-hud { position: absolute; inset: 0; pointer-events: none; }
   html body .site-shell .main-pane .holo-hud :is(p, h3, dt, dd, a) { margin: 0; }
@@ -953,3 +954,36 @@ body:not(.image-open) { touch-action: pan-x pan-y; }
 @media (min-width: 810px) {
   html body .stream-stage::after { content: ''; position: absolute; z-index: 4; left: 0; right: 0; bottom: 0; height: var(--stage-fade, 0px); background: linear-gradient(to bottom, rgba(0, 0, 0, 0), #000 72%); pointer-events: none; }
 }
+
+/* The picture viewer and the player are part of the same television: black glass, LED lettering, dotted keys, a tape counter. */
+@media screen {
+  html body .lightbox { font-family: "DT LED", "Inter Tight", sans-serif; font-synthesis: none; font-kerning: none; font-size: 16px; line-height: 22px; color: var(--lit); text-shadow: var(--ghost); }
+  html body .lightbox-scrim { background: #000; }
+  html body .lightbox-stage::after { content: ''; position: absolute; inset: 0; z-index: 2; pointer-events: none; background: repeating-linear-gradient(to bottom, rgba(0, 0, 0, .22) 0 1px, transparent 1px 3px); }
+  html body .lightbox-toolbar { inset: 18px 20px auto; }
+  html body .lightbox-toolbar > #image-count, html body .lightbox-media-status { font-size: 16px; line-height: 22px; font-variant-numeric: normal; color: var(--lit); }
+  html body .lightbox:has(#lightbox-video:not([hidden])) .lightbox-toolbar > #image-count::before { content: '▶ PLAY  '; white-space: pre; }
+  html body .lightbox button { width: 44px; height: 38px; padding: 8px; border: 2px dotted rgba(255, 255, 255, .62); border-radius: 0; background: #000; color: var(--lit); box-shadow: none; transition: none; }
+  html body .lightbox button:is(:hover, :focus-visible) { border: 2px solid var(--lit); background: var(--lit) var(--lit-mesh); color: #000; box-shadow: 0 0 14px rgba(255, 255, 255, .34); outline: 0; }
+  html body .lightbox button:active { transform: none; }
+  html body .lightbox button svg { width: 18px; height: 18px; stroke-width: 2; shape-rendering: crispEdges; }
+  html body .lightbox-previous, html body .lightbox-next { top: calc(50% - 19px); }
+  html body .lightbox-caption { bottom: 18px; font-size: 16px; line-height: 22px; color: var(--led-2); }
+  html body .lightbox-caption > small { margin-top: 2px; font-size: 16px; line-height: 22px; color: var(--led-3); }
+  html body .video-player { bottom: 56px; width: min(780px, calc(100% - 128px)); padding: 10px 12px 12px; border: 2px dotted rgba(255, 255, 255, .62); border-radius: 0; background: #000; box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; }
+  html body .lightbox .video-player button { width: 44px; height: 34px; min-width: 44px; min-height: 34px; padding: 6px; border-radius: 0; background: #000; }
+  html body .lightbox .video-player button:is(:hover, :focus-visible) { background: var(--lit) var(--lit-mesh); }
+  html body .video-player-controls { gap: 10px; }
+  html body .video-player-time { font-size: 16px; line-height: 22px; font-variant-numeric: normal; color: var(--lit); }
+  html body .video-player-time::before { content: 'SP '; color: var(--led-3); }
+  html body .video-player-chapter-label { font-size: 16px; line-height: 22px; color: var(--led-3); text-transform: uppercase; }
+  html body .video-player-speed { height: 34px; padding: 0 22px 0 8px; border: 2px dotted rgba(255, 255, 255, .62); border-radius: 0; background-color: #000; color: var(--lit); font: inherit; font-size: 16px; }
+  html body .video-player-track { height: 26px; }
+  html body .video-player-segments { gap: 8px; height: 10px; }
+  html body .video-player-segment { height: 10px; border-radius: 0; background: repeating-linear-gradient(to right, #333 0 3px, transparent 3px 5px); }
+  html body .video-player-segment::after { background: repeating-linear-gradient(to right, var(--lit) 0 3px, transparent 3px 5px); }
+  html body .video-player-tooltip { padding: 2px 8px; border: 2px dotted rgba(255, 255, 255, .62); border-radius: 0; background: #000; color: var(--lit); font-size: 16px; line-height: 22px; }
+  html body .video-player-status { color: var(--led-2); font-size: 16px; line-height: 22px; }
+  html body .lightbox .image-loading { font-size: 16px; line-height: 22px; color: var(--lit); }
+}
+@media (max-width: 599px) { html body .video-player { width: calc(100% - 24px); bottom: 64px; } html body .video-player-chapter-label { display: none; } }
