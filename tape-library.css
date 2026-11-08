@@ -1,0 +1,9 @@
+/* The tapes of the project list under the TV (startShelf in scripts/work-tv/work-tv.js).
+   One canvas that rides with the list, above the covers and their scan lines, under the menu of filters and the tube's own layers. */
+.work-grid > .tape-library { position: absolute; z-index: 3; left: 0; top: 0; display: block; pointer-events: none; will-change: transform; }
+@media (max-width: 809px), (prefers-reduced-motion: reduce) {
+  .work-grid > .tape-library { display: none !important; }
+}
+@media print {
+  .work-grid > .tape-library { display: none !important; }
+}
