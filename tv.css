@@ -701,7 +701,7 @@ html body .mobile-switch a:focus-visible, .tv-transport a:focus-visible, .tv-pla
   .work-all-label { display: block; margin: 40px 0 16px; scroll-margin-top: 106px; }
 }
 @media (min-width: 810px) and (prefers-reduced-motion: no-preference) {
-  html body .work-stream { --stream-step: 220px; position: relative; height: calc(var(--tube-h) + 18 * var(--stream-step)); }
+  html body .work-stream { --stream-step: 220px; position: relative; height: calc(var(--tube-h) + 19 * var(--stream-step)); }
   .stream-stage { position: sticky; top: 0; z-index: 13; height: var(--tube-h); overflow: clip; container-type: size; }
   .stream-stage.is-pulled { cursor: grabbing; user-select: none; }
 }
