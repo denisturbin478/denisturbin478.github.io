@@ -612,6 +612,7 @@ html body .mobile-switch a:focus-visible, .tv-transport a:focus-visible, .tv-pla
   }
   :is(.main-pane, .sidebar)::-webkit-scrollbar { display: none; }
   html.crt body main.main-pane { filter: url(#crt-main); }
+  html.crt.site-glass body main.main-pane { filter: none; }
   html.crt body .site-shell .sidebar { filter: url(#crt-side); }
   html body .site-shell .sidebar::before, html body .site-shell .sidebar::after { content: none; display: none; }
   html body main.main-pane::before, html body main.main-pane::after { content: none; display: none; }
@@ -822,6 +823,7 @@ html body .site-shell .profile-proof-stats > .spin-icon { position: absolute; le
 @media screen and (min-width: 810px) {
   html.theme-light body .site-shell :is(.sidebar, .main-pane), html.theme-light .tv-lang, html.theme-light .tv-boot { filter: invert(1); }
   html.theme-light.crt body main.main-pane, html.theme-light.crt body .tv-lang { filter: url(#crt-main) invert(1); }
+  html.theme-light.crt.site-glass body main.main-pane { filter: invert(1); }
   html.theme-light.crt body .site-shell .sidebar { filter: url(#crt-side) invert(1); }
   html.theme-light body .site-shell :is(.sidebar, .main-pane) :is(img, video, iframe, canvas.tv-canvas, .tube-preview canvas, .tube-preview img, .case-prototype-viewport, canvas.tape-library) { filter: invert(1) !important; }
   /* A live website shows over its own poster: the poster's box turns back once, so the page inside must not turn again. */
@@ -1016,9 +1018,14 @@ body:not(.image-open) { touch-action: pan-x pan-y; }
   .big-site { background: #000 var(--poster, none) center / cover no-repeat; }
   .big-site iframe { position: absolute; left: 0; top: 0; border: 0; background: #fff; transform-origin: 0 0; opacity: 0; transition: opacity 260ms steps(5, end); }
   .big-site.is-on iframe { opacity: 1; }
+  /* The glass over a live site. It bends what is behind it, and the picture falls away towards the edges of the tube, as on the real thing. */
+  .big-site { border-radius: 0; }
+  .big-site-glass { position: absolute; inset: 0; z-index: 4; pointer-events: none; box-shadow: inset 0 0 130px 26px rgba(0, 0, 0, .46); }
+  html.site-glass .big-site-glass { backdrop-filter: url(#crt-site); }
   html body .site-shell .main-pane .big-site-status { position: absolute; left: 0; right: 0; top: 46%; margin: 0; text-align: center; color: #fff; font: 400 26px/1 "DT LED", "Inter Tight", sans-serif; text-shadow: 0 0 2px #000, 0 0 12px #000; animation: tv-ask 620ms steps(2, end) infinite; }
   .big-site.is-on .big-site-status { display: none; }
   html.theme-light body .site-shell .main-pane .big-site { filter: invert(1); }
+  html.theme-light body .site-shell .main-pane .big-site iframe { filter: none !important; }
   html body .site-shell .sidebar .big-site-key { width: 100%; margin-top: 8px; cursor: pointer; }
 }
 
