@@ -552,11 +552,7 @@ html body .mobile-switch a:focus-visible, .tv-transport a:focus-visible, .tv-pla
 /* ---------- Phones: one screen, the channels are real keys along the bottom on a graphite strip ---------- */
 @media (max-width: 809px) {
   body::after { content: ''; position: fixed; inset: 0; z-index: 25; pointer-events: none; background: repeating-linear-gradient(to bottom, rgba(0, 0, 0, .18) 0 1px, transparent 1px 3px); }
-  .work-stream { display: block; margin-inline: 0; }
-  .stream-stage { position: relative; padding: 10px 10px 34px; border: 0; border-radius: 18px; background: linear-gradient(to bottom, #39393c, #29292b); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .2), 0 0 0 1px #050505; }
-  .stream-track { position: relative; display: flex; gap: 24%; padding: 18px 14px; overflow-x: auto; scroll-snap-type: x proximity; scrollbar-width: none; border-radius: 12px; background: #030303; box-shadow: inset 0 0 0 1px #000, inset 0 0 26px rgba(0, 0, 0, .9); }
-  .stream-stage::before { content: ''; position: absolute; left: 50%; bottom: 14px; width: 86px; height: 5px; margin-left: -43px; border-radius: 2px; background: #050505; box-shadow: 0 0 0 1px #2c2c2c; }
-  .stream-caption { display: none; }
+  html body .work-stream { display: none; }
   .case-gallery-layout:not(.about-layout-page, .information-layout-page:not(.photography-layout-page)) .case-gallery-pane {
     margin: 0 8px 24px; padding: 0 10px 14px; border: solid #2c2c2e; border-width: 10px 10px 34px; border-radius: 18px; background: #030303; box-shadow: 0 0 0 1px #050505, inset 0 0 0 1px #000;
   }
@@ -697,7 +693,6 @@ html body .mobile-switch a:focus-visible, .tv-transport a:focus-visible, .tv-pla
   .stream-stage { position: relative; }
   html body .tv-canvas { position: absolute; left: 0; top: 0; width: 100%; height: 100%; opacity: 0; pointer-events: none; }
   /* The flat shelf belongs to phones. On a computer the tube shows only the 3D picture, and stays dark until it is ready. */
-  html body .work-stream .stream-track { display: none; }
   html body.no-tv .work-stream, html.no-gpu body .work-stream { display: none !important; }
   .stream-caption { display: flex; justify-content: center; position: absolute; left: 0; right: 0; bottom: 18px; z-index: 3; pointer-events: none; }
   .is-leaving .stream-caption { visibility: hidden; }
@@ -719,21 +714,6 @@ html body .mobile-switch a:focus-visible, .tv-transport a:focus-visible, .tv-pla
   html.crt body main.main-pane, html.crt body .site-shell .sidebar { filter: none !important; }
   html:root { background: #fff !important; }
 }
-
-/* The flat shelf of tapes (phones, reduced motion, and until the tube starts). */
-.tape { position: relative; flex: none; display: block; width: var(--cw, 76vw); scroll-snap-align: start; scroll-margin-left: 16px; color: var(--led-2); -webkit-user-drag: none; }
-.tape-case { position: relative; z-index: 1; display: block; border: 1px solid var(--gray-58); background: #0b0b0b; padding-left: clamp(10px, 2.6%, 18px); }
-.tape-case::before { content: ''; position: absolute; inset: 0 auto 0 0; width: clamp(10px, 2.6%, 18px); border-right: 1px solid var(--gray-48); background: repeating-linear-gradient(0deg, transparent 0 5px, rgba(255, 255, 255, .09) 5px 6px); }
-.tape-cover { display: block; aspect-ratio: 4 / 3; overflow: hidden; background: var(--gray-28); }
-.tape-cover img { display: block; width: 100%; height: 100%; object-fit: cover; }
-.tape-strip { display: flex; align-items: baseline; gap: 10px; min-height: 40px; padding: 10px 12px; border-top: 1px solid var(--gray-48); }
-.tape-strip b { flex: none; color: #fff; }
-.tape-title { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #fff; }
-.tape-kind { flex: none; color: var(--led-3); }
-.tape-cassette { --out: 1; position: absolute; z-index: 0; top: 6%; left: 5%; display: block; width: 96%; aspect-ratio: 1200 / 700; background: url("/assets/tape-vhs.webp?v=0bcbd0d4f9") center / contain no-repeat; transform: translateX(calc(5% + var(--out) * 37%)) rotate(calc(var(--out) * 1.4deg)); transform-origin: 0 50%; }
-.tape-sticker { position: absolute; z-index: 2; width: 30%; height: auto; pointer-events: none; }
-.tape-sticker:first-of-type { right: -5%; top: -6%; transform: rotate(9deg); }
-.tape-sticker:last-of-type { left: 1%; bottom: 8%; transform: rotate(-7deg); }
 
 /* An open step lights its number: dark digits on the lit block, never white on white. */
 html body .site-shell .sidebar .services-step[open] > summary > .case-process-index { border-color: var(--lit) !important; background: var(--lit) var(--lit-mesh) !important; color: #000 !important; -webkit-text-stroke: .4px #000; box-shadow: 0 0 10px rgba(255, 255, 255, .3); }
