@@ -724,8 +724,8 @@ html body .site-shell .sidebar .services-step[open] > summary > .case-process-in
 /* The CV line: a column of LED dots that lights up as you read. The playhead is a short bar, each job a square, so they never look doubled. */
 @media screen {
   html body .cv-rail { left: 5px; width: 3px; border: 0; background: repeating-linear-gradient(to bottom, rgba(255, 255, 255, .2) 0 3px, transparent 3px 6px); }
-  html body .cv-rail-wipe { position: absolute; left: -8px; right: -8px; top: 0; height: 100%; overflow: hidden; will-change: transform; }
-  html body .cv-rail-fill { position: absolute; left: 8px; top: 0; bottom: auto; width: 3px; height: 100%; background: repeating-linear-gradient(to bottom, #fff 0 3px, transparent 3px 6px); box-shadow: 0 0 5px rgba(255, 255, 255, .28); will-change: transform; }
+  html body .cv-rail-wipe { position: absolute; left: -8px; right: -8px; top: 0; height: 100%; overflow: clip; will-change: transform; }
+  html body .cv-rail-fill { position: absolute; left: 8px; top: 0; bottom: auto; width: 3px; height: 100%; transform: none; background: repeating-linear-gradient(to bottom, #fff 0 3px, transparent 3px 6px); box-shadow: 0 0 5px rgba(255, 255, 255, .28); will-change: transform; }
   html body .cv-rail.is-native .cv-rail-wipe { animation: rail-wipe linear both; animation-timeline: scroll(nearest block); animation-range: var(--rail-a) var(--rail-b); }
   html body .cv-rail.is-native .cv-rail-fill { animation: rail-unwipe linear both; animation-timeline: scroll(nearest block); animation-range: var(--rail-a) var(--rail-b); }
   html body .cv-rail.is-native .cv-rail-tip { animation: rail-tip linear both; animation-timeline: scroll(nearest block); animation-range: var(--rail-a) var(--rail-b); }

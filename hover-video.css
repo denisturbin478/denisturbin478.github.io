@@ -1,5 +1,6 @@
 /* The image keeps its native aspect ratio; the video occupies the same frame. */
-[data-hover-video] .hover-video {
+[data-hover-video] .hover-video,
+[data-loop-video] .hover-video {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -13,7 +14,8 @@
   transform: none;
   transition: none;
 }
-[data-hover-video] .hover-video[data-ready] {
+[data-hover-video] .hover-video[data-ready],
+[data-loop-video] .hover-video[data-ready] {
   opacity: 1;
   transition: opacity var(--motion-ui,220ms) ease;
 }
