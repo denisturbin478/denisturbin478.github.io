@@ -487,10 +487,10 @@ html:not(.crt) body .site-shell .main-pane :is(.project-media img, .case-gallery
     }
   }
   html, html body, html body * { cursor: var(--cur-arrow); }
-  html body :is(a[href], button:not(:disabled), summary, label[for], select, [role=button], [role=option], [role=tab], [role=combobox], .bio-stack, .tv-rail, [data-lightbox], .case-visual-button) { cursor: var(--cur-hand) !important; }
+  html body :is(a[href], button:not(:disabled), summary, label[for], select, [role=button], [role=option], [role=tab], [role=combobox], .bio-stack, [data-lightbox], .case-visual-button) { cursor: var(--cur-hand) !important; }
   html body :is(a[href], button, summary, label, [role=option]) * { cursor: inherit !important; }
   html body :is(input:not([type=checkbox], [type=radio], [type=button], [type=submit], [type=file], [type=range]), textarea, [contenteditable=true]) { cursor: var(--cur-text) !important; }
-  html body :is(.tv-dial, .stream-stage, .stream-stage.is-pulled, .tv-rail.is-drag) { cursor: var(--cur-grab) !important; }
+  html body :is(.tv-dial, .stream-stage, .stream-stage.is-pulled) { cursor: var(--cur-grab) !important; }
   html body .stream-stage.is-pointing { cursor: var(--cur-hand) !important; }
 }
 
@@ -671,7 +671,7 @@ html body .mobile-switch a:focus-visible, .tv-transport a:focus-visible, .tv-pla
   }
   .mobile-switch .tv-lang-phone { display: none; }
   .tv-plate { position: fixed; z-index: 20; display: flex; align-items: center; gap: 6px; left: calc(var(--sidebar-width) + var(--gap)); right: var(--m); bottom: 14px; height: 44px; pointer-events: none; view-transition-name: tv-plate; }
-  .tv-plate > :is(.tv-transport, .tv-meter, .tv-lang-key, .ui-sound-toggle) { pointer-events: auto; }
+  .tv-plate > :is(.tv-transport, .tv-lang-key, .ui-sound-toggle) { pointer-events: auto; }
   .tv-led { position: relative; flex: 1 1 auto; min-width: 0; height: 44px; border-radius: 14px; overflow: hidden; background: #010101; }
   .tv-led::before { content: ''; position: absolute; left: 9px; right: 9px; top: 8px; height: 28px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Crect width='3' height='3' fill='%23fff' fill-opacity='.055'/%3E%3C/svg%3E") 0 0 / 4px 4px; }
   .tv-led::after { content: ''; position: absolute; z-index: 2; inset: 0; box-sizing: border-box; border-style: solid; border-width: 18px; border-image: url("/assets/tv-well.webp?v=ab82de6057") 54 / 18px stretch; pointer-events: none; }
@@ -689,24 +689,14 @@ html body .mobile-switch a:focus-visible, .tv-transport a:focus-visible, .tv-pla
   .tv-dial-s { width: 36px; height: 36px; margin: 4px 0 4px 8px; }
   .tv-dial i { position: absolute; inset: 0; display: block; pointer-events: none; }
   .tv-dial i::before { content: ''; position: absolute; left: 50%; top: 12%; width: 2px; height: 18%; margin-left: -1px; background: #fff; box-shadow: 0 0 2px rgba(0, 0, 0, .9); }
-  /* The tape meter: the two scroll bars. Top line: the big screen. Bottom line: the left panel. */
-  .tv-meter { flex: none; display: grid; grid-template-columns: 6px minmax(0, 1fr); grid-template-rows: 22px 22px; align-items: center; column-gap: 10px; width: clamp(92px, 12vw, 180px); height: 44px; margin: 0 6px 0 4px; }
-  .tv-power { grid-row: 1 / span 2; width: 6px; height: 6px; border-radius: 50%; background: #fff; box-shadow: 0 0 7px 1px rgba(255, 255, 255, .8); }
-  .tv-rail { position: relative; grid-column: 2; display: block; height: 22px; cursor: pointer; touch-action: none; }
-  .tv-rail::before { content: ''; position: absolute; left: -3px; right: -3px; top: 50%; height: 10px; margin-top: -5px; border-radius: 2px; background: #020202; box-shadow: inset 0 1px 2px #000, 0 1px 0 rgba(255, 255, 255, .26), 0 -1px 0 rgba(0, 0, 0, .7); }
-  .tv-rail::after { content: ''; position: absolute; left: 0; right: 0; top: 50%; height: 4px; margin-top: -2px; background: repeating-linear-gradient(to right, rgba(255, 255, 255, .15) 0 3px, transparent 3px 5px); }
-  .tv-rail b { position: absolute; z-index: 1; left: 0; top: 50%; width: 15px; height: 4px; margin-top: -2px; background: repeating-linear-gradient(to right, #fff 0 3px, transparent 3px 5px); filter: drop-shadow(0 0 3px rgba(255, 255, 255, .75)); cursor: grab; }
-  .tv-rail.is-drag, .tv-rail.is-drag b { cursor: grabbing; }
-  .tv-rail.is-idle { cursor: default; }
-  .tv-rail.is-idle b { display: none; }
+  .tv-power { flex: none; width: 6px; height: 6px; margin: 0 6px 0 4px; border-radius: 50%; background: #fff; box-shadow: 0 0 7px 1px rgba(255, 255, 255, .8); }
   @media (max-width: 1000px) {
     .tv-dial-s { display: none; }
-    .tv-meter { width: 84px; margin: 0 4px 0 0; }
   }
   /* The language menu opens on the tube, with the same curve. */
   html body .tv-lang { inset: auto; left: var(--tube-left); top: var(--glass-top); width: calc(100vw - var(--tube-left) - var(--tube-right)); height: var(--tube-h); padding: 62px var(--pad) 40px; border-radius: var(--screen-r); }
   html.crt body .tv-lang { filter: url(#crt-main); }
-  body.image-open :is(.tv-plate, .vhs-fx) { display: none; }
+  body.image-open :is(.tv-plate, .vhs-fx, .tv-ring, .tv-rings) { display: none; }
 
   /* Tapes: before the picture starts, and wherever WebGL can't run. */
   html body .work-stream { display: block; margin: -106px calc(var(--pad) * -1) 0; }
@@ -731,7 +721,7 @@ html body .mobile-switch a:focus-visible, .tv-transport a:focus-visible, .tv-pla
   html body .work-stream { display: none !important; }
 }
 @media print {
-  .tube-top, .panel-top, .tv-plate, .tv-deck, .tv-shell, .tv-frame, .tv-glass, .tv-back, .tv-spill, .tv-lang, .vhs-fx, .rail-fire, .tv-canvas, .card-fire, .crt-defs { display: none !important; }
+  .tube-top, .panel-top, .tv-plate, .tv-deck, .tv-shell, .tv-frame, .tv-glass, .tv-back, .tv-spill, .tv-lang, .vhs-fx, .rail-fire, .tv-canvas, .card-fire, .crt-defs, .tv-ring, .tv-rings { display: none !important; }
   html.crt body main.main-pane, html.crt body .site-shell .sidebar { filter: none !important; }
   html:root { background: #fff !important; }
 }
@@ -884,4 +874,33 @@ html body .site-shell .profile-proof-stats > .spin-icon { position: absolute; le
   .tube-saver canvas { display: block; width: 100%; height: 100%; image-rendering: pixelated; -webkit-mask: var(--dot-mask) 0 0 / 3px 3px; mask: var(--dot-mask) 0 0 / 3px 3px; }
   .tube-saver.is-on { opacity: 1; }
   .tube-saver.is-off { opacity: 0; transition: opacity 180ms steps(3, end); }
+}
+
+/* Every so often the set checks who is on the panel: brackets lock on the portrait and a scan bar passes over it. */
+@media (min-width: 810px) and (prefers-reduced-motion: no-preference) {
+  html body .site-shell .identity-portrait::before {
+    content: ''; position: absolute; z-index: 2; inset: -5px; pointer-events: none; opacity: 0;
+    background:
+      linear-gradient(#fff, #fff) 0 0 / 14px 2px no-repeat, linear-gradient(#fff, #fff) 0 0 / 2px 14px no-repeat,
+      linear-gradient(#fff, #fff) 100% 0 / 14px 2px no-repeat, linear-gradient(#fff, #fff) 100% 0 / 2px 14px no-repeat,
+      linear-gradient(#fff, #fff) 0 100% / 14px 2px no-repeat, linear-gradient(#fff, #fff) 0 100% / 2px 14px no-repeat,
+      linear-gradient(#fff, #fff) 100% 100% / 14px 2px no-repeat, linear-gradient(#fff, #fff) 100% 100% / 2px 14px no-repeat;
+    filter: drop-shadow(0 0 3px rgba(255, 255, 255, .8));
+    animation: face-lock 17s steps(1, end) 5s infinite;
+  }
+  html body .site-shell .identity-portrait::after {
+    content: ''; position: absolute; z-index: 2; left: -3px; right: -3px; top: 0; height: 2px; pointer-events: none; opacity: 0; background: #fff; box-shadow: 0 0 8px 1px rgba(255, 255, 255, .8);
+    animation: face-scan 17s linear 5s infinite;
+  }
+}
+@keyframes face-lock { 0%, 8.9% { opacity: 1; } 2% { opacity: .15; } 4% { opacity: 1; } 9%, 100% { opacity: 0; } }
+@keyframes face-scan { 0% { top: 0; opacity: 1; } 8% { top: 100%; opacity: 1; } 8.1%, 100% { top: 100%; opacity: 0; } }
+
+/* ---------- The LED ring on the bezel of each screen. The dark dots are one dashed stroke; a canvas lights them as the screen scrolls ---------- */
+.tv-ring { display: none; }
+@media screen and (min-width: 810px) {
+  .tv-ring { display: block; z-index: 12; overflow: visible; pointer-events: none; }
+  .tv-ring.tv-tube-box { width: calc(100vw - var(--tube-left) - var(--tube-right)); }
+  .tv-ring rect { x: -9px; y: -9px; width: calc(100% + 18px); height: calc(100% + 18px); rx: 39px; fill: none; stroke: #fff; stroke-opacity: .17; stroke-width: 3px; stroke-dasharray: 3 3; }
+  .tv-rings { position: fixed; z-index: 13; left: 0; top: 0; pointer-events: none; }
 }
