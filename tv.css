@@ -908,15 +908,13 @@ html body .site-shell .profile-proof-stats > .spin-icon { position: absolute; le
 @keyframes face-lock { 0%, 8.9% { opacity: 1; } 2% { opacity: .15; } 4% { opacity: 1; } 9%, 100% { opacity: 0; } }
 @keyframes face-scan { 0% { top: 0; opacity: 1; } 8% { top: 100%; opacity: 1; } 8.1%, 100% { top: 100%; opacity: 0; } }
 
-/* ---------- The LED ring on the bezel of each screen. The dark dots are one dashed stroke; a canvas lights them as the screen scrolls ---------- */
+/* ---------- The inner edge of each screen: a hairline groove, and the light that runs along it as the screen scrolls ---------- */
 .tv-ring { display: none; }
 @media screen and (min-width: 810px) {
-  .tv-ring { display: block; z-index: 12; overflow: visible; pointer-events: none; }
-  .tv-ring.tv-tube-box { width: calc(100vw - var(--tube-left) - var(--tube-right)); }
-  .tv-ring rect { x: -9px; y: -9px; width: calc(100% + 18px); height: calc(100% + 18px); rx: 39px; fill: none; stroke: #fff; stroke-opacity: .17; stroke-width: 3px; stroke-dasharray: 3 3; }
+  .tv-ring { display: block; z-index: 12; box-sizing: border-box; border: 1px solid rgba(255, 255, 255, .075); box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .55); pointer-events: none; }
   .tv-rings { position: fixed; z-index: 13; left: 0; top: 0; pointer-events: none; }
-  /* On the light set the dots are dark. */
-  html.theme-light .tv-ring rect { stroke: #000; stroke-opacity: .22; }
+  /* On the light set the light is dark. */
+  html.theme-light .tv-ring { border-color: rgba(0, 0, 0, .14); box-shadow: none; }
   html.theme-light .tv-rings { filter: invert(1); }
 }
 
