@@ -690,7 +690,7 @@ html body .mobile-switch a:focus-visible, .tv-transport a:focus-visible, .tv-pla
   /* The language menu opens on the tube, with the same curve. */
   html body .tv-lang { inset: auto; left: var(--tube-left); top: var(--glass-top); width: calc(100vw - var(--tube-left) - var(--tube-right)); height: var(--tube-h); padding: 62px var(--pad) 40px; border-radius: var(--screen-r); }
   html.crt body .tv-lang { filter: url(#crt-main); }
-  body.image-open :is(.tv-plate, .vhs-fx, .tv-ring, .tv-rings, .tv-tape) { display: none; }
+  body.image-open :is(.tv-plate, .vhs-fx, .tv-ring, .tv-rings) { display: none; }
 
   /* Tapes: before the picture starts, and wherever WebGL can't run. */
   html body .work-stream { display: block; margin: -106px calc(var(--pad) * -1) 0; }
@@ -715,7 +715,7 @@ html body .mobile-switch a:focus-visible, .tv-transport a:focus-visible, .tv-pla
   html body .work-stream { display: none !important; }
 }
 @media print {
-  .tube-top, .panel-top, .tv-plate, .tv-deck, .tv-shell, .tv-frame, .tv-glass, .tv-back, .tv-spill, .tv-lang, .vhs-fx, .rail-fire, .tv-canvas, .card-fire, .crt-defs, .tv-ring, .tv-rings, .tv-wear, .tv-tape { display: none !important; }
+  .tube-top, .panel-top, .tv-plate, .tv-deck, .tv-shell, .tv-frame, .tv-glass, .tv-back, .tv-spill, .tv-lang, .vhs-fx, .rail-fire, .tv-canvas, .card-fire, .crt-defs, .tv-ring, .tv-rings, .tv-wear { display: none !important; }
   html.crt body main.main-pane, html.crt body .site-shell .sidebar { filter: none !important; }
   html:root { background: #fff !important; }
 }
@@ -815,19 +815,20 @@ html body .site-shell .profile-proof-stats > .spin-icon { position: absolute; le
   .tv-theme { position: relative; display: block; flex: none; width: 80px; height: 44px; padding: 0; border: 0; background: none; cursor: pointer; }
   .tv-theme::before { content: ''; position: absolute; inset: 0; box-sizing: border-box; border-style: solid; border-width: 18px; border-image: url("/assets/tv-well.webp?v=ab82de6057") 54 fill / 18px stretch; border-radius: 14px; }
   .tv-theme::after { content: ''; position: absolute; left: 8px; right: 8px; top: 7px; bottom: 7px; border-radius: 9px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Crect width='3' height='3' fill='%23fff' fill-opacity='.06'/%3E%3C/svg%3E") 0 0 / 4px 4px; }
-  .tv-theme-knob { position: absolute; z-index: 1; left: 4px; top: 3px; display: grid; place-items: center; width: 38px; height: 38px; box-sizing: border-box; border: 1px solid transparent; border-image: url("/assets/tv-key.webp?v=7e38e1c0fc") 72 fill / 14px stretch; transform: translateX(0); transition: transform 300ms cubic-bezier(.22, 1, .36, 1), filter 140ms ease; }
+  .tv-theme-knob { position: absolute; z-index: 1; left: 4px; top: 4px; display: grid; place-items: center; width: 36px; height: 36px; background: url("/assets/tv-knob.webp?v=2d164f084f") 0 0 / 36px 36px no-repeat; transform: translateX(0); transition: transform 300ms cubic-bezier(.22, 1, .36, 1), filter 140ms ease; }
   /* The light it gives off: under the key, on the floor of the well. */
   .tv-theme-knob::before { content: ''; position: absolute; z-index: -1; left: 2px; right: 2px; bottom: -3px; height: 10px; border-radius: 50%; background: rgba(255, 255, 255, .55); filter: blur(6px); opacity: .7; transition: opacity 300ms ease; }
   .tv-theme svg { position: absolute; width: 20px; height: 20px; fill: #fff; filter: drop-shadow(0 0 2px rgba(255, 255, 255, .9)) drop-shadow(0 0 6px rgba(255, 255, 255, .45)); transition: opacity 200ms steps(4, end); }
   .tv-theme-sun { opacity: 0; }
   .tv-theme:hover .tv-theme-knob { filter: brightness(1.2); }
-  .tv-theme:active .tv-theme-knob { border-image-source: url("/assets/tv-key-on.webp?v=bab7d78d4d"); }
+  .tv-theme:active .tv-theme-knob { filter: brightness(.8); }
   .tv-theme:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
-  html.theme-light .tv-theme-knob { transform: translateX(34px); }
+  html.theme-light .tv-theme-knob { transform: translateX(36px); background-image: url("/assets/tv-knob-light.webp?v=4f2c15f4fd"); }
   html.theme-light .tv-theme-moon { opacity: 0; }
   html.theme-light .tv-theme-sun { opacity: 1; }
   html.theme-light .tv-theme-knob::before { opacity: 1; }
-  @media (max-width: 1000px) { .tv-theme { width: 70px; } html.theme-light .tv-theme-knob { transform: translateX(24px); } }
+  html.theme-light .tv-theme svg { fill: #0c0c0c; filter: none; }
+  @media (max-width: 1000px) { .tv-theme { width: 70px; } html.theme-light .tv-theme-knob { transform: translateX(26px); } }
 }
 
 /* ---------- Light theme: paper-white screens with black dots. Pictures, videos and the 3D tube keep their true colours ---------- */
@@ -844,8 +845,14 @@ html body .site-shell .profile-proof-stats > .spin-icon { position: absolute; le
   html.theme-light .tv-boot :is(.bs-holo, .bs-cover) { filter: invert(1) grayscale(1) contrast(1.3); }
   /* The tape signal turns from light streaks into dark ones. */
   html.theme-light .vhs-fx { filter: invert(1); }
-  /* The glass keeps its shade at the edges, softer on white. */
-  html.theme-light .tv-glass { opacity: .55; }
+  /* On white the tube fades to white at its edges, not to black: the glass, and what shows behind the bend in the corners. */
+  html.theme-light .tv-back { background: #fff; }
+  html.theme-light .tv-glass { box-shadow: inset 0 0 120px 8px rgba(255, 255, 255, .72), inset 0 0 34px 4px rgba(255, 255, 255, .62), inset 0 3px 8px rgba(255, 255, 255, .85); }
+  html.theme-light .tv-glass.tv-panel-box { box-shadow: inset 0 0 70px 2px rgba(255, 255, 255, .5), inset 0 0 26px 2px rgba(255, 255, 255, .55), inset 0 3px 8px rgba(255, 255, 255, .85); }
+  /* Keys on the light set: dark lettering, so they read as well as on the dark one. */
+  html.theme-light body .mobile-switch a:not([aria-current]), html.theme-light .tv-plate :is(.tv-transport a, .tv-lang-key, .ui-sound-toggle:not([aria-pressed=true])) { color: #141414; text-shadow: 0 1px 0 rgba(255, 255, 255, .35); }
+  /* The small portrait in Reach out is a picture, not lettering: it stays the right way round. */
+  html.theme-light body .site-shell :is(.case-reachout, #profile-contact)::before { filter: invert(1); }
   /* The room: the set itself turns light grey, its keys stay black. */
   html.theme-light:root { background: url("/assets/tv-grain.webp?v=7c7906b080") 0 0 / 160px 160px, linear-gradient(to bottom, #cfcfcc, #c4c4c1 22%, #babab7 62%, #b0b0ad) #c2c2bf; background-blend-mode: overlay, normal; }
   html.theme-light .tv-deck { background: url("/assets/tv-grain.webp?v=7c7906b080") 0 0 / 160px 160px, linear-gradient(to bottom, #c9c9c6, #bdbdba 34%, #b1b1ae) #bcbcb9; background-blend-mode: overlay, normal; }
@@ -855,30 +862,6 @@ html body .site-shell .profile-proof-stats > .spin-icon { position: absolute; le
 @keyframes theme-roll { 0% { clip-path: inset(0 0 0 0); } 40% { clip-path: inset(48% 0 48% 0); } 100% { clip-path: inset(0 0 0 0); } }
 @media (prefers-reduced-motion: reduce) { .tv-theme-knob { transition: none; } html.theme-switching body .site-shell :is(.sidebar, .main-pane) { animation: none; } }
 
-/* ---------- Pointing at a picture on the tube: brackets lock on, a scan bar runs down it, blocks of noise flicker ---------- */
-@media (min-width: 810px) and (hover: hover) and (prefers-reduced-motion: no-preference) {
-  html body .site-shell .main-pane .case-visual-button { position: relative; overflow: hidden; }
-  html body .site-shell .main-pane .case-visual-button::before {
-    content: ''; position: absolute; z-index: 4; inset: 34px; pointer-events: none; opacity: 0;
-    background:
-      linear-gradient(#fff, #fff) 0 0 / 22px 2px no-repeat, linear-gradient(#fff, #fff) 0 0 / 2px 22px no-repeat,
-      linear-gradient(#fff, #fff) 100% 0 / 22px 2px no-repeat, linear-gradient(#fff, #fff) 100% 0 / 2px 22px no-repeat,
-      linear-gradient(#fff, #fff) 0 100% / 22px 2px no-repeat, linear-gradient(#fff, #fff) 0 100% / 2px 22px no-repeat,
-      linear-gradient(#fff, #fff) 100% 100% / 22px 2px no-repeat, linear-gradient(#fff, #fff) 100% 100% / 2px 22px no-repeat;
-    filter: drop-shadow(0 0 4px rgba(255, 255, 255, .8));
-  }
-  html body .site-shell .main-pane .case-visual-button::after {
-    content: ''; position: absolute; z-index: 4; left: 0; right: 0; top: 0; height: 100%; pointer-events: none; opacity: 0;
-    background:
-      linear-gradient(#fff, #fff) 0 0 / 100% 2px no-repeat,
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='160'%3E%3Cg fill='%23fff'%3E%3Crect x='12' y='18' width='36' height='6'/%3E%3Crect x='150' y='40' width='14' height='14'/%3E%3Crect x='70' y='92' width='58' height='4'/%3E%3Crect x='196' y='120' width='22' height='8'/%3E%3Crect x='30' y='134' width='8' height='8'/%3E%3Crect x='112' y='8' width='6' height='20'/%3E%3C/g%3E%3C/svg%3E") 0 0 / 240px 160px;
-  }
-  html body .site-shell .main-pane .case-visual-button:hover::before { animation: scan-lock 520ms steps(6, end) forwards; }
-  html body .site-shell .main-pane .case-visual-button:hover::after { animation: scan-run 760ms cubic-bezier(.4, 0, .2, 1) forwards, scan-noise 760ms steps(8, end) forwards; }
-}
-@keyframes scan-lock { 0% { inset: 34px; opacity: 0; } 30% { opacity: 1; } 45% { opacity: .2; } 60%, 100% { inset: 12px; opacity: 1; } }
-@keyframes scan-run { 0% { background-position: 0 0, 0 0; } 100% { background-position: 0 100%, 0 0; } }
-@keyframes scan-noise { 0% { opacity: .9; } 20% { opacity: .35; } 40% { opacity: .8; } 60% { opacity: .25; } 99% { opacity: .5; } 100% { opacity: 0; } }
 
 /* The screensaver: the whole tube as one LED matrix, fading in over the page and gone at the first touch. */
 @media (min-width: 810px) {
@@ -913,9 +896,8 @@ html body .site-shell .profile-proof-stats > .spin-icon { position: absolute; le
 @media screen and (min-width: 810px) {
   .tv-ring { display: block; z-index: 12; box-sizing: border-box; border: 1px solid rgba(255, 255, 255, .075); box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .55); pointer-events: none; }
   .tv-rings { position: fixed; z-index: 13; left: 0; top: 0; pointer-events: none; }
-  /* On the light set the light is dark. */
+  /* On the light set the groove is dark. */
   html.theme-light .tv-ring { border-color: rgba(0, 0, 0, .14); box-shadow: none; }
-  html.theme-light .tv-rings { filter: invert(1); }
 }
 
 /* The CV line: every job has its own mark in dots, dim until the line reaches it. */
@@ -937,8 +919,8 @@ html body .site-shell :is(.sidebar, .main-pane) a.is-writing { position: relativ
 .dl-state.is-done { background: #000; }
 .dl-state.is-done b { color: #fff !important; mix-blend-mode: normal; animation: boot-blink 480ms steps(2, start) 3; }
 
-/* ---------- The set has been lived with: fine scratches and rubbed spots on the body and bezels, never on the glass, and a strip of tape someone signed ---------- */
-.tv-wear, .tv-tape { display: none; }
+/* ---------- The set has been lived with: fine scratches and rubbed spots on the body and bezels, never on the glass ---------- */
+.tv-wear { display: none; }
 @media screen and (min-width: 810px) {
   .tv-wear {
     --tube-w: calc(100vw - var(--tube-left) - var(--tube-right));
@@ -953,7 +935,6 @@ html body .site-shell :is(.sidebar, .main-pane) a.is-writing { position: relativ
     -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
     -webkit-mask-composite: xor; mask-composite: exclude;
   }
-  .tv-tape { display: block; position: fixed; z-index: 15; left: calc(var(--sidebar-width) - 12px); top: 33%; width: 24px; height: auto; pointer-events: none; transform: rotate(-1.4deg); filter: drop-shadow(1px 2px 2px rgba(0, 0, 0, .55)); }
 }
 
 /* ---------- The hologram on the big screen (Contact: the digital copy, Services: the teleshopping channel) ---------- */
@@ -983,4 +964,12 @@ html.holo-on body .site-shell .main-pane .case-masonry { display: none !importan
   html body .site-shell .main-pane .holo-shop .holo-cta { position: absolute; left: var(--pad); bottom: 38px; min-height: 40px; display: inline-flex; align-items: center; padding: 0 14px; border: 2px dotted rgba(255, 255, 255, .72); background: rgba(0, 0, 0, .55); color: #fff; text-transform: uppercase; text-decoration: none; pointer-events: auto; }
   html body .site-shell .main-pane .holo-shop .holo-cta:hover { border: 2px solid var(--lit); background: var(--lit) var(--lit-mesh); color: #000; text-shadow: none; -webkit-text-stroke: .55px #000; }
   html body .site-shell .main-pane .holo-shop .holo-joke { position: absolute; right: var(--pad); bottom: 48px; color: var(--led-2); text-transform: uppercase; animation: boot-blink 1.6s steps(2, start) infinite; }
+}
+
+/* The set is one size: no pinching. Pictures opened full screen keep their own zoom. */
+body:not(.image-open) { touch-action: pan-x pan-y; }
+
+/* As the 3D picture lifts off at the end of the tapes, its lower edge dissolves into the screen: never a hard line. */
+@media (min-width: 810px) {
+  html body .stream-stage::after { content: ''; position: absolute; z-index: 4; left: 0; right: 0; bottom: 0; height: var(--stage-fade, 0px); background: linear-gradient(to bottom, rgba(0, 0, 0, 0), #000 72%); pointer-events: none; }
 }
