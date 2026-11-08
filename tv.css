@@ -513,7 +513,9 @@ html body .mobile-switch a:focus-visible, .tv-transport a:focus-visible, .tv-pla
   html body .work-stream { display: block; margin: -106px calc(var(--pad) * -1) 0; }
   .stream-stage { position: relative; }
   html body .tv-canvas { position: absolute; left: 0; top: 0; width: 100%; height: 100%; opacity: 0; pointer-events: none; }
-  .tv-on .stream-track { visibility: hidden; }
+  /* The flat shelf belongs to phones. On a computer the tube shows only the 3D picture, and stays dark until it is ready. */
+  html body .work-stream .stream-track { display: none; }
+  html body.no-tv .work-stream, html.no-gpu body .work-stream { display: none !important; }
   .stream-caption { display: flex; justify-content: center; position: absolute; left: 0; right: 0; bottom: 18px; z-index: 3; pointer-events: none; }
   .is-leaving .stream-caption { visibility: hidden; }
   .stream-now { display: none; }
@@ -522,22 +524,12 @@ html body .mobile-switch a:focus-visible, .tv-transport a:focus-visible, .tv-pla
 }
 @media (min-width: 810px) and (prefers-reduced-motion: no-preference) {
   html body .work-stream { --stream-step: 220px; position: relative; height: calc(var(--tube-h) + 18 * var(--stream-step)); }
-  .stream-stage { position: sticky; top: 0; z-index: 13; height: var(--tube-h); overflow: clip; container-type: size; cursor: grab; }
-  .stream-stage.tv-on { cursor: default; }
+  .stream-stage { position: sticky; top: 0; z-index: 13; height: var(--tube-h); overflow: clip; container-type: size; }
   .stream-stage.is-pulled { cursor: grabbing; user-select: none; }
-  .stream-track {
-    --cw: min(50cqw, 58cqh);
-    position: absolute; left: var(--pad); top: 100px; bottom: 64px; width: max-content; align-items: center;
-    display: flex; gap: calc(var(--cw) * .42); padding: 0; overflow: visible; will-change: transform;
-  }
-  .tape { cursor: inherit; }
-  .tape-title { display: none; }
-  .tape-strip { justify-content: space-between; }
 }
+/* With less motion asked for, the list is the whole panel. */
 @media (min-width: 810px) and (prefers-reduced-motion: reduce) {
-  html body .work-stream { margin-top: 0; }
-  .stream-track { --cw: 36vw; display: flex; gap: 24px; padding: 8px 0 20px; overflow-x: auto; }
-  .stream-caption { position: static; padding-top: 4px; }
+  html body .work-stream { display: none !important; }
 }
 @media print {
   .tube-top, .panel-top, .tv-plate, .tv-deck, .tv-shell, .tv-frame, .tv-glass, .tv-back, .tv-spill, .tv-lang, .vhs-fx, .rail-fire, .tv-canvas, .card-fire, .crt-defs { display: none !important; }
