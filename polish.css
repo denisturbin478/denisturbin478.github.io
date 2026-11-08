@@ -922,7 +922,7 @@ body .site-shell :is(.case-reachout, #profile-contact, .mobile-reachout) { posit
 body .site-shell :is(.case-reachout, #profile-contact, .mobile-reachout) :is(.contact-contra-badge, .contact-whatsapp-button) img { width: 22px; height: 22px; margin-block: -2px; }
 
 /* Spikes need room to read: small sidebar icons step up to 22px. Tool logos stay as they are. */
-.sidebar img[src*="/assets/icons3d/"]:not([src*="framer"], [src*="figma"], [src*="spline"], [src*="unicorn"], [src*="davinci"], [src*="camera"]) { width: 22px; height: 22px; flex: none; object-fit: contain; }
+/* Sizes of the turning marks are set in tv.css. */
 
 @media (max-width: 809px) { .work-all-label { display: block; margin: 12px 0 16px; font-size: 24px; line-height: 30px; font-weight: 500; letter-spacing: -.03em; color: var(--gray-245); } }
 

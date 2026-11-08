@@ -71,13 +71,15 @@ body.case-gallery-layout .sidebar :is(.case-copy-challenge, .case-copy-solution,
   width: 30px;
   height: 30px;
   margin: -2px 0;
-  background: var(--sv-glyph) center / contain no-repeat;
+  background: var(--sv-glyph) 0 0 / 1080px 30px no-repeat;
+  --spin-to: -1080px;
+  animation: spin-bg 3.6s steps(36) infinite;
 }
 body.case-gallery-layout .sidebar :is(.case-copy-challenge, .case-copy-solution, .case-copy-outcome) p { max-width: none; margin: 0; }
 
 body.case-gallery-layout .sidebar .case-copy-challenge {
   border:1px dashed var(--gray-58);
-  --sv-glyph: url("/assets/icons3d/question.webp");
+  --sv-glyph: url("/assets/icons3d/spin/question.webp");
 }
 body.case-gallery-layout .sidebar .case-copy-challenge > h2 { color:var(--gray-214); }
 body.case-gallery-layout .sidebar .case-copy-challenge > h2::before { color:var(--gray-143); }
@@ -85,7 +87,7 @@ body.case-gallery-layout .sidebar .case-copy-challenge > h2::before { color:var(
 body.case-gallery-layout .sidebar .case-copy-solution {
   border:1px solid var(--sv-edge);
   background:var(--sv-soft);
-  --sv-glyph: url("/assets/icons3d/check.webp");
+  --sv-glyph: url("/assets/icons3d/spin/check.webp");
 }
 body.case-gallery-layout .sidebar .case-copy-solution > h2 { color:var(--ink); }
 body.case-gallery-layout .sidebar .case-copy-solution > h2::before { color:var(--sv-accent); }
@@ -108,7 +110,7 @@ body.case-gallery-layout .sidebar .case-copy-challenge + .case-copy-solution::be
 body.case-gallery-layout .sidebar .case-copy-outcome {
   background:var(--sv-panel);
   border:1px solid var(--sv-rule);
-  --sv-glyph: url("/assets/icons3d/sparkle.webp");
+  --sv-glyph: url("/assets/icons3d/spin/sparkle.webp");
 }
 body.case-gallery-layout .sidebar .case-copy-outcome > h2 { color:var(--ink); }
 body.case-gallery-layout .sidebar .case-copy-outcome > h2::before { color:var(--sv-accent); }
@@ -427,14 +429,16 @@ body.case-gallery-layout .sidebar .about-working-facts dt::before {
   width: 22px;
   height: 22px;
   margin: -3px 0;
-  background: var(--sv-icon) center / contain no-repeat;
+  background: var(--sv-icon) 0 0 / 792px 22px no-repeat;
+  --spin-to: -792px;
+  animation: spin-bg 3.6s steps(36) infinite;
 }
-body.case-gallery-layout .sidebar .about-working-facts > div:nth-child(1) { --sv-icon: url("/assets/icons3d/briefcase.webp"); }
-body.case-gallery-layout .sidebar .about-working-facts > div:nth-child(2) { --sv-icon: url("/assets/icons3d/shield.webp"); }
-body.case-gallery-layout .sidebar .about-working-facts > div:nth-child(3) { --sv-icon: url("/assets/icons3d/pin.webp"); }
-body.case-gallery-layout .sidebar .about-working-facts > div:nth-child(4) { --sv-icon: url("/assets/icons3d/bubble.webp"); }
-body.case-gallery-layout .sidebar .about-working-facts > div:nth-child(5) { --sv-icon: url("/assets/icons3d/star.webp"); }
-body.case-gallery-layout .sidebar .about-working-facts > div:nth-child(6) { --sv-icon: url("/assets/icons3d/link.webp"); }
+body.case-gallery-layout .sidebar .about-working-facts > div:nth-child(1) { --sv-icon: url("/assets/icons3d/spin/briefcase.webp"); }
+body.case-gallery-layout .sidebar .about-working-facts > div:nth-child(2) { --sv-icon: url("/assets/icons3d/spin/shield.webp"); }
+body.case-gallery-layout .sidebar .about-working-facts > div:nth-child(3) { --sv-icon: url("/assets/icons3d/spin/pin.webp"); }
+body.case-gallery-layout .sidebar .about-working-facts > div:nth-child(4) { --sv-icon: url("/assets/icons3d/spin/bubble.webp"); }
+body.case-gallery-layout .sidebar .about-working-facts > div:nth-child(5) { --sv-icon: url("/assets/icons3d/spin/star.webp"); }
+body.case-gallery-layout .sidebar .about-working-facts > div:nth-child(6) { --sv-icon: url("/assets/icons3d/spin/link.webp"); }
 
 /* Languages: one line each, level right-aligned. */
 body.case-gallery-layout .sidebar .fact-languages { display: grid; gap: 6px; }

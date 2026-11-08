@@ -133,10 +133,10 @@ body .site-shell .cv-actions a { display: flex; align-items: center; justify-con
 
 /* CV sidebar facts with their silver icons */
 .cv-facts dt { display: flex; align-items: center; gap: 8px; }
-.cv-facts dt::before { content: ''; flex: none; width: 22px; height: 22px; margin: -2px 0; background: var(--cv-icon) center / contain no-repeat; }
-.cv-facts > div:nth-child(1) { --cv-icon: url("/assets/icons3d/briefcase.webp"); }
-.cv-facts > div:nth-child(2) { --cv-icon: url("/assets/icons3d/calendar.webp"); }
-.cv-facts > div:nth-child(3) { --cv-icon: url("/assets/icons3d/shield.webp"); }
-.cv-facts > div:nth-child(4) { --cv-icon: url("/assets/icons3d/pin.webp"); }
-.cv-facts > div:nth-child(5) { --cv-icon: url("/assets/icons3d/envelope.webp"); }
-.cv-facts > div:nth-child(6) { --cv-icon: url("/assets/icons3d/link.webp"); }
+.cv-facts dt::before { content: ''; flex: none; width: 22px; height: 22px; margin: -2px 0; background: var(--cv-icon) 0 0 / 792px 22px no-repeat; --spin-to: -792px; animation: spin-bg 3.6s steps(36) infinite; }
+.cv-facts > div:nth-child(1) { --cv-icon: url("/assets/icons3d/spin/briefcase.webp"); }
+.cv-facts > div:nth-child(2) { --cv-icon: url("/assets/icons3d/spin/calendar.webp"); }
+.cv-facts > div:nth-child(3) { --cv-icon: url("/assets/icons3d/spin/shield.webp"); }
+.cv-facts > div:nth-child(4) { --cv-icon: url("/assets/icons3d/spin/pin.webp"); }
+.cv-facts > div:nth-child(5) { --cv-icon: url("/assets/icons3d/spin/envelope.webp"); }
+.cv-facts > div:nth-child(6) { --cv-icon: url("/assets/icons3d/spin/link.webp"); }
