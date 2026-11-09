@@ -685,8 +685,11 @@ html body .mobile-switch a:focus-visible, .tv-transport a:focus-visible, .tv-pla
     .tv-dial-s { display: none; }
   }
   /* The language menu opens on the tube, with the same curve. */
-  html body .tv-lang { inset: auto; left: var(--tube-left); top: var(--glass-top); width: calc(100vw - var(--tube-left) - var(--tube-right)); height: var(--tube-h); padding: 62px var(--pad) 40px; border-radius: var(--screen-r); }
+  html body .tv-lang { inset: auto; left: var(--tube-left); top: var(--glass-top); width: calc(100vw - var(--tube-left) - var(--tube-right)); height: var(--tube-h); padding: 62px var(--pad) 40px; border-radius: var(--screen-r); background: transparent; }
   html.crt body .tv-lang { filter: url(#crt-main); }
+  /* The dark behind the menu lies under the light on the contour and fills the glass to its corners; only the words are bent. */
+  body.lang-open .tv-spill { background: rgba(0, 0, 0, .97); }
+  html.theme-light body.lang-open .tv-spill { background: rgba(255, 255, 255, .97); }
   body.image-open :is(.tv-plate, .vhs-fx, .tv-ring, .tv-rings) { display: none; }
 
   /* Tapes: before the picture starts, and wherever WebGL can't run. */
