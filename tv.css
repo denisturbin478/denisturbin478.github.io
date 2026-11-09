@@ -40,7 +40,9 @@ html.is-recording body .site-shell ::selection { background: var(--lit); }
   html body .site-shell .sidebar p.sidebar-statement, html body .site-shell .sidebar p.sidebar-statement > span { color: #8f8f8f; }
 }
 /* Writing the dots don't cover (Chinese, Arabic, Hindi...) keeps the system's own face, in its strongest weight. */
-html:is(:lang(zh-Hans), :lang(ja), :lang(ko), :lang(ar), :lang(hi)) body .site-shell :is(.sidebar, .main-pane) *:not(svg, svg *) { font-weight: 700 !important; }
+html:is(:lang(zh-Hans), :lang(zh-Hant), :lang(ja), :lang(ko), :lang(ar), :lang(hi), :lang(he), :lang(fa), :lang(ur), :lang(bn), :lang(th), :lang(el), :lang(vi)) body .site-shell :is(.sidebar, .main-pane) *:not(svg, svg *) { font-weight: 700 !important; }
+/* Vietnamese tone marks are not in the dots: the whole word changes face, rather than one letter at a time. */
+html:lang(vi) body .site-shell :is(.sidebar, .main-pane) *:not(svg, svg *) { font-family: "Inter Tight", sans-serif !important; }
 /* Labels in other languages can be longer than the old fixed button faces allowed. */
 html:not([lang=en]) body .site-shell [data-evil-button="chrome"] :is(.evil-chrome-label, [data-evil-label], [data-evil-sizer]) { width: auto; max-width: none; }
 html:not([lang=en]) body .site-shell [data-evil-status-button][data-evil-button="chrome"] [data-evil-face] { max-width: none; }
@@ -687,6 +689,15 @@ html body .mobile-switch a:focus-visible, .tv-transport a:focus-visible, .tv-pla
   /* The language menu opens on the tube, with the same curve. */
   html body .tv-lang { inset: auto; left: var(--tube-left); top: var(--glass-top); width: calc(100vw - var(--tube-left) - var(--tube-right)); height: var(--tube-h); padding: 62px var(--pad) 40px; border-radius: var(--screen-r); background: transparent; }
   html.crt body .tv-lang { filter: url(#crt-main); }
+  /* Thirty channels, five to a row, filling the screen. */
+  html body .tv-lang[open] { display: flex; flex-direction: column; }
+  html body .tv-lang .tv-lang-list { flex: 1 1 auto; min-height: 0; grid-template-columns: repeat(5, minmax(0, 1fr)); grid-auto-rows: minmax(0, 1fr); }
+  html body .tv-lang .tv-lang-list button { flex-direction: column; align-items: center; justify-content: center; gap: 8px; min-height: 0; padding: 4px; font-size: 20px; line-height: 25px; text-align: center; }
+  .tv-lang-flag { width: 44px; height: 30px; }
+  @media (max-height: 800px), (max-width: 1240px) {
+    html body .tv-lang .tv-lang-list button { gap: 4px; font-size: 15px; line-height: 19px; }
+    .tv-lang-flag { width: 30px; height: 20px; }
+  }
   /* The dark behind the menu lies under the light on the contour and fills the glass to its corners; only the words are bent. */
   body.lang-open .tv-spill { background: rgba(0, 0, 0, .97); }
   html.theme-light body.lang-open .tv-spill { background: rgba(255, 255, 255, .97); }
@@ -1041,3 +1052,9 @@ body:not(.image-open) { touch-action: pan-x pan-y; }
   html body .site-shell .main-pane .wolfie-hint.is-gone { display: none; }
   html body .site-shell .main-pane .wolfie-score { left: 22px; top: 22px; }
 }
+
+/* The flags are the one place in the menu with colour: three stripes in grey would all be the same country. */
+html body .tv-lang-list button { display: flex; align-items: center; gap: 10px; padding-left: 12px; }
+html body .tv-lang-list button::before { display: none; }
+.tv-lang-flag { display: block; flex: none; width: 30px; height: 20px; }
+html.theme-light .tv-lang-flag { filter: invert(1); }
