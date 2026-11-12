@@ -1,0 +1,393 @@
+/* Part 2: what is the player's own. Everything else is the site's television. */
+.vhs-root { display: contents; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+/* ---------- Deck keys ---------- */
+.mobile-switch .vk, .tv-transport .vk { cursor: pointer; font: inherit; -webkit-appearance: none; appearance: none; user-select: none; }
+.mobile-switch .vk[disabled], .mobile-switch .vk[data-disabled] { opacity: .45; cursor: default; }
+.vk-play:not([data-paused]) .when-paused, .vk-play[data-paused] .when-playing,
+.vhs-b-play:not([data-paused]) .when-paused, .vhs-b-play[data-paused] .when-playing,
+.vhs-b-mute[data-muted] .when-unmuted, .vhs-b-mute:not([data-muted]) .when-muted,
+html.vhs-full media-fullscreen-button .when-windowed, html:not(.vhs-full) media-fullscreen-button .when-full { display: none; }
+.vhs-full-key { cursor: pointer; }
+.vhs-full-key svg { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.vhs-mute { cursor: pointer; }
+.vhs-mute svg { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.vhs-mute .ui-sound-speaker { fill: currentColor; stroke: none; }
+.vhs-mute:not([data-muted]) .vhs-cross, .vhs-mute[data-muted] .vhs-waves { display: none; }
+.tv-dial[role=slider] { cursor: grab; touch-action: none; }
+.tv-dial[role=slider]:focus-visible { outline: 2px solid #fff; outline-offset: 3px; border-radius: 50%; }
+
+/* ---------- Left screen: the shelf ---------- */
+.vhs-sidebar .vhs-h { margin: 22px 0 8px; }
+.vhs-sidebar .vhs-lead, .vhs-sidebar .vhs-credit { margin: 0 0 14px; color: var(--led-2, #b9b9b9); }
+.vhs-sidebar .vhs-credit { margin-top: 22px; }
+.vhs-tapes { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.vhs-tape { all: unset; box-sizing: border-box; display: block; width: 100%; cursor: pointer; }
+.vhs-tape:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+/* A tape on the shelf: a still from the film with the tape's number on it, the name on a lit label, a line about the film. */
+.vhs-spine {
+  position: relative; display: grid; grid-template-columns: 112px minmax(0, 1fr); grid-template-areas: "thumb head" "about about"; align-items: center; column-gap: 12px; row-gap: 8px; padding: 8px;
+  border: 2px dotted rgba(255, 255, 255, .34); background: #000;
+  transition: transform .3s cubic-bezier(.2, .8, .2, 1), border-color .2s;
+}
+.vhs-thumb { grid-area: thumb; position: relative; display: block; aspect-ratio: 4 / 3; overflow: hidden; background: #111; outline: 1px solid rgba(255, 255, 255, .3); }
+.vhs-thumb img { display: block; width: 100%; height: 100%; object-fit: cover; filter: contrast(1.08) saturate(.9); transition: transform .5s cubic-bezier(.2, .8, .2, 1), filter .3s; }
+.vhs-thumb::after { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(to bottom, transparent 0 2px, rgba(0, 0, 0, .32) 2px 3px); pointer-events: none; }
+html body .site-shell .sidebar .vhs-code { position: absolute; left: 0; top: 0; z-index: 1; padding: 0 5px; background: #000; color: #fff !important; -webkit-text-fill-color: #fff !important; }
+.vhs-label { grid-area: head; min-width: 0; display: grid; gap: 4px; align-content: center; }
+html body .site-shell .sidebar .vhs-label b {
+  justify-self: start; max-width: 100%; padding: 0 8px; background: var(--lit, #fff); color: #000 !important; -webkit-text-fill-color: #000 !important; -webkit-text-stroke: .55px #000; text-shadow: none;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-transform: uppercase !important;
+}
+html body .site-shell .sidebar .vhs-label small { color: var(--led-2, #b9b9b9) !important; -webkit-text-fill-color: currentColor !important; text-transform: uppercase !important; }
+html body .site-shell .sidebar .vhs-about { grid-area: about; color: var(--led-3, #8a8a8a) !important; -webkit-text-fill-color: currentColor !important; text-transform: uppercase !important; text-wrap: pretty; }
+.vhs-tape:hover .vhs-spine, .vhs-tape:focus-visible .vhs-spine { border-color: #fff; transform: translateX(6px); }
+.vhs-tape:hover .vhs-thumb img, .vhs-tape:focus-visible .vhs-thumb img { transform: scale(1.08); filter: contrast(1.12) saturate(1.1); }
+html body .site-shell .sidebar .vhs-tape:hover .vhs-about { color: #fff !important; }
+.vhs-tape[aria-pressed=true] .vhs-spine { border-style: solid; border-color: #fff; }
+/* The tape that is in the deck leaves an empty sleeve on the shelf. */
+.vhs-item[data-out=true] .vhs-thumb img { filter: grayscale(1) brightness(.35); }
+.vhs-item[data-out=true] .vhs-thumb::after { background: repeating-linear-gradient(135deg, transparent 0 6px, rgba(255, 255, 255, .22) 6px 8px); }
+html body .site-shell .sidebar .vhs-item[data-out=true] .vhs-label b { background: none; color: #fff !important; -webkit-text-fill-color: #fff !important; -webkit-text-stroke: 0; outline: 2px dotted rgba(255, 255, 255, .6); outline-offset: -2px; }
+.vhs-where { display: none; }
+html body .site-shell .sidebar .vhs-item[data-out=true] .vhs-where { display: block; color: #fff !important; -webkit-text-fill-color: #fff !important; text-transform: uppercase !important; }
+.vhs-where .in-slot, body[data-vhs-deck=open] .vhs-where .in-deck { display: none; }
+body[data-vhs-deck=open] .vhs-where .in-slot { display: inline; }
+/* The remote: every shortcut as a key cap with its job beside it, one per line. */
+.vhs-remote { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+html body .site-shell .sidebar .vhs-remote li { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 0; padding: 0; border: 0; background: none; }
+html body .site-shell .sidebar .vhs-remote li::before, html body .site-shell .sidebar .vhs-remote li::after { content: none; }
+.vhs-caps { display: flex; gap: 6px; flex: none; }
+html body .site-shell .sidebar .vhs-remote kbd {
+  box-sizing: border-box; display: inline-grid; place-items: center; min-width: 34px; height: 30px; padding: 0 8px;
+  border: 2px dotted rgba(255, 255, 255, .6); background: #000; color: #fff !important; -webkit-text-fill-color: #fff !important; text-transform: uppercase; white-space: nowrap;
+}
+html body .site-shell .sidebar .vhs-act { flex: 1; min-width: 0; text-align: right; color: var(--led-2, #b9b9b9) !important; -webkit-text-fill-color: currentColor !important; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-decoration: none !important; }
+html body .site-shell .sidebar .vhs-act * { text-decoration: none !important; border: 0 !important; color: inherit !important; }
+.vhs-film-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+html body .site-shell .sidebar .vhs-film-list li { display: grid; gap: 0; margin: 0; padding: 0; border: 0; }
+html body .site-shell .sidebar .vhs-film-list li::before, html body .site-shell .sidebar .vhs-film-list li::after { content: none; }
+html body .site-shell .sidebar .vhs-film-list li > a { color: #fff !important; -webkit-text-fill-color: #fff !important; text-transform: uppercase; }
+html body .site-shell .sidebar .vhs-film-list li > span { color: var(--led-2, #b9b9b9) !important; text-transform: uppercase; }
+.vhs-sidebar .vhs-credit { padding-bottom: 12px; }
+
+/* ---------- Big screen: the tape plays on the tube ---------- */
+.vhs-main { overflow: hidden; }
+.vhs-pane { position: absolute; inset: 0; padding: 0 !important; margin: 0 !important; min-height: 0; }
+.vhs-screen { position: absolute; inset: 0; display: block; background: #000; overflow: hidden; }
+.vhs-screen video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; background: #000; }
+.vhs-noise { position: absolute; inset: 0; width: 100%; height: 100%; image-rendering: pixelated; opacity: 0; pointer-events: none; }
+.vhs-blue { position: absolute; inset: 0; background: #1433e6; color: #fff; opacity: 0; pointer-events: none; transition: opacity .18s; overflow: hidden; }
+/* The badge that drifts while the deck is empty: outline one way, filled the other, swapping at every edge it meets. */
+.vhs-bounce { position: absolute; left: 0; top: 0; display: grid; justify-items: center; gap: 6px; padding: 10px 16px 6px; color: #fff; border: 2px solid #fff; transform-origin: 0 0; transform: translate(60px, 80px) scale(2.4); will-change: transform; }
+html body .site-shell .main-pane .vhs-blue p { margin: 0; color: #fff !important; -webkit-text-fill-color: #fff !important; white-space: nowrap; }
+.vhs-bounce-logo { display: block; height: 18px; width: auto; }
+.vhs-bounce.is-inv { color: #1433e6; }
+.vhs-bounce.is-inv { background: #fff; }
+html body .site-shell .main-pane .vhs-bounce.is-inv p { color: #1433e6 !important; -webkit-text-fill-color: #1433e6 !important; }
+html body .site-shell .main-pane .vhs-blue .vhs-blue-hint { position: absolute; left: 0; right: 0; bottom: 104px; text-align: center; opacity: .85; }
+/* Winding: bands of snow travel over the picture and the picture shakes on its tracking. */
+.vhs-search { position: absolute; inset: 0; z-index: 2; opacity: 0; pointer-events: none; overflow: hidden; }
+body[data-vhs-wind] .vhs-search { opacity: 1; }
+.vhs-search i { position: absolute; left: -4%; right: -4%; height: 7%; background: var(--vhs-snow) 0 0 / 420px 100%; image-rendering: pixelated; box-shadow: 0 0 0 1px rgba(0, 0, 0, .5); animation: vhs-band 1.3s linear infinite, vhs-snow .09s steps(3) infinite; animation-play-state: paused; }
+.vhs-search i:nth-child(2) { height: 4%; animation-duration: 1.9s, .07s; animation-delay: -.7s, 0s; }
+.vhs-search i:nth-child(3) { height: 10%; animation-duration: 2.6s, .11s; animation-delay: -1.6s, 0s; opacity: .8; }
+body[data-vhs-wind] .vhs-search i { animation-play-state: running; }
+body[data-vhs-wind=rew] .vhs-search i { animation-direction: reverse, normal; }
+@keyframes vhs-band { from { top: -12%; } to { top: 104%; } }
+@keyframes vhs-snow { to { background-position-x: 420px; } }
+body[data-vhs-wind] .vhs-screen video { filter: saturate(.5) contrast(1.2); animation: vhs-shake .1s steps(2) infinite; }
+@keyframes vhs-shake { 50% { transform: translateX(4px) skewX(-.6deg); } }
+body[data-vhs-screen=blue] .vhs-blue { opacity: 1; }
+body[data-vhs-screen=static] .vhs-noise { opacity: 1; }
+body[data-vhs-screen=static] .vhs-screen video { opacity: 0; }
+/* A light theme inverts the screens; the picture and the blue card are turned back. */
+html.theme-light body.vhs-page .vhs-blue, html.theme-light body.vhs-page .vhs-noise { filter: invert(1); }
+
+.vhs-tracking { position: absolute; left: 50%; bottom: 96px; translate: -50% 0; opacity: 0; pointer-events: none; }
+.vhs-tracking span { padding: 2px 8px; background: #000; color: #fff; }
+.vhs-tracking[data-visible] { opacity: 1; animation: vhs-blink 1s steps(2) infinite; }
+@keyframes vhs-blink { 50% { opacity: .35; } }
+
+/* The counter bar across the bottom of the tube: black plate, dotted frame, dotted track, like the site's viewer. */
+.vhs-bar-wrap { position: absolute; left: 34px; right: 34px; bottom: 26px; z-index: 3; display: block; }
+.vhs-bar { display: flex; align-items: center; gap: 12px; padding: 8px 12px; border: 2px dotted rgba(255, 255, 255, .62); background: #000; color: var(--lit, #fff); }
+.vhs-bar-keys { display: none; align-items: center; gap: 8px; }
+.vhs-b { all: unset; box-sizing: border-box; display: inline-grid; place-items: center; width: 44px; height: 44px; cursor: pointer; color: inherit; }
+.vhs-b svg { width: 22px; height: 22px; fill: currentColor; }
+.vhs-b:hover { background: #fff; color: #000; }
+.vhs-b:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+.vhs-seek { position: relative; flex: 1; display: flex; align-items: center; height: 44px; cursor: pointer; touch-action: none; }
+.vhs-seek-track { position: relative; width: 100%; height: 12px; background: repeating-linear-gradient(to right, #3a3a3a 0 3px, transparent 3px 5px); }
+.vhs-seek-buffer, .vhs-seek-fill { position: absolute; inset: 0 auto 0 0; }
+.vhs-seek-buffer { width: var(--media-slider-buffer); background: repeating-linear-gradient(to right, #6a6a6a 0 3px, transparent 3px 5px); }
+.vhs-seek-fill { width: var(--media-slider-fill); background: repeating-linear-gradient(to right, #fff 0 3px, transparent 3px 5px); }
+.vhs-seek-thumb { position: absolute; left: var(--media-slider-fill); top: 50%; translate: -50% -50%; width: 8px; height: 28px; background: #fff; outline: 3px solid #000; }
+.vhs-seek:has(:focus-visible), .vhs-vol:has(:focus-visible) { outline: 2px solid #fff; outline-offset: 2px; }
+.vhs-time { display: flex; gap: .35em; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.vhs-time::before { content: 'SP'; color: var(--led-3, #8a8a8a); margin-right: .2em; }
+.vhs-vol { position: relative; display: flex; align-items: center; width: 84px; height: 44px; cursor: pointer; touch-action: none; }
+.vhs-vol-track { position: relative; width: 100%; height: 8px; background: repeating-linear-gradient(to right, #3a3a3a 0 3px, transparent 3px 5px); }
+.vhs-vol-fill { position: absolute; inset: 0 auto 0 0; width: var(--media-slider-fill); background: repeating-linear-gradient(to right, #fff 0 3px, transparent 3px 5px); }
+.vhs-vol-thumb { position: absolute; left: var(--media-slider-fill); top: 50%; translate: -50% -50%; width: 8px; height: 22px; background: #fff; outline: 3px solid #000; }
+.vhs-error { position: absolute; inset: 0; z-index: 4; display: grid; place-content: center; gap: 12px; padding: 24px; text-align: center; background: #1433e6; color: #fff; }
+.vhs-error:not([data-open]) { display: none; }
+
+/* Fullscreen and phones have no deck to hand, so the bar carries every key. */
+
+.vhs-screen:fullscreen video { object-fit: contain; }
+.vhs-screen:fullscreen .vhs-bar { transition: opacity .25s; }
+.vhs-screen:fullscreen .vhs-bar:not([data-visible]):not(:has(:focus-visible)) { opacity: 0; }
+.vhs-screen:fullscreen .vhs-bar-wrap { bottom: 24px; left: 24px; right: 24px; }
+
+/* ---------- The bay and the cassette ---------- */
+/* The left screen is cut short and the tape bay sits under it, above the deck keys: a television with a recorder built in. */
+.vhs-bay { display: none; }
+@media (min-width: 810px) {
+  body.vhs-page { --bay: 122px; }
+  body.vhs-page .tv-panel-box { height: calc(var(--tube-h) - var(--bay)); }
+  body.vhs-page .tv-frame-panel { height: calc(var(--tube-h) + var(--reach) * 2 - var(--bay)); }
+  html body.vhs-page .site-shell .sidebar { height: calc(var(--tube-h) - var(--bay)) !important; min-height: 0 !important; align-self: start; }
+  .vhs-bay {
+    display: grid; grid-template-rows: 18px minmax(0, 1fr); position: fixed; z-index: 30; left: var(--m); width: calc(var(--panel-w) + 36px);
+    top: calc(var(--glass-top) + var(--tube-h) - var(--bay) + 37px); height: calc(var(--bay) - 19px); padding: 0 12px 9px; box-sizing: border-box;
+    border-radius: 12px; background: url("/assets/tv-grain.webp?v=7c7906b080") 0 0 / 160px 160px, linear-gradient(#333336, #262628 40%, #1b1b1d) #232325; background-blend-mode: overlay, normal;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .2), inset 0 -1px 0 rgba(0, 0, 0, .8), inset 0 0 0 1px rgba(255, 255, 255, .04), 0 0 0 1px #000, 0 2px 6px rgba(0, 0, 0, .7);
+  }
+}
+/* The name plate and the two lamps, engraved the way the deck keys are. */
+.vhs-bay-head { display: flex; align-items: center; justify-content: space-between; padding: 0 4px; font: 600 8px/1 "Inter Tight", system-ui, sans-serif; letter-spacing: .16em; text-transform: uppercase; color: rgba(255, 255, 255, .5); text-shadow: 0 -1px 0 rgba(0, 0, 0, .8); }
+.vhs-bay-lamps { display: flex; gap: 12px; }
+.vhs-bay-lamp { display: flex; align-items: center; gap: 5px; }
+.vhs-bay-lamp i { width: 5px; height: 5px; border-radius: 50%; background: #0a0a0a; box-shadow: inset 0 1px 1px #000, 0 1px 0 rgba(255, 255, 255, .14); transition: background .2s, box-shadow .2s; }
+body:is([data-vhs-deck=loaded]) .vhs-bay-lamp[data-lamp=tape] i, body[data-vhs-run=true] .vhs-bay-lamp[data-lamp=run] i { background: #fff; box-shadow: 0 0 6px 1px rgba(255, 255, 255, .85); }
+body:is([data-vhs-deck=loaded]) .vhs-bay-lamp[data-lamp=tape], body[data-vhs-run=true] .vhs-bay-lamp[data-lamp=run] { color: rgba(255, 255, 255, .85); }
+/* The slot: a chamfered frame let into the panel, a black throat behind it with the two guide rails. */
+.vhs-bay-slot { position: relative; padding: 5px; border-radius: 8px; background: linear-gradient(#0c0c0d, #1d1d1f); box-shadow: inset 0 2px 3px #000, inset 0 0 0 1px #000, 0 1px 0 rgba(255, 255, 255, .16); }
+.vhs-bay-mouth {
+  position: relative; height: 100%; border-radius: 4px; perspective: 1100px; overflow: hidden;
+  background: linear-gradient(to right, #1a1a1a 0 3px, transparent 3px calc(100% - 3px), #1a1a1a calc(100% - 3px)), linear-gradient(#000 0 62%, #0d0d0d 62% 64%, #050505 64%);
+  box-shadow: inset 0 8px 14px #000, inset 0 0 0 1px #262626;
+}
+/* The flap hangs from the top edge and swings in when a tape pushes it. */
+.vhs-bay-door {
+  position: absolute; inset: 0; display: grid; place-items: center; border-radius: 3px; z-index: 1;
+  background: repeating-linear-gradient(to bottom, transparent 0 2px, rgba(0, 0, 0, .16) 2px 3px), linear-gradient(#3a3a3d, #2a2a2c 12%, #1f1f21 70%, #171718);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .28), inset 0 3px 0 rgba(0, 0, 0, .3), inset 0 -10px 14px rgba(0, 0, 0, .4), inset 0 0 0 1px rgba(0, 0, 0, .7);
+  transform-origin: 50% 0; transition: transform .3s cubic-bezier(.5, 0, .8, .4), filter .3s;
+}
+.vhs-bay-mark { font: 800 22px/1 "Inter Tight", system-ui, sans-serif; font-style: italic; letter-spacing: .34em; margin-right: -.34em; color: #4a4a4e; text-shadow: 0 -1px 0 rgba(0, 0, 0, .85), 0 1px 0 rgba(255, 255, 255, .12); }
+.vhs-bay-door i { position: absolute; left: 50%; bottom: 6px; width: 64px; height: 5px; margin-left: -32px; border-radius: 3px; background: repeating-linear-gradient(to right, #0d0d0d 0 2px, #2c2c2e 2px 4px); box-shadow: inset 0 1px 1px #000, 0 1px 0 rgba(255, 255, 255, .1); }
+body[data-vhs-deck=ajar] .vhs-bay-door { transform: rotateX(-20deg); filter: brightness(.75); transition: transform .12s cubic-bezier(.3, .1, .3, 1), filter .12s; }
+body[data-vhs-deck=open] .vhs-bay-door { transform: rotateX(-84deg); filter: brightness(.35); transition: transform .3s cubic-bezier(.3, .1, .3, 1), filter .3s; }
+
+/* The cassette: a box in space. Its front is the spine as it stands on the shelf; the top carries the reels and a label. */
+@property --out { syntax: '<number>'; inherits: true; initial-value: 1; }
+.vhs-stage { position: fixed; inset: 0; z-index: 90; pointer-events: none; perspective: 1100px; }
+.vhs-cassette { all: unset; box-sizing: border-box; position: absolute; left: 0; top: 0; width: 380px; height: 60px; transform-origin: 50% 50%; transform-style: preserve-3d; pointer-events: none; --out: 1; }
+.vhs-cassette > span { position: absolute; box-sizing: border-box; backface-visibility: hidden; }
+.vhs-cas-front {
+  inset: 0; display: grid; grid-template-columns: 44px minmax(0, 1fr) 30px; align-items: stretch; gap: 8px; padding: 7px 8px;
+  background: linear-gradient(#1c1c1c, #070707); border-radius: 3px; box-shadow: inset 0 0 0 1px #3a3a3a, inset 0 1px 0 rgba(255, 255, 255, .22);
+}
+.vhs-cas-code { display: grid; place-items: center; font: 400 16px/1 "DT LED", monospace; color: #9a9a9a; }
+.vhs-cas-label { min-width: 0; display: flex; align-items: baseline; gap: 10px; padding: 0 12px; background: #e9e7e0; color: #111; border-radius: 2px; overflow: hidden; }
+.vhs-cas-label b { font: 400 30px/46px "DT Punk", cursive; white-space: nowrap; }
+.vhs-cas-label small { font: 500 12px/46px "Inter Tight", system-ui, sans-serif; color: #555; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.vhs-cas-grip { background: repeating-linear-gradient(to bottom, #3a3a3a 0 2px, transparent 2px 5px); }
+/* The faces behind the front. Whatever has passed the panel is cut away, so the tape never shows through the television. */
+.vhs-cas-top {
+  left: 0; bottom: 100%; width: 100%; height: 210px; transform-origin: 50% 100%; transform: rotateX(90deg);
+  clip-path: inset(calc((1 - var(--out)) * 100%) 0 0 0);
+  background: repeating-linear-gradient(to right, transparent 0 5px, rgba(255, 255, 255, .035) 5px 6px), linear-gradient(to top, #333, #1b1b1b 70%, #141414);
+  box-shadow: inset 0 0 0 1px #454545, inset 0 -2px 0 rgba(255, 255, 255, .16);
+}
+.vhs-cas-window { left: 86px; right: 86px; top: 22px; height: 88px; display: flex; align-items: center; justify-content: space-between; padding: 0 22px; border-radius: 8px; background: linear-gradient(#050505, #111); box-shadow: inset 0 0 0 2px #000, 0 0 0 1px #4a4a4a; position: absolute; }
+.vhs-cas-window i { width: 58px; height: 58px; border-radius: 50%; background: radial-gradient(circle, #0a0a0a 0 9px, #e8e8e8 9px 13px, #1a1a1a 13px 20px, #2e2e2e 20px 28px, #111 28px); box-shadow: 0 0 0 1px #3c3c3c; }
+.vhs-cas-toplabel { position: absolute; left: 30px; right: 30px; bottom: 16px; height: 62px; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 0 16px; background: #e9e7e0; color: #111; border-radius: 2px; overflow: hidden; }
+.vhs-cas-toplabel b { font: 400 40px/62px "DT Punk", cursive; white-space: nowrap; }
+.vhs-cas-toplabel small { font: 400 14px/1 "DT LED", monospace; color: #444; white-space: nowrap; }
+.vhs-cas-under { left: 0; top: 100%; width: 100%; height: 210px; transform-origin: 50% 0; transform: rotateX(-90deg); clip-path: inset(0 0 calc((1 - var(--out)) * 100%) 0); background: #050505; }
+.vhs-cas-r { left: 100%; top: 0; width: 210px; height: 100%; transform-origin: 0 50%; transform: rotateY(90deg); clip-path: inset(0 calc((1 - var(--out)) * 100%) 0 0); background: linear-gradient(to right, #1a1a1a, #0b0b0b); box-shadow: inset 0 0 0 1px #2c2c2c; }
+.vhs-cas-l { right: 100%; top: 0; width: 210px; height: 100%; transform-origin: 100% 50%; transform: rotateY(-90deg); clip-path: inset(0 0 0 calc((1 - var(--out)) * 100%)); background: linear-gradient(to left, #1a1a1a, #0b0b0b); box-shadow: inset 0 0 0 1px #2c2c2c; }
+/* Inside the bay: only the spine is left to see, centred in the mouth, cut off by its edges, under the flap. */
+.vhs-cassette.vhs-inside { left: 50%; top: 50%; margin: -30px 0 0 -190px; z-index: 0; transform-style: flat; }
+.vhs-cassette.vhs-inside > span:not(.vhs-cas-front) { display: none; }
+.vhs-cassette.vhs-docked { pointer-events: auto; cursor: pointer; }
+.vhs-cassette.vhs-docked:hover .vhs-cas-front { box-shadow: inset 0 0 0 1px #777, inset 0 1px 0 rgba(255, 255, 255, .3); }
+.vhs-cassette.vhs-docked:focus-visible .vhs-cas-front { outline: 3px solid #fff; outline-offset: 3px; }
+body.image-open .vhs-stage { display: none; }
+/* Blocks: the hand is built from them. Each has six faces; --d is how deep it goes. */
+.vhs-box { position: absolute; transform-style: preserve-3d; }
+.vhs-box i { position: absolute; box-sizing: border-box; backface-visibility: hidden; }
+.vhs-box .f { inset: 0; }
+.vhs-box .k { inset: 0; transform: translateZ(calc(var(--d) * -1)) rotateY(180deg); }
+.vhs-box .t { left: 0; bottom: 100%; width: 100%; height: var(--d); transform-origin: 50% 100%; transform: rotateX(90deg); }
+.vhs-box .b { left: 0; top: 100%; width: 100%; height: var(--d); transform-origin: 50% 0; transform: rotateX(-90deg); }
+.vhs-box .l { right: 100%; top: 0; width: var(--d); height: 100%; transform-origin: 100% 50%; transform: rotateY(-90deg); }
+.vhs-box .r { left: 100%; top: 0; width: var(--d); height: 100%; transform-origin: 0 50%; transform: rotateY(90deg); }
+.vhs-cassette > .vhs-hand { left: 0; top: 0; width: 0; height: 0; transform-style: preserve-3d; transform: translate3d(40px, 900px, 0); backface-visibility: visible; }
+.vhs-arm { position: absolute; left: 0; top: 0; width: 0; height: 0; transform-style: preserve-3d; transform-origin: 290px 86px 40px; transform: rotateX(-62deg) rotateY(8deg); }
+.vhs-upper { position: absolute; left: 0; top: 0; width: 0; height: 0; transform-style: preserve-3d; transform-origin: 283px 78px 314px; transform: rotateX(-68deg) rotateY(-4deg); }
+.vhs-bone i { border-radius: 7px; background: #d9d9d9; }
+.vhs-bone .t { background: linear-gradient(#fff, #eaeaea); }
+.vhs-bone .f { background: linear-gradient(#f4f4f4, #cdcdcd); box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .14); }
+.vhs-bone .l, .vhs-bone .r { background: #b9b9b9; }
+.vhs-bone .b, .vhs-bone .k { background: #8c8c8c; }
+/* Skully's line: his face from the display and what he has to say, above the counter bar. */
+.vhs-skully { position: absolute; left: 34px; bottom: 96px; z-index: 3; max-width: min(74%, 620px); display: flex; align-items: center; gap: 14px; padding: 8px 14px 8px 10px; border: 2px dotted rgba(255, 255, 255, .62); background: #000; opacity: 0; transform: translateY(6px); transition: opacity .25s, transform .25s cubic-bezier(.2, .8, .2, 1); pointer-events: none; }
+.vhs-skully[data-on=true] { opacity: 1; transform: none; }
+body[data-vhs-wind] .vhs-skully, body:not([data-vhs-screen=picture]) .vhs-skully { opacity: 0; }
+.vhs-sk-face { flex: none; display: grid; grid-template-columns: repeat(9, 4px); gap: 1px; }
+.vhs-sk-face i { width: 4px; height: 4px; background: #1c1c1c; }
+.vhs-sk-face i.on { background: #fff; }
+html body .site-shell .main-pane .vhs-sk-text { margin: 0; color: #fff !important; -webkit-text-fill-color: #fff !important; text-transform: uppercase; }
+body.image-open :is(.vhs-bay, .vhs-cassette) { display: none; }
+
+/* ---------- Phones and narrow windows: no television, so the picture is pinned to the top, a strip under it holds
+   the tape slot and the keys, and the shelf scrolls beneath. ---------- */
+.vhs-phone-keys { display: none; }
+.vhs-bar-keys, .vhs-bar .vhs-b-full { display: none !important; }
+@media (max-width: 809px) {
+  body.vhs-page { --vhs-screen: min(75vw, calc(100svh - 190px)); --vhs-strip: 56px; }
+  /* Anything scrolled or tabbed to stops clear of the pinned picture and of the keys at the bottom. */
+  html:has(body.vhs-page) { scroll-padding-top: calc(min(75vw, 100svh - 190px) + 56px + 12px); scroll-padding-bottom: 84px; }
+  html body.vhs-page .site-shell { display: block; height: auto; }
+  html body.vhs-page .site-shell .main-pane { position: fixed; z-index: 20; left: 0; right: 0; top: 0; width: auto; height: var(--vhs-screen); margin: 0; padding: 0; overflow: hidden; background: #000; }
+  html body.vhs-page .site-shell .sidebar { width: auto; height: auto; overflow: visible; padding-top: calc(var(--vhs-screen) + var(--vhs-strip) + 18px) !important; padding-bottom: 96px; }
+  /* What is left of the tube on a phone: scan lines and darkened corners over the picture. */
+  .vhs-screen::after { content: ''; position: absolute; inset: 0; z-index: 2; pointer-events: none; background: repeating-linear-gradient(to bottom, transparent 0 2px, rgba(0, 0, 0, .2) 2px 3px), radial-gradient(ellipse at center, transparent 58%, rgba(0, 0, 0, .55)); }
+  .vhs-bar-wrap { left: 8px; right: 8px; bottom: 6px; }
+  .vhs-bar { gap: 8px; padding: 0 8px; border-width: 1px; }
+  .vhs-seek { height: 36px; }
+  .vhs-skully { left: 8px; right: 8px; bottom: 52px; max-width: none; gap: 10px; padding: 6px 10px 6px 8px; }
+  html body .site-shell .main-pane .vhs-blue .vhs-blue-hint { bottom: 52px; }
+  /* The strip: slot on the left, keys on the right. */
+  .vhs-bay {
+    display: flex; align-items: stretch; gap: 8px; position: fixed; z-index: 21; left: 0; right: 0; top: var(--vhs-screen); height: var(--vhs-strip); padding: 6px 8px; box-sizing: border-box;
+    background: linear-gradient(#333336, #1f1f21); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .18), 0 6px 14px rgba(0, 0, 0, .7);
+  }
+  .vhs-bay-head { display: none; }
+  .vhs-bay-slot { flex: 1 1 0; min-width: 0; padding: 3px; border-radius: 6px; }
+  .vhs-bay-mark { font-size: 13px; }
+  .vhs-bay-door i { display: none; }
+  .vhs-phone-keys { display: flex; gap: 4px; flex: none; }
+  .vhs-pk { all: unset; box-sizing: border-box; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 7px; cursor: pointer; color: #e8e8e8; background: linear-gradient(#2c2c2e, #18181a); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .16), inset 0 0 0 1px #000, 0 1px 0 rgba(255, 255, 255, .06); -webkit-tap-highlight-color: transparent; }
+  .vhs-pk svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .vhs-pk.vk-play svg, .vhs-pk .ui-sound-speaker { fill: currentColor; stroke: none; }
+  .vhs-pk:active { transform: translateY(1px); filter: brightness(.85); }
+  .vhs-pk[data-lit] { color: #fff; box-shadow: inset 0 1px 0 rgba(255, 255, 255, .16), inset 0 0 0 1px #000, 0 0 10px rgba(255, 255, 255, .35); }
+  .vhs-pk:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+  .vhs-pk.vk-play:not([data-paused]) .when-paused, .vhs-pk.vk-play[data-paused] .when-playing { display: none; }
+  /* Full screen on a phone: the picture and its strip take the whole page. */
+  html.vhs-full body.vhs-page { --vhs-screen: calc(100svh - var(--vhs-strip)); }
+  html.vhs-full body.vhs-page :is(.sidebar, .mobile-switch) { display: none !important; }
+  html.vhs-full .vhs-screen video { object-fit: contain; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vhs-spine, .vhs-blue { transition: none; }
+  .vhs-tracking[data-visible], .vhs-cas-window i, .vhs-search i, body[data-vhs-wind] .vhs-screen video { animation: none; }
+  .vhs-search i:nth-child(1) { top: 22%; } .vhs-search i:nth-child(2) { top: 55%; } .vhs-search i:nth-child(3) { top: 74%; }
+  .vhs-bounce { left: 50%; top: 40%; transform: translate(-50%, -50%) scale(2.4); transform-origin: 50% 50%; }
+  .vhs-noise { display: none; }
+  body[data-vhs-screen=static] .vhs-screen video { opacity: .4; }
+}
+@media (forced-colors: active) {
+  .vhs-b, .vhs-tape, .vhs-seek, .vhs-vol { border: 1px solid ButtonText; }
+}
+
+.tube-top .tv-osd-clock[hidden] { display: none !important; }
+
+/* ---------- Full screen: the left screen and the tape bay step aside, the tube takes the whole width, the deck stays ---------- */
+@media (min-width: 810px) {
+  html.vhs-full:root { --tube-left: var(--panel-left); }
+  html.vhs-full body .site-shell { grid-template-columns: minmax(0, 1fr) !important; }
+  html.vhs-full :is(.sidebar, .tv-frame-panel, .tv-panel-box, .panel-top, .vhs-bay, .vhs-stage) { display: none !important; }
+}
+
+/* Three tape keys on the left of the deck; PLAY sits between the two wind keys by the display. */
+.mobile-switch.vhs-keys { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.tv-transport .vk-play svg { fill: currentColor; stroke: none; }
+.tv-transport .vk-play[data-lit] { color: #fff; }
+.vhs-credit a { display: block; }
+
+
+/* Room between the parts of the left screen: the site's own rules zero the margins of anything inside a screen. */
+html body .site-shell .sidebar :is(.vhs-help, .vhs-films) { margin-top: 34px !important; }
+html body .site-shell .sidebar .vhs-h { margin: 0 0 14px !important; }
+html body .site-shell .sidebar .vhs-lead { margin: 0 0 16px !important; }
+html body .site-shell .sidebar .vhs-credit { margin: 34px 0 0 !important; padding-bottom: 18px; }
+html body .site-shell .sidebar .vhs-remote { gap: 8px; }
+html body .site-shell .sidebar .vhs-film-list { gap: 14px; }
+
+/* A narrow set: the display needs the room more than the theme switch and the small knob do. */
+@media (min-width: 810px) and (max-width: 1240px) { body.vhs-page .tv-plate :is(.tv-theme, #vhs-vol) { display: none; } }
+
+/* Generated by drafts/vhs-player/make-page.py: the site's deck-key rules, repeated for the player's keys. */
+@media(max-width:809px) { .mobile-switch .vk {display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:500;line-height:1.1;padding:8px 20px;min-height:38px;border-radius:25px;color:var(--gray-181)} }
+@media(max-width:809px) { .mobile-switch .vk[data-lit] {background:var(--gray-245);color:var(--gray-18)} }
+@media (max-width: 809px) { .mobile-switch .vk {
+    min-height: 46px;
+    padding: 0 22px;
+    border-radius: 999px;
+    color:var(--gray-204);
+    font-size: 14px;
+    font-weight: 500;
+    -webkit-tap-highlight-color: transparent;
+    transition: color 160ms ease;
+  } }
+@media (max-width: 809px) { .mobile-switch .vk[data-lit] {
+    background:rgba(245, 245, 245, .96);
+    color:var(--gray-18);
+  } }
+@media (max-width: 809px) { .mobile-switch .vk:not([data-lit]):active { color:var(--gray-255); } }
+@media (max-width: 809px) { .mobile-switch .vk:focus-visible { outline:2px solid var(--focus); outline-offset: 2px; } }
+@media (min-width: 810px) { .mobile-switch .vk {
+    display: flex;
+    align-items: center;
+    min-height: 38px;
+    padding: 0 18px;
+    border-radius: 999px;
+    color:var(--gray-204);
+    font-size: 13.5px;
+    font-weight: 500;
+  } }
+@media (min-width: 810px) { .mobile-switch .vk:hover:not([data-lit]) { color:var(--gray-255); background:rgba(255, 255, 255, .06); } }
+@media (min-width: 810px) { .mobile-switch .vk[data-lit] { background:rgba(245, 245, 245, .96); color:var(--gray-18); } }
+@media (min-width: 810px) { .mobile-switch .vk:focus-visible { outline:2px solid var(--focus); outline-offset: 2px; } }
+@media (max-width: 359px) { body .mobile-switch .vk { padding-inline: 10px; font-size: 14px; } }
+html body .mobile-switch .vk,  html body .mobile-switch .vk:hover:not([data-lit]) {
+  position: relative; display: flex; align-items: center; justify-content: center; height: 44px; min-height: 44px; padding: 5px 4px 0; border: 1px solid transparent; border-radius: 0; background: none;
+  border-image: url("/assets/tv-key.webp?v=7e38e1c0fc") 72 fill / 18px stretch; box-shadow: none; color: #e9e9e9; font: 600 11.5px/1 "Inter Tight", sans-serif; letter-spacing: .08em; text-transform: uppercase; text-shadow: 0 -1px 0 #000; transition: filter 140ms ease; cursor: pointer;
+}
+html body .mobile-switch .vk::before { content: ''; position: absolute; left: 50%; top: 8px; width: 14px; height: 2px; margin-left: -7px; background: #000; box-shadow: 0 1px 0 rgba(255, 255, 255, .13); }
+html body .mobile-switch .vk:hover:not([data-lit]) { color: #fff; filter: brightness(1.2); }
+html:not([lang=en]) body .mobile-switch .vk { letter-spacing: .03em; white-space: nowrap; overflow: hidden; text-overflow: clip; }
+html body .mobile-switch .vk[data-lit],  html body .mobile-switch .vk:active {
+  border: 1px solid transparent; border-image: url("/assets/tv-key-on.webp?v=bab7d78d4d") 72 fill / 18px stretch; background: none; box-shadow: none; color: #fff; padding-top: 7px;
+}
+html body .mobile-switch .vk[data-lit]::before { background: #fff; box-shadow: 0 0 7px 1px rgba(255, 255, 255, .85); }
+html body .mobile-switch .vk:focus-visible,  .tv-transport .vk:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+html body .mobile-switch .vk,  html body .mobile-switch .vk:hover:not([data-lit]) {
+  position: relative; display: flex; align-items: center; justify-content: center; height: 44px; min-height: 44px; padding: 5px 4px 0; border: 1px solid transparent; border-radius: 0; background: none;
+  border-image: url("/assets/tv-key.webp?v=7e38e1c0fc") 72 fill / 18px stretch; box-shadow: none; color: #e9e9e9; font: 600 11.5px/1 "Inter Tight", sans-serif; letter-spacing: .08em; text-transform: uppercase; text-shadow: 0 -1px 0 #000; transition: filter 140ms ease; cursor: pointer;
+}
+html body .mobile-switch .vk::before { content: ''; position: absolute; left: 50%; top: 8px; width: 14px; height: 2px; margin-left: -7px; background: #000; box-shadow: 0 1px 0 rgba(255, 255, 255, .13); }
+html body .mobile-switch .vk:hover:not([data-lit]) { color: #fff; filter: brightness(1.2); }
+html body .mobile-switch .vk[data-lit],  html body .mobile-switch .vk:active {
+  border: 1px solid transparent; border-image: url("/assets/tv-key-on.webp?v=bab7d78d4d") 72 fill / 18px stretch; background: none; box-shadow: none; color: #fff; padding-top: 7px;
+}
+html body .mobile-switch .vk[data-lit]::before { background: #fff; box-shadow: 0 0 7px 1px rgba(255, 255, 255, .85); }
+html body .mobile-switch .vk:focus-visible,  .tv-transport .vk:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+@media (min-width: 810px) { .tv-plate :is(.tv-transport .vk, .tv-lang-key, .ui-sound-toggle) {
+    position: relative; flex: none; display: flex; align-items: center; justify-content: center; width: 52px; height: 44px; min-height: 44px; padding: 0; border: 1px solid transparent; border-radius: 0; background: none; border-image: url("/assets/tv-key.webp?v=7e38e1c0fc") 72 fill / 18px stretch; box-shadow: none; color: #e9e9e9; font: 600 11.5px/1 "Inter Tight", sans-serif; letter-spacing: .08em; transition: filter 140ms ease; cursor: pointer;
+  } }
+@media (min-width: 810px) { .tv-plate :is(.tv-transport .vk, .tv-lang-key, .ui-sound-toggle):hover { color: #fff; filter: brightness(1.22); background: none; } }
+@media (min-width: 810px) { .tv-plate :is(.tv-transport .vk, .tv-lang-key, .ui-sound-toggle):active { border-image-source: url("/assets/tv-key-on.webp?v=bab7d78d4d"); color: #fff; filter: none; transform: none; } }
+@media screen and (min-width: 810px) { html.theme-light body .mobile-switch .vk:not([data-lit]),  html.theme-light .tv-plate :is(.tv-transport .vk { color: #141414; text-shadow: 0 1px 0 rgba(255, 255, 255, .35); } }
+@media (min-width: 810px) { .tv-transport .vk { position: relative; } }
+@media (min-width: 810px) { .tv-transport .vk .tv-ask { position: absolute; inset: 0; display: grid; place-items: center; background: inherit; color: #fff; font: 400 14px/1 "DT LED", "Inter Tight", sans-serif; letter-spacing: .04em; text-shadow: 0 0 6px rgba(255, 255, 255, .6); pointer-events: none; animation: tv-ask 620ms steps(2, end) infinite; } }
+@media (min-width: 810px) { .tv-transport .vk:has(.tv-ask) svg { visibility: hidden; } }
+@media (min-width: 810px) { html.theme-light .tv-transport .vk .tv-ask { color: #111; text-shadow: none; } }
