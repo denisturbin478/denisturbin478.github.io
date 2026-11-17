@@ -269,7 +269,8 @@ body.image-open :is(.vhs-bay, .vhs-cassette) { display: none; }
     background: linear-gradient(#333336, #1f1f21); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .18), 0 6px 14px rgba(0, 0, 0, .7);
   }
   .vhs-bay-head { display: none; }
-  .vhs-bay-slot { min-width: 0; padding: 4px; border-radius: 7px; }
+  /* The slot is the width of a tape, as on a real deck; on a wide window it sits centred in the panel instead of stretching. */
+  .vhs-bay-slot { min-width: 0; width: min(100%, 380px); justify-self: center; padding: 4px; border-radius: 7px; }
   .vhs-bay-mark { font-size: 16px; }
   .vhs-bay-door i { display: none; }
   .vhs-phone-keys { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; }
